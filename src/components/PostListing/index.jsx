@@ -1,9 +1,11 @@
-import React from "react";
-import { Link } from "gatsby";
+/** @jsx jsx */
+import {Link} from "gatsby"
+import React from "react"
+import {jsx, Styled} from "theme-ui"
 
 class PostListing extends React.Component {
   getPostList() {
-    const postList = [];
+    const postList = []
     this.props.postEdges.forEach(postEdge => {
       postList.push({
         path: postEdge.node.fields.slug,
@@ -12,24 +14,23 @@ class PostListing extends React.Component {
         title: postEdge.node.frontmatter.title,
         date: postEdge.node.fields.date,
         excerpt: postEdge.node.excerpt,
-        timeToRead: postEdge.node.timeToRead
-      });
-    });
-    return postList;
+        timeToRead: postEdge.node.timeToRead,
+      })
+    })
+    return postList
   }
   render() {
-    const postList = this.getPostList();
+    const postList = this.getPostList()
     return (
-      <div>
-        {/* Your post list here. */
-        postList.map(post => (
+      <React.Fragment>
+        {postList.map(post => (
           <Link to={post.path} key={post.title}>
-            <h1>{post.title}</h1>
+            <Styled.h1>{post.title}</Styled.h1>
           </Link>
         ))}
-      </div>
-    );
+      </React.Fragment>
+    )
   }
 }
 
-export default PostListing;
+export default PostListing

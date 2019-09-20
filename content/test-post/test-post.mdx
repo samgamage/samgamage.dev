@@ -1,0 +1,525 @@
+---
+slug: how-I-developed-my-website
+date: 2019-05-26
+title: "How I developed my website in two days"
+description:
+  "This website was developed and deployed within 48 hours. In this article, I'm
+  going to tell you how I did it and how you can too."
+published: true
+tags: ["gatsby", "react", "netlify", "react-hooks", "web-development"]
+author: "Sam Gamage"
+banner: "./banner.png"
+---
+
+I recently took on the task of building out my personal website with gatsby and
+I am happy to say that I am incredibly satisfied with the result. In this post I
+am going to explain the process and why it was able to be done in just two days.
+
+# The Stack
+
+The stack I used for this project consisted of a couple of different
+frameworks/libraries. Obviously, these aren't all of the libraries but rather
+only the most notable ones. Here they are:
+
+- [Gatsby](https://www.gatsbyjs.org/)
+- [React](https://reactjs.org/)
+- [Formik](https://jaredpalmer.com/formik/)
+- [Emotion](https://emotion.sh/docs/introduction)
+- [Polished](https://polished.js.org/)
+
+All of the libraries listed above are phenominal and provide developers with
+more than enough documentation. I particularly loved the Gatsby documentation
+and the examples they have on their
+[GitHub repo](https://github.com/gatsbyjs/gatsby/tree/master/examples). I
+referenced these examples very often during the development process.
+
+## Inspiration
+
+It might not be obvious to some but I didn't actually write all of the code for
+this website. I ended up using a boilerplate which I found from
+[Kent C. Dodds](https://kentcdodds.com/), one of my favorite React developers in
+the community. For his website, he used a boilerplate/starter template developed
+by [egghead](https://github.com/eggheadio/gatsby-starter-egghead-blog) which
+uses a variety of Gatsby plugins. I was really intrigued by not only the design
+of the starter but also how incredibly easy it was to blog by using
+[markdown pages](https://www.gatsbyjs.org/packages/gatsby-plugin-mdx/). After
+going over the process to clone and get this starter up and running I decided to
+use it and turn it into my personal website.
+
+Now I should note that I had been wanting to create this website for a while but
+never had any time or the resources to actually do it. Since I finished my first
+year of college in early May, I thought that this would be the perfect
+opportunity to finally try out Gatsby and all it has to offer for static
+websites.
+
+# Themes
+
+Very early on in the development process I decided that I wanted to incorporate
+some sort of theming into my website whether it be through dark/light mode or
+choosing a primary color throughout the website. The decision came after looking
+at the theme.js file in the
+[starter template](https://github.com/eggheadio/gatsby-starter-egghead-blog):
+
+```jsx {5,6,7,8,9,10,11,12,13,14}
+// theme.js
+import {darken, lighten} from "polished"
+import {fonts} from "../src/lib/typography"
+
+const brand = {
+  primary: "#0078CC",
+  //primary: '#5348FF',
+  //primary: '#1ABC9C',
+  //primary: '#D42210',
+  //primary: '#D96E0E',
+  //primary: '#9B59B6',
+  //primary: '#6420E5',
+  secondary: "#EEF4F2",
+}
+
+const colors = {
+  primary_light: `${lighten(0.55, brand.primary)}`,
+  gray: "#D3D3D3",
+  black: "#000",
+  white: "#fff",
+  bg_color: "#fafafa",
+  body_color: "rgba(0,0,0,0.85)",
+  link_color: brand.primary,
+  link_color_hover: `${darken(0.07, brand.primary)}`,
+  red: "#E86C60",
+  green: "#29B573",
+}
+
+const theme = {
+  colors,
+  fonts,
+  brand,
+  breakpoints: {
+    xs: "400px",
+    s: "600px",
+    m: "900px",
+    l: "1200px",
+  },
+  container: {
+    base: "100rem",
+    text: "55rem",
+  },
+  spacer: {
+    horizontal: "2rem",
+    vertical: "3rem",
+  },
+  transition: {
+    ease: "all 150ms ease",
+  },
+}
+
+export default theme
+```
+
+If you take a look at the **`brand`** variable, you can see that by default the
+primary color can be changed by uncommenting another primary color. This process
+was incredibly easy for me, the developer, and I wanted that same customization
+and functionality for the user. This is when I started the development process
+for global themeing.
+
+### The Process
+
+## Emotion
+
+Despite feeling like a daunting challenge, developing global theme customization
+was... easy. One of the main reasons why it felt so easy was because of the
+css-in-js library [emotion](https://emotion.sh/docs/introduction). Emotion is
+really powerful and it allows you to utlize the css property on DOM elemnts to
+inject css into _individual_ elements.
+
+```jsx {6,7,8,9,10}
+import {css} from "@emotion/core"
+
+const DivWithCSS = () => {
+  return (
+    <div
+      css={css`
+        color: #000;
+        padding: 10px 20px;
+        background-color: #fff;
+      `}
+    >
+      Styled div!
+    </div>
+  )
+}
+
+export default DivWithCSS
+```
+
+Not only that but you can even utilize some of features that styled-components
+provides, most notably the **`ThemeProvider`** component. Combining these two
+features introduces a powerful way to develop global theme styles that can be
+easliy changed from the GUI.
+
+If you know anything about the `ThemeProvider` component from
+[styled-components](https://www.styled-components.com/) you know that it
+functions almost exactly like
+[React context](https://reactjs.org/docs/context.html) where each JSX child
+under that component has access to the context via props. In this case, with
+emotion, each child under `ThemeProvider` has access to the theme via the css
+prop. Here's what that would look like for a child component under the provider:
+
+```jsx {6,7,9}
+import {css} from "@emotion/core"
+
+const DivWithThemeCSS = () => {
+  return (
+    <div
+      css={theme => css`
+        color: ${theme.brand.primary};
+        padding: 10px 20px;
+        background-color: ${theme.brand.secondary};
+      `}
+    >
+      Styled theme div!
+    </div>
+  )
+}
+
+export default DivWithThemeCSS
+```
+
+It's dead simple. All we have to do is have the css prop on the `div` take an
+arrow function where we grab the `theme` prop and then use that to style the
+component.
+
+Alright so now that we have that all figured out, how are we going to allow the
+user to change the primary color? This is where
+[React hooks](https://reactjs.org/docs/hooks-intro.html) comes into play. I
+decided very early on that I wanted to use hooks for this project mainly because
+I had never used it before and I wanted to give it a try. If you are involved at
+all in the web dev community you know that hooks has blown up since its release
+and it makes state management a little bit less of a pain.
+
+In order to add this functionality I had to make some changes to how the
+theme.js file was structured. First of all, I needed a list of colors that the
+user could choose from. I decided to use an object for this:
+
+```javascript
+export const primaryColors = {
+  dark_purple: "#5348FF",
+  light_green: "#1ABC9C",
+  red: "#951F2B",
+  orange: "#D34017",
+  purple: "#6420E5",
+  blue: "#0078CC",
+}
+```
+
+Now I can choose a primary color like so:
+
+```javascript
+export const brand = {
+  primary: primaryColors.blue,
+  secondary: "#EEF4F2",
+}
+```
+
+Next, I have to have a way to determine all of the theme colors based on what
+the brand is. For that, I am going to convert my `colors` variable into a
+function which takes a brand as a parameter:
+
+```javascript
+export const colors = brand => ({
+  gray: "#D3D3D3",
+  black: "#000",
+  white: "#fff",
+  white_gray: "#fbfbfb",
+  bg_color: "#fafafa",
+  body_color: "rgba(0,0,0,0.85)",
+  primary_light: `${lighten(0.55, brand.primary)}`,
+  link_color: brand.primary,
+  link_color_hover: `${darken(0.07, brand.primary)}`,
+})
+```
+
+## Persisted State
+
+The process for changing the theme starts with a fundamental _need_ for this
+feature which is global, persisted state. I decided to minimize complexity by
+using an external library which did this for me. I decided to go with
+[use persisted state](https://github.com/donavon/use-persisted-state) by
+[Donavon West](https://github.com/donavon). This custom hook allows for global
+persisted state across browsers by utilizing browser local storage. This, in
+short, allows for our theme state to be the same even when the user closes the
+site and reopens it. Here is what that code looks like:
+
+```javascript
+// in layout.js
+import theme from "../../config/theme"
+import createPersistedState from "use-persisted-state"
+
+const useThemeState = createPersistedState("theme")
+const Layout = () => {
+  const [themeState, setThemeState] = useThemeState(theme)
+  return {
+    // layout stuff
+  }
+}
+```
+
+I ended up storing my theme state in my custom `Layout` component which wraps
+every page on the site. I made this choice because I want every component which
+uses the theme to rerender if the user changes the theme color.
+
+## GUI
+
+The GUI that I used for the color picker is acutally from an open source React
+component called [react-color](https://github.com/casesandberg/react-color) made
+by [Case Sandberg](https://github.com/casesandberg). The component has multiple
+sub-components to choose from and the one I used was the `TwitterPicker`.
+
+![React color](./react-color.png)
+
+The `TwitterPicker` has a prop on it called `onChangeComplete` which gives you
+access to the color chosen and the event. This is what my `onThemeChange`
+function looks like:
+
+```javascript
+const onThemeChange = (color, e) => {
+  setColor(color.hex)
+  const newBrand = {
+    ...brand,
+    primary: color.hex,
+  }
+  const newTheme = {
+    ...theme,
+    colors: colors(newBrand),
+    brand: newBrand,
+  }
+  setTheme(newTheme)
+}
+```
+
+The first thing I do here is set the new color to the hex code of the color that
+was chosen. Next, I am crafting a new brand which take all of the properties
+from the old brand but updates the primary color to the new color chosen. Next,
+I am going to craft a new theme which uses the new brand variable that I just
+created to create a new colors object. The end result is that every time a user
+selects a color from the picker, the theme gets updated with the new colors in
+the `Layout` component.
+
+# Contact Form
+
+The contact form on the site was actually the most difficult part of the whole
+project. I went into the development process not really knowing how I would be
+receiving the form. After doing some research, I found that
+[Netlify](https://www.netlify.com/) has a Form section which makes it incredibly
+easy to record form responses. More on that in a second.
+
+I knew from the start that I wanted to incorporate Formik into this project and
+this seemed like a great opportunity to do so. The only issue was that I had
+never seen any examples using netlify forms and Formik together so I was going
+into this a little blind-sided. Nevertheless, I got it working and here is how I
+did it.
+
+## My Schema
+
+My validation schema was pretty simple. I knew that I wanted to record the name,
+email, phone number, and some sort of message from the user when they wanted to
+contact me. This is what my schema looks like:
+
+```javascript
+const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+const validationSchema = Yup.object().shape({
+  name: Yup.string().required("Name is required"),
+  email: Yup.string()
+    .email("Email is invalid")
+    .required("Email is required"),
+  phoneNumber: Yup.string().matches(phoneRegExp, "Phone number is not valid"),
+  message: Yup.string().required("Message is required"),
+})
+```
+
+I had to use a reg exp for the phone number because Yup didn't have a validation
+for phone numbers... sigh.
+
+I probably will be editing this in the future but it will suffice for now. I fed
+this and my inital state into formik and constructed my form in the render prop
+of the `Formik` component:
+
+```jsx {30,33}
+<Formik
+  initialValues={{
+    name: "",
+    email: "",
+    phoneNumber: "",
+    message: "",
+  }}
+  validationSchema={Yup.object().shape({
+    name: Yup.string().required("Name is required"),
+    email: Yup.string()
+      .email("Email is invalid")
+      .required("Email is required"),
+    phoneNumber: Yup.string().matches(phoneRegExp, "Phone number is not valid"),
+    message: Yup.string().required("Message is required"),
+  })}
+  onSubmit={(values, actions) => {
+    // we will get to this in a sec
+  }}
+  render={({
+    errors,
+    status,
+    touched,
+    values,
+    handleSubmit,
+    handleChange,
+    handleBlur,
+  }) => (
+    <form
+      name="contact-form"
+      method="post"
+      action="/success"
+      onSubmit={handleSubmit}
+      data-netlify="true"
+    >
+      <div
+        css={css`
+          display: grid;
+          grid-template-columns: 50% 50%;
+        `}
+      >
+        <input
+          type="text"
+          placeholder="Name"
+          name="name"
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={values.name}
+          id="name-input"
+          css={css`
+            margin-right: 5px;
+            border: ${touched.name && errors.name ? "1px solid red" : ""};
+          `}
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          name="email"
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={values.email}
+          id="email-input"
+          css={css`
+            border: ${touched.email && errors.email ? "1px solid red" : ""};
+          `}
+        />
+      </div>
+      <div
+        css={css`
+          display: grid;
+          grid-template-columns: 50% 50%;
+        `}
+      >
+        {errors.name ? <Error message={errors.name} /> : <div />}
+        {errors.email ? <Error message={errors.email} /> : <div />}
+      </div>
+      <input
+        type="text"
+        placeholder="Phone Number"
+        name="phoneNumber"
+        onChange={handleChange}
+        onBlur={handleBlur}
+        value={values.phoneNumber}
+        id="phoneNumber-input"
+        css={css`
+          width: 100%;
+          border: ${touched.phoneNumber && errors.phoneNumber
+            ? "1px solid red"
+            : ""};
+        `}
+      />
+      {errors.phoneNumber && <Error message={errors.phoneNumber} />}
+      <textarea
+        type="text"
+        placeholder="Message"
+        name="message"
+        onChange={handleChange}
+        onBlur={handleBlur}
+        value={values.message}
+        id="message-input"
+        css={css`
+          width: 100%;
+          height: 200px;
+          resize: vertical;
+          border: ${touched.message && errors.message ? "1px solid red" : ""};
+        `}
+      />
+      {errors.message && (
+        <Error
+          message={errors.message}
+          css={css`
+            margin-top: -5px;
+            margin-bottom: 10px;
+          `}
+        />
+      )}
+      <button type="submit">Contact</button>
+    </form>
+  )}
+/>
+```
+
+The two lines I highlighted from the above code are required for netlify to know
+the form exits. Most of the form is pretty standard. The `Error` component just
+renders the error text with some added css to determine where the error should
+go.
+
+## onSubmit
+
+The hard part was figuring out what to put in the `onSubmit` function. I'm not
+going to lie, this part stumped me. I had seen netlify form examples that just
+used standard html code with no javascript that submitted to netlify just fine.
+I figured this part out by referencing this example from
+[imorente](https://github.com/imorente) on
+[GitHub](https://github.com/imorente/gatsby-netlify-form-example). In order to
+submit the form via javascript then you have to make post request via the
+`fetch` function to send to netlify. Here is what the `onSubmit` function looks
+like:
+
+```javascript
+const encode = data => {
+  return Object.keys(data)
+    .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+    .join("&")
+}
+
+const onSubmit = (values, actions) => {
+  fetch("/?no-cache=1", {
+    method: "POST",
+    headers: {"Content-Type": "application/x-www-form-urlencoded"},
+    body: encode({
+      "form-name": "contact-form",
+      ...values,
+    }),
+  })
+    .then(() => {
+      actions.setSubmitting(false)
+      navigateTo("/success")
+    })
+    .catch(error => {
+      actions.setSubmitting(false)
+      alert(error)
+    })
+}
+```
+
+Upon first glance this code might look weird and it kinda is. Why are we making
+a post request to / and why do you need `no-cache=1` in the url? The short
+answer is because this is how netlify needs the request formatted in order to
+get the data. The long answer is... well I won't get into that here. Maybe
+another post.
+
+The end result is this site you are on right now. Two days of development and so
+many google chrome tabs later... this is what I created. I am pretty proud of
+this site and what it has to offer. I think that it has a lot of room to grow
+and I am excited to keep working on it.
+
+If you want you can check out the
+[source code](https://github.com/samgamage/samgamage.dev). Drop a star if you
+are feeling generous.

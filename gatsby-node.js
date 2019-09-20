@@ -1,146 +1,199 @@
-const path = require("path");
-const _ = require("lodash");
-const moment = require("moment");
-const siteConfig = require("./data/SiteConfig");
+const path = require("path")
 
-exports.onCreateNode = ({ node, actions, getNode }) => {
-  const { createNodeField } = actions;
-  let slug;
-  if (node.internal.type === "MarkdownRemark") {
-    const fileNode = getNode(node.parent);
-    const parsedFilePath = path.parse(fileNode.relativePath);
-    if (
-      Object.prototype.hasOwnProperty.call(node, "frontmatter") &&
-      Object.prototype.hasOwnProperty.call(node.frontmatter, "title")
-    ) {
-      slug = `/${_.kebabCase(node.frontmatter.title)}`;
-    } else if (parsedFilePath.name !== "index" && parsedFilePath.dir !== "") {
-      slug = `/${parsedFilePath.dir}/${parsedFilePath.name}/`;
-    } else if (parsedFilePath.dir === "") {
-      slug = `/${parsedFilePath.name}/`;
-    } else {
-      slug = `/${parsedFilePath.dir}/`;
+const _ = require("lodash")
+const paginate = require("gatsby-awesome-pagination")
+const PAGINATION_OFFSET = 7
+
+const createPosts = (createPage, createRedirect, edges) => {
+  edges.forEach(({node}, i) => {
+    const prev = i === 0 ? null : edges[i - 1].node
+    const next = i === edges.length - 1 ? null : edges[i + 1].node
+    const pagePath = node.fields.slug
+
+    if (node.fields.redirects) {
+      node.fields.redirects.forEach(fromPath => {
+        createRedirect({
+          fromPath,
+          toPath: pagePath,
+          redirectInBrowser: true,
+          isPermanent: true,
+        })
+      })
     }
 
-    if (Object.prototype.hasOwnProperty.call(node, "frontmatter")) {
-      if (Object.prototype.hasOwnProperty.call(node.frontmatter, "slug"))
-        slug = `/${_.kebabCase(node.frontmatter.slug)}`;
-      if (Object.prototype.hasOwnProperty.call(node.frontmatter, "date")) {
-        const date = moment(node.frontmatter.date, siteConfig.dateFromFormat);
-        if (!date.isValid)
-          console.warn(`WARNING: Invalid date.`, node.frontmatter);
+    createPage({
+      path: pagePath,
+      component: path.resolve(`./src/templates/post.jsx`),
+      context: {
+        id: node.id,
+        prev,
+        next,
+      },
+    })
+  })
+}
 
-        createNodeField({
-          node,
-          name: "date",
-          value: date.toISOString()
-        });
-      }
-    }
-    createNodeField({ node, name: "slug", value: slug });
-  }
-};
-
-exports.createPages = async ({ graphql, actions }) => {
-  const { createPage } = actions;
-  const postPage = path.resolve("src/templates/post.jsx");
-  const tagPage = path.resolve("src/templates/tag.jsx");
-  const categoryPage = path.resolve("src/templates/category.jsx");
-
-  const markdownQueryResult = await graphql(
-    `
-      {
-        allMarkdownRemark {
-          edges {
-            node {
-              fields {
-                slug
+exports.createPages = ({actions, graphql}) =>
+  graphql(`
+    query {
+      allMdx(
+        filter: {frontmatter: {published: {ne: false}}}
+        sort: {order: DESC, fields: [frontmatter___date]}
+      ) {
+        edges {
+          node {
+            id
+            parent {
+              ... on File {
+                name
+                sourceInstanceName
               }
-              frontmatter {
-                title
-                tags
-                category
-                date
-              }
+            }
+            excerpt(pruneLength: 250)
+            fields {
+              title
+              slug
+              date
             }
           }
         }
       }
-    `
-  );
+    }
+  `).then(({data, errors}) => {
+    if (errors) {
+      return Promise.reject(errors)
+    }
 
-  if (markdownQueryResult.errors) {
-    console.error(markdownQueryResult.errors);
-    throw markdownQueryResult.errors;
+    if (_.isEmpty(data.allMdx)) {
+      return Promise.reject("There are no posts!")
+    }
+
+    const {edges} = data.allMdx
+    const {createRedirect, createPage} = actions
+    createPosts(createPage, createRedirect, edges)
+    createPaginatedPages(actions.createPage, edges, "/blog", {
+      categories: [],
+    })
+  })
+
+exports.onCreateWebpackConfig = ({actions}) => {
+  actions.setWebpackConfig({
+    resolve: {
+      modules: [path.resolve(__dirname, "src"), "node_modules"],
+      alias: {
+        $components: path.resolve(__dirname, "src/components"),
+      },
+    },
+  })
+}
+
+const createPaginatedPages = (createPage, edges, pathPrefix, context) => {
+  const pages = edges.reduce((acc, value, index) => {
+    const pageIndex = Math.floor(index / PAGINATION_OFFSET)
+
+    if (!acc[pageIndex]) {
+      acc[pageIndex] = []
+    }
+
+    acc[pageIndex].push(value.node.id)
+
+    return acc
+  }, [])
+
+  pages.forEach((page, index) => {
+    const previousPagePath = `${pathPrefix}/${index + 1}`
+    const nextPagePath = index === 1 ? pathPrefix : `${pathPrefix}/${index - 1}`
+
+    createPage({
+      path: index > 0 ? `${pathPrefix}/${index}` : `${pathPrefix}`,
+      component: path.resolve(`src/templates/blog.jsx`),
+      context: {
+        pagination: {
+          page,
+          nextPagePath: index === 0 ? null : nextPagePath,
+          previousPagePath:
+            index === pages.length - 1 ? null : previousPagePath,
+          pageCount: pages.length,
+          pathPrefix,
+        },
+        ...context,
+      },
+    })
+  })
+}
+
+exports.onCreateNode = ({node, getNode, actions}) => {
+  const {createNodeField} = actions
+
+  if (node.internal.type === `Mdx`) {
+    const parent = getNode(node.parent)
+    const titleSlugged = _.join(_.drop(parent.name.split("-"), 3), "-")
+
+    const slug =
+      parent.sourceInstanceName === "legacy"
+        ? `blog/${node.frontmatter.date
+            .split("T")[0]
+            .replace(/-/g, "/")}/${titleSlugged}`
+        : "/blog/" + node.frontmatter.slug || titleSlugged
+
+    createNodeField({
+      name: "id",
+      node,
+      value: node.id,
+    })
+
+    createNodeField({
+      name: "published",
+      node,
+      value: node.frontmatter.published,
+    })
+
+    createNodeField({
+      name: "title",
+      node,
+      value: node.frontmatter.title,
+    })
+
+    createNodeField({
+      name: "description",
+      node,
+      value: node.frontmatter.description,
+    })
+
+    createNodeField({
+      name: "slug",
+      node,
+      value: slug,
+    })
+
+    createNodeField({
+      name: "date",
+      node,
+      value: node.frontmatter.date ? node.frontmatter.date.split(" ")[0] : "",
+    })
+
+    createNodeField({
+      name: "banner",
+      node,
+      value: node.frontmatter.banner,
+    })
+
+    createNodeField({
+      name: "tags",
+      node,
+      value: node.frontmatter.tags || [],
+    })
+
+    createNodeField({
+      name: "keywords",
+      node,
+      value: node.frontmatter.keywords || [],
+    })
+
+    createNodeField({
+      name: "redirects",
+      node,
+      value: node.frontmatter.redirects,
+    })
   }
-
-  const tagSet = new Set();
-  const categorySet = new Set();
-
-  const postsEdges = markdownQueryResult.data.allMarkdownRemark.edges;
-
-  postsEdges.sort((postA, postB) => {
-    const dateA = moment(
-      postA.node.frontmatter.date,
-      siteConfig.dateFromFormat
-    );
-
-    const dateB = moment(
-      postB.node.frontmatter.date,
-      siteConfig.dateFromFormat
-    );
-
-    if (dateA.isBefore(dateB)) return 1;
-    if (dateB.isBefore(dateA)) return -1;
-
-    return 0;
-  });
-
-  postsEdges.forEach((edge, index) => {
-    if (edge.node.frontmatter.tags) {
-      edge.node.frontmatter.tags.forEach(tag => {
-        tagSet.add(tag);
-      });
-    }
-
-    if (edge.node.frontmatter.category) {
-      categorySet.add(edge.node.frontmatter.category);
-    }
-
-    const nextID = index + 1 < postsEdges.length ? index + 1 : 0;
-    const prevID = index - 1 >= 0 ? index - 1 : postsEdges.length - 1;
-    const nextEdge = postsEdges[nextID];
-    const prevEdge = postsEdges[prevID];
-
-    createPage({
-      path: edge.node.fields.slug,
-      component: postPage,
-      context: {
-        slug: edge.node.fields.slug,
-        nexttitle: nextEdge.node.frontmatter.title,
-        nextslug: nextEdge.node.fields.slug,
-        prevtitle: prevEdge.node.frontmatter.title,
-        prevslug: prevEdge.node.fields.slug
-      }
-    });
-  });
-
-  tagSet.forEach(tag => {
-    createPage({
-      path: `/tags/${_.kebabCase(tag)}/`,
-      component: tagPage,
-      context: {
-        tag
-      }
-    });
-  });
-  categorySet.forEach(category => {
-    createPage({
-      path: `/categories/${_.kebabCase(category)}/`,
-      component: categoryPage,
-      context: {
-        category
-      }
-    });
-  });
-};
+}

@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import Helmet from "react-helmet";
-import Layout from "../layout";
-import About from "../components/About/About";
-import config from "../../data/SiteConfig";
+import React, {Component} from "react"
+import Helmet from "react-helmet"
+import config from "../../config/SiteConfig"
+import About from "../components/About"
+import Layout from "../layout"
 
 class AboutPage extends Component {
   render() {
@@ -13,8 +13,8 @@ class AboutPage extends Component {
           <About />
         </div>
       </Layout>
-    );
+    )
   }
 }
 
-export default AboutPage;
+export default AboutPage
