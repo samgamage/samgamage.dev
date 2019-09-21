@@ -15,7 +15,7 @@ import {
   TwitterShareButton,
 } from "react-share"
 import urljoin from "url-join"
-import config from "../../../config/SiteConfig"
+import config from "../../config/SiteConfig"
 
 class SocialLinks extends Component {
   render() {

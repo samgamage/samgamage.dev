@@ -1,40 +1,33 @@
 /** @jsx jsx */
 import {Link} from "gatsby"
+import {FaMoon as MoonFilled, FaRegMoon as MoonOutline} from "react-icons/fa"
 import {jsx, Styled, useColorMode} from "theme-ui"
+import theme from "../../config/theme"
 
-const modes = ["light", "black", "dark", "deep", "hack"]
+const modes = ["light", ...Object.keys(theme.colors.modes)]
 
 const ColorButton = ({mode, ...props}) => (
   <button
     {...props}
-    title="Cycle Color Mode"
+    title="Toggle Dark Mode"
     sx={{
       display: "inline-block",
       appearance: "none",
       bg: "transparent",
       color: "text",
-      p: 1,
-      m: 0,
       border: 0,
-      borderRadius: 9999,
-      ":hover,:focus": {
-        color: "primary",
-        boxShadow: "0 0 0 3px",
-        outline: "none",
-      },
     }}
   >
-    toggle
+    {mode === "dark" ? <MoonFilled size={24} /> : <MoonOutline size={24} />}
   </button>
 )
 
 export default () => {
+  console.log(modes)
   const [mode, setMode] = useColorMode()
   const cycleMode = e => {
     const i = modes.indexOf(mode)
     const n = (i + 1) % modes.length
-    console.log(modes.length)
-    console.log(n)
     setMode(modes[n])
   }
 
@@ -46,7 +39,6 @@ export default () => {
         alignItems: "center",
         maxWidth: "wide",
         mx: "auto",
-        px: 3,
         py: 4,
       }}
     >
@@ -55,6 +47,7 @@ export default () => {
         to="/"
         sx={{
           variant: "styles.navlink",
+          fontWeight: "bold",
           mr: 3,
         }}
       >
@@ -65,6 +58,7 @@ export default () => {
         to="/blog"
         sx={{
           variant: "styles.navlink",
+          fontWeight: "bold",
           mr: 3,
         }}
       >

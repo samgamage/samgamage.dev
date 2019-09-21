@@ -24,9 +24,14 @@ class PostListing extends React.Component {
     return (
       <React.Fragment>
         {postList.map(post => (
-          <Link to={post.path} key={post.title}>
-            <Styled.h1>{post.title}</Styled.h1>
-          </Link>
+          <Styled.a
+            as={Link}
+            to={post.path}
+            key={post.title}
+            sx={{textDecoration: "underline", color: "text"}}
+          >
+            <Styled.h2>{post.title}</Styled.h2>
+          </Styled.a>
         ))}
       </React.Fragment>
     )

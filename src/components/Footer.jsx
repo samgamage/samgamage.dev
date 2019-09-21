@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import {Link} from "gatsby"
 import {Component} from "react"
-import {FaGithub as GitHub, FaTwitter as Twitter} from "react-icons/fa"
 import {jsx, Styled} from "theme-ui"
 
 class Footer extends Component {
@@ -14,7 +13,6 @@ class Footer extends Component {
     return (
       <footer
         sx={{
-          px: 3,
           py: 5,
           width: "100%",
           maxWidth: "wide",
@@ -59,26 +57,6 @@ class Footer extends Component {
           >
             About
           </Styled.a>
-          <div sx={{mx: "auto"}} />
-          <a
-            href="https://twitter.com/jxnblk"
-            title="Twitter"
-            sx={{
-              variant: "styles.navitem",
-              mx: 3,
-            }}
-          >
-            <Twitter size={24} />
-          </a>
-          <a
-            href="https://github.com/jxnblk"
-            title="GitHub"
-            sx={{
-              variant: "styles.navitem",
-            }}
-          >
-            <GitHub size={24} />
-          </a>
           <div sx={{mx: "auto"}} />
           <div sx={{my: 2, variant: "styles.navitem"}}>
             © 2019 Samuel Gamage
