@@ -9,30 +9,36 @@ class PostListing extends React.Component {
     this.props.postEdges.forEach(postEdge => {
       postList.push({
         path: postEdge.node.fields.slug,
-        tags: postEdge.node.frontmatter.tags,
-        cover: postEdge.node.frontmatter.cover,
         title: postEdge.node.frontmatter.title,
-        date: postEdge.node.fields.date,
+        date: postEdge.node.frontmatter.date,
         excerpt: postEdge.node.excerpt,
-        timeToRead: postEdge.node.timeToRead,
       })
     })
-    return postList
+    return postList.filter(post => post.title !== "filler")
   }
+
   render() {
     const postList = this.getPostList()
     return (
       <React.Fragment>
-        {postList.map(post => (
-          <Styled.a
-            as={Link}
-            to={post.path}
-            key={post.title}
-            sx={{textDecoration: "underline", color: "text"}}
-          >
-            <Styled.h2>{post.title}</Styled.h2>
-          </Styled.a>
-        ))}
+        {postList.length > 0 ? (
+          postList.map(post => (
+            <React.Fragment>
+              <Styled.a
+                as={Link}
+                to={post.path}
+                key={post.title}
+                sx={{textDecoration: "underline", color: "text"}}
+              >
+                <Styled.h2>{post.title}</Styled.h2>
+              </Styled.a>
+              <Styled.p>{post.date}</Styled.p>
+              <Styled.p>{post.excerpt}</Styled.p>
+            </React.Fragment>
+          ))
+        ) : (
+          <Styled.p>No posts yet</Styled.p>
+        )}
       </React.Fragment>
     )
   }

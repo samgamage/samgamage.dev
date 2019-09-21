@@ -1,12 +1,14 @@
-import { css } from "@emotion/core"
-import Highlight, { defaultProps } from "prism-react-renderer"
+/** @jsx jsx */
+import {css} from "@emotion/core"
+import Highlight, {defaultProps} from "prism-react-renderer"
 import theme from "prism-react-renderer/themes/nightOwl"
-import React from "react"
+import {jsx} from "theme-ui"
 
 const RE = /{([\d,-]+)}/
 
 const wrapperStyles = css`
   overflow: auto;
+  width: 100%;
 `
 
 function calculateLinesToHighlight(meta) {
@@ -16,9 +18,8 @@ function calculateLinesToHighlight(meta) {
       .map(v => v.split("-").map(y => parseInt(y, 10)))
     return index => {
       const lineNumber = index + 1
-      const inRange = lineNumbers.some(
-        ([start, end]) =>
-          end ? lineNumber >= start && lineNumber <= end : lineNumber === start,
+      const inRange = lineNumbers.some(([start, end]) =>
+        end ? lineNumber >= start && lineNumber <= end : lineNumber === start,
       )
       return inRange
     }
@@ -27,7 +28,7 @@ function calculateLinesToHighlight(meta) {
   }
 }
 
-function Code({ codeString, language, metastring }) {
+function Code({codeString, language, metastring}) {
   const shouldHighlightLine = calculateLinesToHighlight(metastring)
   return (
     <Highlight
@@ -36,7 +37,7 @@ function Code({ codeString, language, metastring }) {
       language={language}
       theme={theme}
     >
-      {({ className, style, tokens, getLineProps, getTokenProps }) => (
+      {({className, style, tokens, getLineProps, getTokenProps}) => (
         <div css={wrapperStyles}>
           <pre className={className} style={style}>
             {tokens.map((line, i) => (
@@ -54,12 +55,13 @@ function Code({ codeString, language, metastring }) {
                     width: 2em;
                     user-select: none;
                     opacity: 0.3;
+                    text-align: center;
                   `}
                 >
                   {i + 1}
                 </span>
                 {line.map((token, key) => (
-                  <span key={key} {...getTokenProps({ token, key })} />
+                  <span key={key} {...getTokenProps({token, key})} />
                 ))}
               </div>
             ))}

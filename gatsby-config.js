@@ -43,13 +43,11 @@ module.exports = {
         extensions: [".mdx", ".md"],
         gatsbyRemarkPlugins: [
           {
-            resolve: `gatsby-remark-images`,
+            resolve: "gatsby-remark-images",
             options: {
-              maxWidth: 590,
+              backgroundColor: "#fafafa",
+              maxWidth: 1035,
             },
-          },
-          {
-            resolve: `gatsby-remark-autolink-headers`,
           },
           {
             resolve: `gatsby-remark-responsive-iframe`,

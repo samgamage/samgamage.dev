@@ -1,7 +1,10 @@
 import {graphql} from "gatsby"
+import {MDXRenderer} from "gatsby-plugin-mdx"
 import React from "react"
 import Helmet from "react-helmet"
+import {Styled} from "theme-ui"
 import config from "../../config/SiteConfig"
+import Container from "../components/Container"
 import SocialLinks from "../components/SocialLinks"
 import UserInfo from "../components/UserInfo"
 import Layout from "../layout"
@@ -11,21 +14,19 @@ export default class PostTemplate extends React.Component {
     const {data, pageContext} = this.props
     const postNode = data.mdx
     const post = postNode
-    console.log(post)
+    console.log(data)
+    console.log(pageContext)
     return (
       <Layout>
-        <div>
-          <Helmet>
-            <title>{`${post.frontmatter.title} | ${config.siteTitle}`}</title>
-          </Helmet>
-          <div>
-            <h1>{post.frontmatter.title}</h1>
-            <div className="post-meta">
-              <SocialLinks postPath={post.fields.slug} postNode={postNode} />
-            </div>
-            <UserInfo config={config} />
-          </div>
-        </div>
+        <Helmet>
+          <title>{`${post.frontmatter.title} | ${config.siteTitle}`}</title>
+        </Helmet>
+        <Container container>
+          <Styled.h1>{post.frontmatter.title}</Styled.h1>
+          <MDXRenderer>{post.body}</MDXRenderer>
+          <SocialLinks postPath={post.fields.slug} postNode={postNode} />
+          <UserInfo config={config} />
+        </Container>
       </Layout>
     )
   }

@@ -23,7 +23,6 @@ const ColorButton = ({mode, ...props}) => (
 )
 
 export default () => {
-  console.log(modes)
   const [mode, setMode] = useColorMode()
   const cycleMode = e => {
     const i = modes.indexOf(mode)
@@ -40,6 +39,7 @@ export default () => {
         maxWidth: "wide",
         mx: "auto",
         py: 4,
+        px: [3, 2, 2, 2, 0],
       }}
     >
       <Styled.a
@@ -56,6 +56,7 @@ export default () => {
       <Styled.a
         as={Link}
         to="/blog"
+        activeClassName="active"
         sx={{
           variant: "styles.navlink",
           fontWeight: "bold",

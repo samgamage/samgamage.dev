@@ -17,59 +17,43 @@ class Index extends React.Component {
   render() {
     const postEdges = this.props.data.allMdx.edges
     return (
-      <Layout>
+      <Layout centered>
         <Helmet title={config.siteTitle} />
-        <div
-          sx={{
-            variant: "styles.root",
-            minHeight: "calc(100vh - 166px - 93px)",
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <main
-            sx={{
-              width: "100%",
-              maxWidth: "wide",
-              mx: "auto",
-              my: "auto",
-            }}
-          >
-            <Container sx={{display: "flex", justifyContent: "center"}}>
-              <Styled.h1>Samuel Gamage</Styled.h1>
-              <Styled.p>Software Developer based in Atlanta, GA</Styled.p>
-              <HorizontalList spaceBetween={3}>
-                <Styled.a
-                  href="https://twitter.com/sambgamage"
-                  title="Twitter"
-                  sx={{
-                    variant: "styles.navlink",
-                  }}
-                >
-                  <Twitter size={24} />
-                </Styled.a>
-                <Styled.a
-                  href="https://github.com/samgamage"
-                  title="GitHub"
-                  sx={{
-                    variant: "styles.navlink",
-                  }}
-                >
-                  <GitHub size={24} />
-                </Styled.a>
-                <Styled.a
-                  href="https://www.linkedin.com/in/samuel-gamage-27b91816b/"
-                  title="LinkedIn"
-                  sx={{
-                    variant: "styles.navlink",
-                  }}
-                >
-                  <LinkedIn size={24} />
-                </Styled.a>
-              </HorizontalList>
-            </Container>
-          </main>
-        </div>
+        <Container>
+          <Styled.h1 sx={{variant: "styles.headinglarge"}}>
+            Samuel Gamage
+          </Styled.h1>
+          <Styled.p>Software Developer based in Atlanta, GA</Styled.p>
+          <HorizontalList spaceBetween={3}>
+            <Styled.a
+              href="https://twitter.com/sambgamage"
+              title="Twitter"
+              sx={{
+                variant: "styles.navlink",
+              }}
+            >
+              <Twitter size={24} />
+            </Styled.a>
+            <Styled.a
+              href="https://github.com/samgamage"
+              title="GitHub"
+              sx={{
+                variant: "styles.navlink",
+              }}
+            >
+              <GitHub size={24} />
+            </Styled.a>
+            <Styled.a
+              href="https://www.linkedin.com/in/samuel-gamage-27b91816b/"
+              title="LinkedIn"
+              sx={{
+                variant: "styles.navlink",
+              }}
+            >
+              <LinkedIn size={24} />
+            </Styled.a>
+          </HorizontalList>
+        </Container>
       </Layout>
     )
   }

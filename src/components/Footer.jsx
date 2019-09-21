@@ -13,10 +13,11 @@ class Footer extends Component {
     return (
       <footer
         sx={{
-          py: 5,
+          py: 4,
           width: "100%",
           maxWidth: "wide",
           mx: "auto",
+          px: [3, 2, 2, 2, 0],
         }}
       >
         <div

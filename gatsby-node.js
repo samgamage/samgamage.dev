@@ -33,60 +33,6 @@ const createPosts = (createPage, createRedirect, edges) => {
   })
 }
 
-exports.createPages = ({actions, graphql}) =>
-  graphql(`
-    query {
-      allMdx(
-        filter: {frontmatter: {published: {ne: false}}}
-        sort: {order: DESC, fields: [frontmatter___date]}
-      ) {
-        edges {
-          node {
-            id
-            parent {
-              ... on File {
-                name
-                sourceInstanceName
-              }
-            }
-            excerpt(pruneLength: 250)
-            fields {
-              title
-              slug
-              date
-            }
-          }
-        }
-      }
-    }
-  `).then(({data, errors}) => {
-    if (errors) {
-      return Promise.reject(errors)
-    }
-
-    if (_.isEmpty(data.allMdx)) {
-      return Promise.reject("There are no posts!")
-    }
-
-    const {edges} = data.allMdx
-    const {createRedirect, createPage} = actions
-    createPosts(createPage, createRedirect, edges)
-    createPaginatedPages(actions.createPage, edges, "/blog", {
-      categories: [],
-    })
-  })
-
-exports.onCreateWebpackConfig = ({actions}) => {
-  actions.setWebpackConfig({
-    resolve: {
-      modules: [path.resolve(__dirname, "src"), "node_modules"],
-      alias: {
-        $components: path.resolve(__dirname, "src/components"),
-      },
-    },
-  })
-}
-
 const createPaginatedPages = (createPage, edges, pathPrefix, context) => {
   const pages = edges.reduce((acc, value, index) => {
     const pageIndex = Math.floor(index / PAGINATION_OFFSET)
@@ -119,6 +65,70 @@ const createPaginatedPages = (createPage, edges, pathPrefix, context) => {
         ...context,
       },
     })
+  })
+}
+
+exports.createPages = ({actions, graphql}) =>
+  graphql(`
+    fragment PostFields on Mdx {
+      id
+      parent {
+        ... on File {
+          name
+          sourceInstanceName
+        }
+      }
+      excerpt(pruneLength: 250)
+      fields {
+        title
+        slug
+        date
+      }
+    }
+
+    {
+      allMdx(
+        filter: {frontmatter: {published: {ne: false}}}
+        sort: {order: DESC, fields: [frontmatter___date]}
+      ) {
+        edges {
+          next {
+            ...PostFields
+          }
+          node {
+            ...PostFields
+          }
+          previous {
+            ...PostFields
+          }
+        }
+      }
+    }
+  `).then(({data, errors}) => {
+    if (errors) {
+      return Promise.reject(errors)
+    }
+
+    if (_.isEmpty(data.allMdx)) {
+      return Promise.reject("There are no posts!")
+    }
+
+    const {edges} = data.allMdx
+    const {createRedirect, createPage} = actions
+    createPosts(createPage, createRedirect, edges)
+    createPaginatedPages(actions.createPage, edges, "/blog", {
+      categories: [],
+    })
+  })
+
+exports.onCreateWebpackConfig = ({actions}) => {
+  actions.setWebpackConfig({
+    resolve: {
+      modules: [path.resolve(__dirname, "src"), "node_modules"],
+      alias: {
+        $components: path.resolve(__dirname, "src/components"),
+      },
+    },
   })
 }
 
@@ -170,12 +180,6 @@ exports.onCreateNode = ({node, getNode, actions}) => {
       name: "date",
       node,
       value: node.frontmatter.date ? node.frontmatter.date.split(" ")[0] : "",
-    })
-
-    createNodeField({
-      name: "banner",
-      node,
-      value: node.frontmatter.banner,
     })
 
     createNodeField({

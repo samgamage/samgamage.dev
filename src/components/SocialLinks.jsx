@@ -16,6 +16,7 @@ import {
 } from "react-share"
 import urljoin from "url-join"
 import config from "../../config/SiteConfig"
+import HorizontalList from "./HorziontalList"
 
 class SocialLinks extends Component {
   render() {
@@ -29,7 +30,7 @@ class SocialLinks extends Component {
     )
 
     return (
-      <div className="social-links">
+      <HorizontalList spaceBetween={2}>
         <RedditShareButton url={url} title={post.title}>
           <RedditIcon round size={iconSize} />
           <RedditShareCount url={url}>
@@ -58,7 +59,7 @@ class SocialLinks extends Component {
         <TelegramShareButton url={url}>
           <TelegramIcon round size={iconSize} />
         </TelegramShareButton>
-      </div>
+      </HorizontalList>
     )
   }
 }

@@ -1,6 +1,8 @@
+/** @jsx jsx */
 import React from "react"
+import {jsx, Styled} from "theme-ui"
+import Flex from "../Flex"
 import Code from "./Code"
-import Image from "./Image"
 
 const normalizeString = string => {
   const splitString = string.split(" ").map(word => word.toLowerCase())
@@ -38,8 +40,26 @@ function preToCodeBlock(preProps) {
 }
 
 export default {
-  wrapper: ({children}) => <>{children}</>,
-  img: props => <Image {...props} />,
+  wrapper: ({children}) => <React.Fragment>{children}</React.Fragment>,
+  h1: props => (
+    <Flex>
+      <Styled.a
+        href={`#${normalizeString(props.children)}`}
+        className="title-anchor"
+        sx={{
+          transition: "all 0.1s ease",
+          variant: "styles.h1",
+          textDecoration: "none",
+          position: "relative",
+          fontWeight: "normal",
+          mr: 2,
+        }}
+      >
+        #
+      </Styled.a>
+      <Styled.h1 id={normalizeString(props.children)} {...props} />
+    </Flex>
+  ),
   pre: preProps => {
     const props = preToCodeBlock(preProps)
     // if there's a codeString and some props, we passed the test
