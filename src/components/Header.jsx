@@ -16,6 +16,7 @@ const ColorButton = ({mode, ...props}) => (
       bg: "transparent",
       color: "text",
       border: 0,
+      cursor: "pointer",
     }}
   >
     {mode === "dark" ? <MoonFilled size={24} /> : <MoonOutline size={24} />}

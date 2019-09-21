@@ -141,32 +141,29 @@ const BackToTop = () => {
     </div>
   )
 }
-export default class MainLayout extends React.Component {
-  render() {
-    const {children, centered = false} = this.props
-    return (
-      <React.Fragment>
-        <Helmet>
-          <meta name="description" content={config.siteDescription} />
-        </Helmet>
-        <ThemeProvider theme={theme} components={components}>
-          <Global styles={globalStyles} />
-          <Styled.root>
-            <Header />
-            <div
-              sx={{
-                minHeight: "calc(100vh - 102px - 93px)",
-                display: centered ? "flex" : "",
-                alignItems: centered ? "center" : "",
-              }}
-            >
-              {children}
-            </div>
-            <BackToTop />
-            <Footer config={config} />
-          </Styled.root>
-        </ThemeProvider>
-      </React.Fragment>
-    )
-  }
-}
+const MainLayout = ({children, centered = false}) => (
+  <React.Fragment>
+    <Helmet>
+      <meta name="description" content={config.siteDescription} />
+    </Helmet>
+    <ThemeProvider theme={theme} components={components}>
+      <Global styles={globalStyles} />
+      <Styled.root>
+        <Header />
+        <div
+          sx={{
+            minHeight: "calc(100vh - 102px - 93px)",
+            display: centered ? "flex" : "",
+            alignItems: centered ? "center" : "",
+          }}
+        >
+          {children}
+        </div>
+        <BackToTop />
+        <Footer config={config} />
+      </Styled.root>
+    </ThemeProvider>
+  </React.Fragment>
+)
+
+export default MainLayout

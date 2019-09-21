@@ -9,28 +9,26 @@ import SocialLinks from "../components/SocialLinks"
 import UserInfo from "../components/UserInfo"
 import Layout from "../layout"
 
-export default class PostTemplate extends React.Component {
-  render() {
-    const {data, pageContext} = this.props
-    const postNode = data.mdx
-    const post = postNode
-    console.log(data)
-    console.log(pageContext)
-    return (
-      <Layout>
-        <Helmet>
-          <title>{`${post.frontmatter.title} | ${config.siteTitle}`}</title>
-        </Helmet>
-        <Container container>
-          <Styled.h1>{post.frontmatter.title}</Styled.h1>
-          <MDXRenderer>{post.body}</MDXRenderer>
-          <SocialLinks postPath={post.fields.slug} postNode={postNode} />
-          <UserInfo config={config} />
-        </Container>
-      </Layout>
-    )
-  }
+const PostTemplate = ({data}) => {
+  const postNode = data.mdx
+  const post = postNode
+
+  return (
+    <Layout>
+      <Helmet>
+        <title>{`${post.frontmatter.title} | ${config.siteTitle}`}</title>
+      </Helmet>
+      <Container container>
+        <Styled.h1>{post.frontmatter.title}</Styled.h1>
+        <MDXRenderer>{post.body}</MDXRenderer>
+        <SocialLinks postPath={post.fields.slug} postNode={postNode} />
+        <UserInfo config={config} />
+      </Container>
+    </Layout>
+  )
 }
+
+export default PostTemplate
 
 /* eslint no-undef: "off" */
 export const pageQuery = graphql`

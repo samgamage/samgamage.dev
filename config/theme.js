@@ -17,7 +17,7 @@ export default {
         text: "#fff",
         background: "hsl(180, 5%, 15%)",
         primary: "hsl(180, 100%, 57%)",
-        secondary: "hsl(50, 100%, 57%)",
+        secondary: "hsl(260, 100%, 57%)",
         accent: "hsl(310, 100%, 57%)",
         muted: "hsl(180, 5%, 5%)",
         gray: "hsl(180, 0%, 70%)",

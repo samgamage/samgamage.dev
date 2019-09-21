@@ -6,18 +6,16 @@ import Container from "../components/Container"
 import PostListing from "../components/PostListing"
 import Layout from "../layout"
 
-class Blog extends React.Component {
-  render() {
-    const postEdges = this.props.data.allMdx.edges
-    return (
-      <Layout>
-        <Helmet title={config.siteTitle} />
-        <Container>
-          <PostListing postEdges={postEdges} />
-        </Container>
-      </Layout>
-    )
-  }
+const Blog = props => {
+  const postEdges = props.data.allMdx.edges
+  return (
+    <Layout>
+      <Helmet title={`Blog | ${config.siteTitle}`} />
+      <Container>
+        <PostListing postEdges={postEdges} />
+      </Container>
+    </Layout>
+  )
 }
 
 export default Blog
