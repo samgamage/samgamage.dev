@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import {Link} from "gatsby"
 import React from "react"
 import {jsx, Styled} from "theme-ui"
 
@@ -14,14 +13,15 @@ class PostListing extends React.Component {
         excerpt: postEdge.node.excerpt,
       })
     })
-    return postList.filter(post => post.title !== "filler")
+
+    return postList.filter(post => post.title !== "filler" || post.title === "")
   }
 
   render() {
     const postList = this.getPostList()
     return (
       <React.Fragment>
-        {postList.length > 0 ? (
+        {/* {postList.length > 0 ? (
           postList.map(post => (
             <React.Fragment>
               <Styled.a
@@ -38,7 +38,8 @@ class PostListing extends React.Component {
           ))
         ) : (
           <Styled.p>No posts yet</Styled.p>
-        )}
+        )} */}
+        <Styled.p>No posts yet</Styled.p>
       </React.Fragment>
     )
   }

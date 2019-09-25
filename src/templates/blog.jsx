@@ -20,7 +20,6 @@ const Blog = props => {
 
 export default Blog
 
-/* eslint no-undef: "off" */
 export const pageQuery = graphql`
   query BlogQuery {
     allMdx(sort: {fields: [frontmatter___date], order: DESC}) {

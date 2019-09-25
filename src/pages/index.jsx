@@ -4,6 +4,7 @@ import Helmet from "react-helmet"
 import {
   FaGithub as GitHub,
   FaLinkedin as LinkedIn,
+  FaMedium as Medium,
   FaTwitter as Twitter,
 } from "react-icons/fa"
 import {jsx, Styled} from "theme-ui"
@@ -54,6 +55,15 @@ const Index = props => {
             }}
           >
             <LinkedIn size={24} />
+          </Styled.a>
+          <Styled.a
+            href="https://medium.com/@sambgamage"
+            title="Medium"
+            sx={{
+              variant: "styles.navlink",
+            }}
+          >
+            <Medium size={24} />
           </Styled.a>
         </HorizontalList>
       </Container>

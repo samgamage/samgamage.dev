@@ -14,7 +14,7 @@ const Resume = ({data}) => {
       <React.Fragment>
         <Helmet title={`Resume | ${config.siteTitle}`} />
         <Container container>
-          <MDXRenderer>{data.mdx.body}</MDXRenderer>
+          <MDXRenderer>{data.mdx && data.mdx.body}</MDXRenderer>
         </Container>
       </React.Fragment>
     </Layout>
