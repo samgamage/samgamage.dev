@@ -126,8 +126,18 @@ export default {
     },
     table: {
       width: "100%",
-      borderCollapse: "separate",
+      tableLayout: "fixed",
+      borderCollapse: "collapse",
       borderSpacing: 0,
+      "td+td": {
+        width: "auto",
+      },
+      p: {
+        margin: 1,
+      },
+    },
+    tr: {
+      width: "100%",
     },
     th: {
       textAlign: "left",
@@ -138,7 +148,7 @@ export default {
       textAlign: "left",
       py: 2,
       borderBottom: "1px solid",
-      borderColor: "muted",
+      borderColor: "text",
     },
     blockquote: {
       fontWeight: "bold",
@@ -158,6 +168,7 @@ export default {
       alignItems: "center",
       fontWeight: "bold",
       color: "text",
+      mr: 3,
     },
     container: {
       mx: "auto",

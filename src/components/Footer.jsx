@@ -33,7 +33,6 @@ class Footer extends Component {
             to="/"
             sx={{
               variant: "styles.navitem",
-              mr: 3,
             }}
           >
             Sam Gamage
@@ -43,7 +42,6 @@ class Footer extends Component {
             to="/blog"
             sx={{
               variant: "styles.navitem",
-              mr: 3,
             }}
           >
             Blog
@@ -53,10 +51,18 @@ class Footer extends Component {
             to="/about"
             sx={{
               variant: "styles.navitem",
-              mr: 4,
             }}
           >
             About
+          </Styled.a>
+          <Styled.a
+            as={Link}
+            to="/resume"
+            sx={{
+              variant: "styles.navitem",
+            }}
+          >
+            Resume
           </Styled.a>
           <div sx={{mx: "auto"}} />
           <div sx={{my: 2, variant: "styles.navitem"}}>

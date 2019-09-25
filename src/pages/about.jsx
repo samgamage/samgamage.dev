@@ -8,7 +8,7 @@ import {
 } from "react-icons/fa"
 import {jsx, Styled} from "theme-ui"
 import config from "../../config/SiteConfig"
-import BioPic from "../../static/images/bio_pic.jpg"
+import BioPic from "../../static/files/bio_pic.jpg"
 import Container from "../components/Container"
 import HorizontalList from "../components/HorziontalList"
 import Layout from "../layout"
