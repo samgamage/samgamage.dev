@@ -69,7 +69,7 @@ export const pageQuery = graphql`
   {
     bioPic: file(name: {eq: "bio_pic"}) {
       childImageSharp {
-        fixed {
+        fixed(quality: 100) {
           ...GatsbyImageSharpFixed_withWebp_tracedSVG
         }
       }
