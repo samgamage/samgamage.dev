@@ -9,13 +9,11 @@ import Container from "../components/Container"
 import Layout from "../layout"
 
 const AboutPage = ({data}) => {
-  if (!data.imageSharp) {
-    return null
-  }
-
   const {
-    imageSharp: {fixed},
-    file: {publicURL: resumeDownloadRelativePath},
+    bioPic: {
+      childImageSharp: {fixed},
+    },
+    resume: {publicURL: resumeDownloadRelativePath},
   } = data
 
   let downloadLink
@@ -69,12 +67,14 @@ export default AboutPage
 
 export const pageQuery = graphql`
   {
-    imageSharp(id: {eq: "204f362f-bc8e-55fe-a92c-2e4bab53cfcc"}) {
-      fixed(width: 300, quality: 100) {
-        ...GatsbyImageSharpFixed_withWebp_tracedSVG
+    bioPic: file(name: {eq: "bio_pic"}) {
+      childImageSharp {
+        fixed {
+          ...GatsbyImageSharpFixed_withWebp_tracedSVG
+        }
       }
     }
-    file(name: {eq: "SamuelGamage-Resume-Fall2019"}) {
+    resume: file(name: {eq: "SamuelGamage-Resume-Fall2019"}) {
       publicURL
     }
   }
