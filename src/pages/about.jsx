@@ -9,6 +9,10 @@ import Container from "../components/Container"
 import Layout from "../layout"
 
 const AboutPage = ({data}) => {
+  if (!data.imageSharp) {
+    return null
+  }
+
   const {
     imageSharp: {fixed},
     file: {publicURL: resumeDownloadRelativePath},
