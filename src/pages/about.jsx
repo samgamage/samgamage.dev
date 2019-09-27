@@ -61,7 +61,9 @@ const AboutPage = ({data}) => {
   )
 }
 
-export const query = graphql`
+export default AboutPage
+
+export const pageQuery = graphql`
   {
     imageSharp(id: {eq: "204f362f-bc8e-55fe-a92c-2e4bab53cfcc"}) {
       fixed(width: 300, quality: 100) {
@@ -73,5 +75,3 @@ export const query = graphql`
     }
   }
 `
-
-export default AboutPage
