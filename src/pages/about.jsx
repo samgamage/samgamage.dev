@@ -65,7 +65,7 @@ export default AboutPage
 
 export const pageQuery = graphql`
   {
-    imageSharp(name: {eq: "204f362f-bc8e-55fe-a92c-2e4bab53cfcc"}) {
+    imageSharp(id: {eq: "204f362f-bc8e-55fe-a92c-2e4bab53cfcc"}) {
       fixed(width: 300, quality: 100) {
         ...GatsbyImageSharpFixed_withWebp_tracedSVG
       }
