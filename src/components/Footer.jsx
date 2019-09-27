@@ -55,15 +55,6 @@ class Footer extends Component {
           >
             About
           </Styled.a>
-          <Styled.a
-            as={Link}
-            to="/resume"
-            sx={{
-              variant: "styles.navitem",
-            }}
-          >
-            Resume
-          </Styled.a>
           <div sx={{mx: "auto"}} />
           <div sx={{my: 2, variant: "styles.navitem"}}>
             © 2019 Samuel Gamage

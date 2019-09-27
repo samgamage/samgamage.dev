@@ -2,13 +2,14 @@
 import {Link} from "gatsby"
 import {FaMoon as MoonFilled, FaRegMoon as MoonOutline} from "react-icons/fa"
 import {jsx, Styled, useColorMode} from "theme-ui"
-import theme from "../../config/theme"
+import theme from "../gatsby-plugin-theme-ui"
 
 const modes = ["light", ...Object.keys(theme.colors.modes)]
 
 const ColorButton = ({mode, ...props}) => (
   <button
     {...props}
+    type="button"
     title="Toggle Dark Mode"
     sx={{
       display: "inline-block",
@@ -25,7 +26,7 @@ const ColorButton = ({mode, ...props}) => (
 
 export default () => {
   const [mode, setMode] = useColorMode()
-  const cycleMode = e => {
+  const cycleMode = () => {
     const i = modes.indexOf(mode)
     const n = (i + 1) % modes.length
     setMode(modes[n])

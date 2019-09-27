@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from "react"
 import {jsx, Styled} from "theme-ui"
-import Flex from "../Flex"
+import Flex from "../components/Flex"
 import Code from "./Code"
 
 const normalizeString = string => {
@@ -37,14 +37,15 @@ function preToCodeBlock(preProps) {
       ...props,
     }
   }
+  return null
 }
 
 export default {
   wrapper: ({children}) => <React.Fragment>{children}</React.Fragment>,
-  h1: props => (
+  h1: ({children, ...restProps}) => (
     <Flex>
       <Styled.a
-        href={`#${normalizeString(props.children)}`}
+        href={`#${normalizeString(children)}`}
         className="title-anchor"
         sx={{
           transition: "all 0.1s ease",
@@ -57,7 +58,7 @@ export default {
       >
         #
       </Styled.a>
-      <Styled.h1 id={normalizeString(props.children)} {...props} />
+      <Styled.h1 id={normalizeString(children)} {...restProps} />
     </Flex>
   ),
   pre: preProps => {
@@ -65,9 +66,7 @@ export default {
     // if there's a codeString and some props, we passed the test
     if (props) {
       return <Code {...props} />
-    } else {
-      // it's possible to have a pre without a code in it
-      return <pre {...preProps} />
     }
+    return <pre {...preProps} />
   },
 }

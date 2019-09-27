@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import {graphql} from "gatsby"
 import Helmet from "react-helmet"
 import {
   FaGithub as GitHub,
@@ -13,20 +12,12 @@ import Container from "../components/Container"
 import HorizontalList from "../components/HorziontalList"
 import Layout from "../layout"
 
-const Index = props => {
-  const postEdges = props.data.allMdx.edges
-
+const Index = () => {
   return (
     <Layout centered>
       <Helmet title={config.siteTitle} />
       <Container>
-        <Styled.h1
-          sx={{
-            variant: "styles.headinglarge",
-          }}
-        >
-          Samuel Gamage
-        </Styled.h1>
+        <Styled.h1>Samuel Gamage</Styled.h1>
         <Styled.p>Software Developer based in Atlanta, GA</Styled.p>
         <HorizontalList spaceBetween={3}>
           <Styled.a
@@ -72,23 +63,3 @@ const Index = props => {
 }
 
 export default Index
-
-/* eslint no-undef: "off" */
-export const pageQuery = graphql`
-  query IndexQuery {
-    allMdx(sort: {fields: [frontmatter___date], order: DESC}) {
-      edges {
-        node {
-          excerpt
-          fields {
-            slug
-          }
-          frontmatter {
-            date(formatString: "MMMM DD, YYYY")
-            title
-          }
-        }
-      }
-    }
-  }
-`

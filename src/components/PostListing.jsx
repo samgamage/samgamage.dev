@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import {Link} from "gatsby"
 import React from "react"
 import {jsx, Styled} from "theme-ui"
 
@@ -19,9 +20,10 @@ class PostListing extends React.Component {
 
   render() {
     const postList = this.getPostList()
+    console.log(postList)
     return (
       <React.Fragment>
-        {/* {postList.length > 0 ? (
+        {postList.length > 0 ? (
           postList.map(post => (
             <React.Fragment>
               <Styled.a
@@ -38,8 +40,7 @@ class PostListing extends React.Component {
           ))
         ) : (
           <Styled.p>No posts yet</Styled.p>
-        )} */}
-        <Styled.p>No posts yet</Styled.p>
+        )}
       </React.Fragment>
     )
   }

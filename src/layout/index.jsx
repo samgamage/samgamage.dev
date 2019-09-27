@@ -3,14 +3,12 @@ import {css, Global} from "@emotion/core"
 import React, {useEffect, useRef, useState} from "react"
 import Helmet from "react-helmet"
 import {FaArrowCircleUp as ArrowUpBtn} from "react-icons/fa"
-import {jsx, Styled, ThemeProvider} from "theme-ui"
+import {jsx, Styled} from "theme-ui"
 import config from "../../config/SiteConfig"
-import theme from "../../config/theme"
 import Footer from "../components/Footer"
 import Header from "../components/Header"
-import components from "../components/Mdx"
 
-let hasPassiveSupport = undefined
+let hasPassiveSupport
 const getHasPassiveEventSupport = () => {
   if (typeof hasPassiveSupport === "boolean") {
     return hasPassiveSupport
@@ -26,7 +24,7 @@ const getHasPassiveEventSupport = () => {
       },
     })
 
-    typeof window !== undefined && window.addEventListener("test", null, opts)
+    typeof window !== "undefined" && window.addEventListener("test", null, opts)
   } catch (e) {
     hasPassiveSupport = false
   }
@@ -39,8 +37,8 @@ const useScrollPosition = () => {
 
   const handleScroll = () => {
     setScroll({
-      x: typeof window !== undefined && window.pageXOffset,
-      y: typeof window !== undefined && window.pageYOffset,
+      x: typeof window !== "undefined" && window.pageXOffset,
+      y: typeof window !== "undefined" && window.pageYOffset,
     })
     tickingRef.current = false
   }
@@ -51,11 +49,11 @@ const useScrollPosition = () => {
     }
 
     tickingRef.current = true
-    typeof window !== undefined && window.requestAnimationFrame(handleScroll)
+    typeof window !== "undefined" && window.requestAnimationFrame(handleScroll)
   }
 
   useEffect(() => {
-    typeof window !== undefined &&
+    typeof window !== "undefined" &&
       window.addEventListener(
         "scroll",
         onScroll,
@@ -63,7 +61,7 @@ const useScrollPosition = () => {
       )
 
     return () => {
-      typeof window !== undefined &&
+      typeof window !== "undefined" &&
         window.removeEventListener("scroll", onScroll)
     }
   }, [])
@@ -146,23 +144,21 @@ const MainLayout = ({children, centered = false}) => (
     <Helmet>
       <meta name="description" content={config.siteDescription} />
     </Helmet>
-    <ThemeProvider theme={theme} components={components}>
+    <Styled.root>
       <Global styles={globalStyles} />
-      <Styled.root>
-        <Header />
-        <div
-          sx={{
-            minHeight: "calc(100vh - 102px - 93px)",
-            display: centered ? "flex" : "",
-            alignItems: centered ? "center" : "",
-          }}
-        >
-          {children}
-        </div>
-        <BackToTop />
-        <Footer config={config} />
-      </Styled.root>
-    </ThemeProvider>
+      <Header />
+      <div
+        sx={{
+          minHeight: "calc(100vh - 102px - 93px)",
+          display: centered ? "flex" : "",
+          alignItems: centered ? "center" : "",
+        }}
+      >
+        {children}
+      </div>
+      <BackToTop />
+      <Footer config={config} />
+    </Styled.root>
   </React.Fragment>
 )
 
