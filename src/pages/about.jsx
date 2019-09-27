@@ -65,12 +65,12 @@ export default AboutPage
 
 export const pageQuery = graphql`
   {
-    imageSharp(id: {eq: "204f362f-bc8e-55fe-a92c-2e4bab53cfcc"}) {
+    imageSharp(name: {eq: "204f362f-bc8e-55fe-a92c-2e4bab53cfcc"}) {
       fixed(width: 300, quality: 100) {
         ...GatsbyImageSharpFixed_withWebp_tracedSVG
       }
     }
-    file(id: {eq: "92b2ec03-12ee-5b4c-8cda-d576ced502d6"}) {
+    file(name: {eq: "SamuelGamage-Resume-Fall2019"}) {
       publicURL
     }
   }
