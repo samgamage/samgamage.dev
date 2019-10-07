@@ -1,0 +1,286 @@
+---
+slug: react-hooks-vs-class-components-for-beginners
+date: 2019-10-02
+title: "Why Beginners find React Hooks Easier than Class Components"
+description:
+  "Beginners often find React hooks easier to digest and understand. Why is
+  that?"
+published: true
+author: "Sam Gamage"
+---
+
+As the React ecosystem moves more towards using functional components, I can't
+help but look back on what React looked like when I first started learning it
+and how it has changed since then.
+
+I first started learning react in 2018 right when version 16.6 came out. This
+was when `React.memo()` and `React.lazy()` first get introducted which was one
+of the biggest changes to the core react library in a long time.
+
+Having been a beginner I had a ton of questions as I was writing my first few
+React components. Questions like:
+
+- How does my class component get called?
+- Why do I have to call `super()` on the components props in the constructor?
+- What's the difference between the PureComponent class and the Component class?
+- How do I know when to use PureComponent or Component?
+- Why are there so many life-cycle methods?!?
+- Why do I have to keep writing the same logic over and over again? Isn't there
+  a better way to do this?
+
+I found myself constantly asking these questions very frequently and for good
+reason to. I would often have to read parts of documentation over and over to
+fully grasp some concepts in class components.
+
+Maybe it was because I had not been exposed to much object-oriented programming
+but class components just didn't click for me in the beginning.
+
+## Enter React Hooks
+
+When I first heard that the React core team was introducing a functional API for
+creating React hooks I was _very interested_.
+
+No longer would I have to scratch my head on whether to use `this` or why I need
+to use PureComponent for this component and Component for another one. No longer
+would I have to rewrite the same form state functionality 5 times in the same
+app!
+
+Hooks provide for a functional way of creating and updating state through the
+`useState()` function. This function is rather interesting because it returned
+an array of values. At first I was a bit confused by this and questioned why the
+developers decided to implement it this way. The reason why it returnes an array
+is because it needs to return two things: the state and a function to update it.
+Take a look at this simple example:
+
+```js
+import React, {useState} from "react"
+
+const Component = () => {
+  const [state, setState] = useState(1)
+
+  return <div>{state}</div>
+}
+```
+
+Two things to note here:
+
+1. I am getting the useState function from React as a destructured import.
+2. I can grab the first two elements returned by `useState` by destructuring the
+   array it returns.
+
+This convention for defining and updating state is very versatile. In fact, I
+can use the `useState` function in any function that I define even ones that
+don't render jsx.
+
+This means I can create my own "helper functions" to reuse state logic! This
+concept is something that the React devs thought about and gave it the name
+"hook" because we are "hooking" into the react state.
+
+### Simplicity
+
+One of the things I enjoy about React hooks is how simple and readable they are.
+
+The best way to showcase the simplicity of React hooks is to write out
+components in both hooks and classes.
+
+Lets say I want to have a counter component which stores and updates a count
+state.
+
+The class component version would look like this:
+
+```jsx
+import React from "react"
+
+class Counter extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      counter: 0,
+    }
+  }
+
+  increment = () => {
+    this.setState(prevState => ({counter: prevState.counter + 1}))
+  }
+
+  decrement = () => {
+    this.setState(prevState => ({counter: prevState.counter - 1}))
+  }
+
+  render() {
+    return (
+      <div>
+        <p>{this.state.counter}</p>
+        <button onClick={this.increment}>Increment</button>
+        <button onClick={this.decrement}>Decrement</button>
+      </div>
+    )
+  }
+}
+```
+
+As we saw before, the hooks version would look something like this:
+
+```jsx
+import React, {useState} from "react"
+
+const Counter = () => {
+  const [counter, setCounter] = useState(0)
+
+  return (
+    <div>
+      <p>{counter}</p>
+      <button onClick={() => setCounter(counter + 1)}>Increment</button>
+      <button onClick={() => setCounter(counter - 1)}>Decrement</button>
+    </div>
+  )
+}
+```
+
+Not only is the hooks version shorter but it is also more readable. Being able
+to directly access both the state and an updater function takes a lot of the
+grudge out of writing React components.
+
+### Optimizing React Components and useEffect
+
+I'll admit, I was not always that great at seeing when a component should be
+pure or default. To put it lightly, pure components are components which are
+components that only re-render when either the state or props change. More often
+than not pure components end up towards the bottom of the react tree.
+
+React 16.8 is the first version to fully introduce a functional API along with a
+plethora of hooks that the React team developed like `useState` and `useRef`.
+One of the more notable ones is `useEffect` because of how versatile it is. The
+way `useEffect` works is dead simple. It only fires the function when of the
+dependencies in the dependency array changes.
+
+Let's take a look at an example. I'll use some of the same code from before:
+
+```jsx
+import React, {useState, useEffect} from "react"
+
+const Counter = () => {
+  const [counter, setCounter] = useState(0)
+
+  useEffect(() => {
+    console.log("Counter changed!")
+  }, [counter])
+
+  return (
+    <div>
+      <p>{counter}</p>
+      <button onClick={() => setCounter(counter + 1)}>Increment</button>
+      <button onClick={() => setCounter(counter - 1)}>Decrement</button>
+    </div>
+  )
+}
+```
+
+As you can see useEffect takes two parameters: a callback function and a
+dependecy array. Now you might be asking... what about componentDidMount? How do
+I repliacte this functionality in React hooks?
+
+Well, in order to mock the equivalent componentDidMount function all we have to
+do is leave the dependency array empty. I should note that even though we have
+specified an element in the dependency array, it will still fire on the intitial
+mount because the initial state is being set during this time.
+
+From traditional class components a conditional effect that does the same logic
+might look something like this:
+
+```jsx
+import React from "react"
+
+class Counter extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      counter: 0,
+    }
+  }
+
+  increment = () => {
+    this.setState(prevState => ({counter: prevState.counter + 1}))
+  }
+
+  decrement = () => {
+    this.setState(prevState => ({counter: prevState.counter - 1}))
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.counter !== nextState.counter) {
+      console.log("Counter changed!")
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <p>{this.state.counter}</p>
+        <button onClick={this.increment}>Increment</button>
+        <button onClick={this.decrement}>Decrement</button>
+      </div>
+    )
+  }
+}
+```
+
+Again, not only is this code longer but it is also a relatively simple effect
+that takes a ton of code to execute. The `useEffect` hook takes out all of the
+confusion in conditional effects and simplifies reactive programming
+significantly.
+
+### Reusable Logic
+
+One of the best things that React hooks offers to the table besides dead simple
+API's is the ability to reuse state and effect logic in custom hooks.
+
+Let's say that I was using the same counter logic in different parts of my React
+application. Instead of writing the same `useState` and `useEffect` functions
+over and over we can instead create a hook that encapsulates the logic.
+
+```jsx
+const useCounter = initialState => {
+  const [counter, setCounter] = useState(0)
+
+  useEffect(() => {
+    console.log("Counter changed!")
+  }, [counter])
+
+  return [counter, setCounter]
+}
+```
+
+This hook can now be used in other components like so:
+
+```jsx
+const MyComponent = () => {
+  const [counter, setCounter] = useCounter(0)
+
+  return <div>{counter}</div>
+}
+```
+
+Nice. Not only is this code clean and easy to use but its also scalable. We can
+easily add more effects to our useCounter hook that will change the effects of
+all the components which use it. No more copying and pasting the same logic.
+
+In addition there is a thriving community behind open sourcing useful React
+hooks. I would encourage you check out these links for some awesome open-source
+hooks:
+
+- https://github.com/rehooks/awesome-react-hooks
+- https://usehooks.com/
+- https://nikgraf.github.io/react-hooks/
+
+## In Conclusion
+
+I think that hooks was once of the best additions the React team could've done.
+Not only does it make functional reactive programming simple and intuitive, but
+it lesses the amount of overhaul that beginners need to face when first stating
+out in React. While there are still things that beginners should keep in mind,
+many of the complexities have been abstracted away which has its benefits and
+losses.
+
+I'm excited to see where React hooks take the future of React and can't wait to
+see the next thing that the React core team put out.

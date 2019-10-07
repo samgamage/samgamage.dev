@@ -11,7 +11,7 @@ class PostListing extends React.Component {
         path: postEdge.node.fields.slug,
         title: postEdge.node.frontmatter.title,
         date: postEdge.node.frontmatter.date,
-        excerpt: postEdge.node.excerpt,
+        description: postEdge.node.fields.description,
       })
     })
 
@@ -20,7 +20,7 @@ class PostListing extends React.Component {
 
   render() {
     const postList = this.getPostList()
-    console.log(postList)
+
     return (
       <React.Fragment>
         {postList.length > 0 ? (
@@ -35,7 +35,7 @@ class PostListing extends React.Component {
                 <Styled.h2>{post.title}</Styled.h2>
               </Styled.a>
               <Styled.p>{post.date}</Styled.p>
-              <Styled.p>{post.excerpt}</Styled.p>
+              <Styled.p>{post.description}</Styled.p>
             </React.Fragment>
           ))
         ) : (

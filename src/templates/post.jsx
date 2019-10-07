@@ -1,8 +1,8 @@
+/** @jsx jsx */
 import {graphql} from "gatsby"
 import {MDXRenderer} from "gatsby-plugin-mdx"
-import React from "react"
 import Helmet from "react-helmet"
-import {Styled} from "theme-ui"
+import {jsx, Styled} from "theme-ui"
 import config from "../../config/SiteConfig"
 import Container from "../components/Container"
 import SocialLinks from "../components/SocialLinks"
@@ -20,6 +20,16 @@ const PostTemplate = ({data}) => {
       </Helmet>
       <Container container>
         <Styled.h1>{post.frontmatter.title}</Styled.h1>
+        <p
+          sx={{
+            backgroundColor: "primary",
+            color: "white",
+            p: 3,
+            borderRadius: 5,
+          }}
+        >
+          {post.fields.description}
+        </p>
         <MDXRenderer>{post.body}</MDXRenderer>
         <SocialLinks postPath={post.fields.slug} postNode={postNode} />
         <UserInfo config={config} />
@@ -38,6 +48,7 @@ export const pageQuery = graphql`
       excerpt(pruneLength: 160)
       fields {
         slug
+        description
       }
       frontmatter {
         title

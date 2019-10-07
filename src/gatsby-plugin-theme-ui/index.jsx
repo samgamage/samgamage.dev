@@ -8,7 +8,7 @@ export default {
     text: "#000",
     background: "#fff",
     primary: "hsl(240, 100%, 57%)",
-    secondary: "hsl(260, 100%, 57%)",
+    secondary: "hsl(220, 100%, 57%)",
     accent: "hsl(280, 100%, 57%)",
     muted: "#f9f9fc",
     gray: "#555",
@@ -16,8 +16,8 @@ export default {
       dark: {
         text: "#fff",
         background: "hsl(180, 5%, 15%)",
-        primary: "hsl(180, 100%, 57%)",
-        secondary: "hsl(260, 100%, 57%)",
+        primary: "hsl(240, 100%, 57%)",
+        secondary: "hsl(220, 100%, 57%)",
         accent: "hsl(310, 100%, 57%)",
         muted: "hsl(180, 5%, 5%)",
         gray: "hsl(180, 0%, 70%)",
@@ -39,7 +39,7 @@ export default {
   },
   fontSizes: [14, 16, 18, 20, 24, 32, 48, 64, 72, 96],
   sizes: {
-    container: 960,
+    container: 728,
     wide: 1280,
   },
   type: {
@@ -181,6 +181,10 @@ export default {
       px: [3, 2, 2, 2, 0],
       width: "100%",
       maxWidth: "wide",
+    },
+    excerpt: {
+      backgroundColor: "gray",
+      px: 3,
     },
   },
 }

@@ -52,7 +52,7 @@ function Code({codeString, language, metastring}) {
                 <span
                   css={css`
                     display: inline-block;
-                    width: 2em;
+                    width: 2.5em;
                     user-select: none;
                     opacity: 0.3;
                     text-align: center;

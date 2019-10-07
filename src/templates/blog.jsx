@@ -25,9 +25,9 @@ export const pageQuery = graphql`
     allMdx(sort: {fields: [frontmatter___date], order: DESC}) {
       edges {
         node {
-          excerpt
           fields {
             slug
+            description
           }
           frontmatter {
             date(formatString: "MMMM DD, YYYY")
