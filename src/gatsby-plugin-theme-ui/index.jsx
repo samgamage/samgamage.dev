@@ -5,20 +5,25 @@ const transition = "all 0.2s ease"
 export default {
   initialColorMode: "light",
   colors: {
-    text: "#000",
+    text: {
+      lead: "#111",
+      default: "#404040",
+    },
     background: "#fff",
-    primary: "hsl(240, 100%, 57%)",
-    secondary: "hsl(220, 100%, 57%)",
-    accent: "hsl(280, 100%, 57%)",
+    primary: "#5183f5",
+    secondary: "#2161f2",
+    highlight: "rgba(81, 131, 245, 0.3)",
     muted: "#f9f9fc",
     gray: "#555",
     modes: {
       dark: {
-        text: "#fff",
-        background: "hsl(180, 5%, 15%)",
-        primary: "hsl(240, 100%, 57%)",
-        secondary: "hsl(220, 100%, 57%)",
-        accent: "hsl(310, 100%, 57%)",
+        text: {
+          lead: "#cecece",
+          default: "#b3b9c5",
+        },
+        background: "#202020",
+        primary: "#5183f5",
+        secondary: "#2161f2",
         muted: "hsl(180, 5%, 5%)",
         gray: "hsl(180, 0%, 70%)",
       },
@@ -39,8 +44,8 @@ export default {
   },
   fontSizes: [14, 16, 18, 20, 24, 32, 48, 64, 72, 96],
   sizes: {
-    container: 728,
-    wide: 1280,
+    container: 800,
+    wide: 800,
   },
   type: {
     heading: {
@@ -60,15 +65,15 @@ export default {
       fontFamily: "body",
       lineHeight: "body",
       fontSize: 2,
-      color: "text",
+      color: "text.default",
       backgroundColor: "background",
       transition,
     },
     p: {
-      color: "text",
+      color: "text.default",
     },
     a: {
-      color: "text",
+      color: "text.default",
       ":hover,:focus": {
         color: "secondary",
       },
@@ -76,26 +81,32 @@ export default {
     h1: {
       variant: "type.heading",
       fontSize: [5, 6],
+      color: "text.lead",
     },
     h2: {
       variant: "type.heading",
       fontSize: [4, 5],
+      color: "text.lead",
     },
     h3: {
       variant: "type.heading",
       fontSize: 4,
+      color: "text.lead",
     },
     h4: {
       variant: "type.heading",
       fontSize: 2,
+      color: "text.lead",
     },
     h5: {
       variant: "type.heading",
       fontSize: 1,
+      color: "text.lead",
     },
     h6: {
       variant: "type.heading",
       fontSize: 0,
+      color: "text.lead",
     },
     img: {
       maxWidth: "100%",
@@ -112,11 +123,11 @@ export default {
     },
     code: {
       fontFamily: "monospace",
-      color: "secondary",
+      color: "primary",
     },
     inlineCode: {
       fontFamily: "monospace",
-      color: "secondary",
+      color: "primary",
     },
     hr: {
       border: 0,
@@ -148,7 +159,7 @@ export default {
       textAlign: "left",
       py: 2,
       borderBottom: "1px solid",
-      borderColor: "text",
+      borderColor: "text.default",
     },
     blockquote: {
       fontWeight: "bold",
@@ -160,14 +171,14 @@ export default {
     },
     navlink: {
       alignItems: "center",
-      color: "text",
+      color: "text.default",
       textDecoration: "none",
     },
     navitem: {
       display: "inline-flex",
       alignItems: "center",
       fontWeight: "bold",
-      color: "text",
+      color: "text.default",
       mr: 3,
     },
     container: {

@@ -15,7 +15,7 @@ const ColorButton = ({mode, ...props}) => (
       display: "inline-block",
       appearance: "none",
       bg: "transparent",
-      color: "text",
+      color: "text.default",
       border: 0,
       cursor: "pointer",
     }}

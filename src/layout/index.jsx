@@ -1,8 +1,9 @@
 /** @jsx jsx */
 import {css, Global} from "@emotion/core"
+import styled from "@emotion/styled"
 import React, {useEffect, useRef, useState} from "react"
 import Helmet from "react-helmet"
-import {FaArrowCircleUp as ArrowUpBtn} from "react-icons/fa"
+import {FiArrowUp as ArrowUpBtn} from "react-icons/fi"
 import {jsx, Styled} from "theme-ui"
 import config from "../../config/SiteConfig"
 import Footer from "../components/Footer"
@@ -36,10 +37,7 @@ const useScrollPosition = () => {
   const tickingRef = useRef()
 
   const handleScroll = () => {
-    setScroll({
-      x: typeof window !== "undefined" && window.pageXOffset,
-      y: typeof window !== "undefined" && window.pageYOffset,
-    })
+    setScroll(typeof window !== "undefined" && window.pageYOffset)
     tickingRef.current = false
   }
 
@@ -104,9 +102,15 @@ const globalStyles = css`
   }
 `
 
+const Content = styled.div`
+  min-height: calc(100vh - 102px - 93px);
+  display: ${props => (props.centered ? "flex" : "")};
+  align-items: ${props => (props.centered ? "center" : "")};
+`
+
 const BackToTop = () => {
   const scrollBreakpoint = 1000
-  const {_, y: scrollY} = useScrollPosition()
+  const scrollY = useScrollPosition()
 
   const onArrowClick = () => {
     typeof window !== undefined &&
@@ -147,15 +151,7 @@ const MainLayout = ({children, centered = false}) => (
     <Styled.root>
       <Global styles={globalStyles} />
       <Header />
-      <div
-        sx={{
-          minHeight: "calc(100vh - 102px - 93px)",
-          display: centered ? "flex" : "",
-          alignItems: centered ? "center" : "",
-        }}
-      >
-        {children}
-      </div>
+      <Content centered={centered}>{children}</Content>
       <BackToTop />
       <Footer config={config} />
     </Styled.root>

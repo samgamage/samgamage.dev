@@ -7,7 +7,6 @@ import {jsx} from "theme-ui"
 const RE = /{([\d,-]+)}/
 
 const wrapperStyles = css`
-  overflow: auto;
   width: 100%;
 `
 
@@ -43,18 +42,23 @@ function Code({codeString, language, metastring}) {
             {tokens.map((line, i) => (
               <div
                 key={i}
+                sx={{
+                  backgroundColor: shouldHighlightLine(i) ? "highlight" : "",
+                  borderLeft: shouldHighlightLine(i) ? "2px solid" : "",
+                  borderLeftColor: "primary",
+                }}
                 {...getLineProps({
                   line,
                   key: i,
-                  className: shouldHighlightLine(i) ? "highlight-line" : "",
                 })}
               >
                 <span
                   css={css`
                     display: inline-block;
-                    width: 2.5em;
+                    width: 2em;
                     user-select: none;
                     opacity: 0.3;
+                    margin-right: 4px;
                     text-align: center;
                   `}
                 >

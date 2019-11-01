@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import styled from "@emotion/styled"
 import {graphql} from "gatsby"
 import {MDXRenderer} from "gatsby-plugin-mdx"
 import Helmet from "react-helmet"
@@ -8,6 +9,12 @@ import Container from "../components/Container"
 import SocialLinks from "../components/SocialLinks"
 import UserInfo from "../components/UserInfo"
 import Layout from "../layout"
+
+const Text = styled.p`
+  color: white;
+  padding: 1rem;
+  border-radius: 5px;
+`
 
 const PostTemplate = ({data}) => {
   const postNode = data.mdx
@@ -20,16 +27,7 @@ const PostTemplate = ({data}) => {
       </Helmet>
       <Container container>
         <Styled.h1>{post.frontmatter.title}</Styled.h1>
-        <p
-          sx={{
-            backgroundColor: "primary",
-            color: "white",
-            p: 3,
-            borderRadius: 5,
-          }}
-        >
-          {post.fields.description}
-        </p>
+        <Text sx={{backgroundColor: "primary"}}>{post.fields.description}</Text>
         <MDXRenderer>{post.body}</MDXRenderer>
         <SocialLinks postPath={post.fields.slug} postNode={postNode} />
         <UserInfo config={config} />

@@ -26,14 +26,17 @@ class PostListing extends React.Component {
         {postList.length > 0 ? (
           postList.map(post => (
             <React.Fragment>
-              <Styled.a
-                as={Link}
-                to={post.path}
-                key={post.title}
-                sx={{textDecoration: "underline", color: "text"}}
-              >
-                <Styled.h2>{post.title}</Styled.h2>
-              </Styled.a>
+              <Styled.h2>
+                <Styled.a
+                  as={Link}
+                  to={post.path}
+                  key={post.title}
+                  sx={{textDecoration: "underline", color: "text"}}
+                >
+                  {post.title}
+                </Styled.a>
+              </Styled.h2>
+
               <Styled.p>{post.date}</Styled.p>
               <Styled.p>{post.description}</Styled.p>
             </React.Fragment>

@@ -11,7 +11,7 @@ import Layout from "../layout"
 const AboutPage = ({data}) => {
   const {
     bioPic: {
-      childImageSharp: {fixed},
+      childImageSharp: {fluid},
     },
     resume: {publicURL: resumeDownloadRelativePath},
   } = data
@@ -29,7 +29,7 @@ const AboutPage = ({data}) => {
       <React.Fragment>
         <Helmet title={`About | ${config.siteTitle}`} />
         <Container container>
-          <Img fixed={fixed} />
+          <Img sx={{maxWidth: 300}} fluid={fluid} />
           <Styled.p>
             Samuel Gamage is an Atlanta-based software developer. Samuel is
             currently attending the{" "}
@@ -69,8 +69,8 @@ export const pageQuery = graphql`
   {
     bioPic: file(name: {eq: "bio_pic"}) {
       childImageSharp {
-        fixed(quality: 100) {
-          ...GatsbyImageSharpFixed_withWebp_tracedSVG
+        fluid(quality: 100) {
+          ...GatsbyImageSharpFluid_withWebp_tracedSVG
         }
       }
     }
