@@ -3,16 +3,14 @@ import { Link } from "gatsby";
 import React from "react";
 import { jsx, Styled } from "theme-ui";
 
-class PostListing extends React.Component {
-  getPostList() {
+class ProjectListing extends React.Component {
+  getProjectList() {
     const postList = [];
     this.props.postEdges.forEach(postEdge => {
       postList.push({
         path: postEdge.node.fields.slug,
         title: postEdge.node.frontmatter.title,
-        date: postEdge.node.frontmatter.date,
-        description: postEdge.node.fields.description,
-        timeToRead: postEdge.node.timeToRead
+        description: postEdge.node.fields.description
       });
     });
 
@@ -22,7 +20,7 @@ class PostListing extends React.Component {
   }
 
   render() {
-    const postList = this.getPostList();
+    const postList = this.getProjectList();
 
     return (
       <React.Fragment>
@@ -39,9 +37,6 @@ class PostListing extends React.Component {
                   {post.title}
                 </Styled.a>
               </Styled.h2>
-              <Styled.p sx={{ color: "gray" }}>
-                {post.date} • {post.timeToRead} minute read
-              </Styled.p>
               <Styled.p>{post.description}</Styled.p>
             </React.Fragment>
           ))
@@ -53,4 +48,4 @@ class PostListing extends React.Component {
   }
 }
 
-export default PostListing;
+export default ProjectListing;

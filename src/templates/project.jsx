@@ -6,8 +6,6 @@ import Helmet from "react-helmet";
 import { jsx, Styled } from "theme-ui";
 import config from "../../config/SiteConfig";
 import Container from "../components/Container";
-import SocialLinks from "../components/SocialLinks";
-import UserInfo from "../components/UserInfo";
 import Layout from "../layout";
 
 const Text = styled.p`
@@ -16,36 +14,31 @@ const Text = styled.p`
   border-radius: 5px;
 `;
 
-const PostTemplate = ({ data }) => {
-  const postNode = data.mdx;
-  const post = postNode;
+const ProjectTemplate = ({ data }) => {
+  const projectNode = data.mdx;
+  const project = projectNode;
 
   return (
     <Layout>
       <Helmet>
-        <title>{`${post.frontmatter.title} | ${config.siteTitle}`}</title>
+        <title>{`${project.frontmatter.title} | ${config.siteTitle}`}</title>
       </Helmet>
       <Container container>
-        <Styled.h1>{post.frontmatter.title}</Styled.h1>
-        <Styled.p sx={{ color: "gray" }}>
-          {post.timeToRead} minute read • {post.wordCount.words} words
-        </Styled.p>
+        <Styled.h1>{project.frontmatter.title}</Styled.h1>
         <Text sx={{ backgroundColor: "primary" }}>
-          {post.fields.description}
+          {project.fields.description}
         </Text>
-        <MDXRenderer>{post.body}</MDXRenderer>
-        <SocialLinks postPath={post.fields.slug} postNode={postNode} />
-        <UserInfo config={config} />
+        <MDXRenderer>{project.body}</MDXRenderer>
       </Container>
     </Layout>
   );
 };
 
-export default PostTemplate;
+export default ProjectTemplate;
 
 /* eslint no-undef: "off" */
 export const pageQuery = graphql`
-  query BlogPostById($id: String!) {
+  query ProjectById($id: String!) {
     mdx(fields: { id: { eq: $id } }) {
       id
       timeToRead

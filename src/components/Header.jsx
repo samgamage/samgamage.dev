@@ -1,12 +1,12 @@
 /** @jsx jsx */
-import {Link} from "gatsby"
-import {FaMoon as MoonFilled, FaRegMoon as MoonOutline} from "react-icons/fa"
-import {jsx, Styled, useColorMode} from "theme-ui"
-import theme from "../gatsby-plugin-theme-ui"
+import { Link } from "gatsby";
+import { FaMoon as MoonFilled, FaRegMoon as MoonOutline } from "react-icons/fa";
+import { jsx, Styled, useColorMode } from "theme-ui";
+import theme from "../gatsby-plugin-theme-ui";
 
-const modes = ["light", ...Object.keys(theme.colors.modes)]
+const modes = ["light", ...Object.keys(theme.colors.modes)];
 
-const ColorButton = ({mode, ...props}) => (
+const ColorButton = ({ mode, ...props }) => (
   <button
     {...props}
     type="button"
@@ -17,20 +17,20 @@ const ColorButton = ({mode, ...props}) => (
       bg: "transparent",
       color: "text.default",
       border: 0,
-      cursor: "pointer",
+      cursor: "pointer"
     }}
   >
     {mode === "dark" ? <MoonFilled size={24} /> : <MoonOutline size={24} />}
   </button>
-)
+);
 
 export default () => {
-  const [mode, setMode] = useColorMode()
+  const [mode, setMode] = useColorMode();
   const cycleMode = () => {
-    const i = modes.indexOf(mode)
-    const n = (i + 1) % modes.length
-    setMode(modes[n])
-  }
+    const i = modes.indexOf(mode);
+    const n = (i + 1) % modes.length;
+    setMode(modes[n]);
+  };
 
   return (
     <header
@@ -41,7 +41,7 @@ export default () => {
         maxWidth: "wide",
         mx: "auto",
         py: 4,
-        px: [3, 2, 2, 2, 0],
+        px: [3, 2, 2, 2, 0]
       }}
     >
       <Styled.a
@@ -50,7 +50,7 @@ export default () => {
         sx={{
           variant: "styles.navlink",
           fontWeight: "bold",
-          mr: 3,
+          mr: 3
         }}
       >
         Sam Gamage
@@ -62,13 +62,25 @@ export default () => {
         sx={{
           variant: "styles.navlink",
           fontWeight: "bold",
-          mr: 3,
+          mr: 3
         }}
       >
         Blog
       </Styled.a>
-      <div sx={{mx: "auto"}} />
+      <Styled.a
+        as={Link}
+        to="/projects"
+        activeClassName="active"
+        sx={{
+          variant: "styles.navlink",
+          fontWeight: "bold",
+          mr: 3
+        }}
+      >
+        Projects
+      </Styled.a>
+      <div sx={{ mx: "auto" }} />
       <ColorButton mode={mode} onClick={cycleMode} />
     </header>
-  )
-}
+  );
+};

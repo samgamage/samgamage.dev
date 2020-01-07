@@ -1,14 +1,14 @@
-const path = require("path")
+const path = require("path");
 
-const _ = require("lodash")
-const paginate = require("gatsby-awesome-pagination")
-const PAGINATION_OFFSET = 7
+const _ = require("lodash");
+const paginate = require("gatsby-awesome-pagination");
+const PAGINATION_OFFSET = 7;
 
-const createPosts = (createPage, createRedirect, edges) => {
-  edges.forEach(({node}, i) => {
-    const prev = i === 0 ? null : edges[i - 1].node
-    const next = i === edges.length - 1 ? null : edges[i + 1].node
-    const pagePath = node.fields.slug
+const createPosts = (createPage, createRedirect, edges, type) => {
+  edges.forEach(({ node }, i) => {
+    const prev = i === 0 ? null : edges[i - 1].node;
+    const next = i === edges.length - 1 ? null : edges[i + 1].node;
+    const pagePath = node.fields.slug;
 
     if (node.fields.redirects) {
       node.fields.redirects.forEach(fromPath => {
@@ -16,43 +16,44 @@ const createPosts = (createPage, createRedirect, edges) => {
           fromPath,
           toPath: pagePath,
           redirectInBrowser: true,
-          isPermanent: true,
-        })
-      })
+          isPermanent: true
+        });
+      });
     }
 
     createPage({
       path: pagePath,
-      component: path.resolve(`./src/templates/post.jsx`),
+      component: path.resolve(`./src/templates/${type}.jsx`),
       context: {
         id: node.id,
         prev,
-        next,
-      },
-    })
-  })
-}
+        next
+      }
+    });
+  });
+};
 
-const createPaginatedPages = (createPage, edges, pathPrefix, context) => {
+const createPaginatedPages = (createPage, edges, pathPrefix, context, type) => {
   const pages = edges.reduce((acc, value, index) => {
-    const pageIndex = Math.floor(index / PAGINATION_OFFSET)
+    const pageIndex = Math.floor(index / PAGINATION_OFFSET);
 
     if (!acc[pageIndex]) {
-      acc[pageIndex] = []
+      acc[pageIndex] = [];
     }
 
-    acc[pageIndex].push(value.node.id)
+    acc[pageIndex].push(value.node.id);
 
-    return acc
-  }, [])
+    return acc;
+  }, []);
 
   pages.forEach((page, index) => {
-    const previousPagePath = `${pathPrefix}/${index + 1}`
-    const nextPagePath = index === 1 ? pathPrefix : `${pathPrefix}/${index - 1}`
+    const previousPagePath = `${pathPrefix}/${index + 1}`;
+    const nextPagePath =
+      index === 1 ? pathPrefix : `${pathPrefix}/${index - 1}`;
 
     createPage({
       path: index > 0 ? `${pathPrefix}/${index}` : `${pathPrefix}`,
-      component: path.resolve(`src/templates/blog.jsx`),
+      component: path.resolve(`src/templates/${type}.jsx`),
       context: {
         pagination: {
           page,
@@ -60,15 +61,15 @@ const createPaginatedPages = (createPage, edges, pathPrefix, context) => {
           previousPagePath:
             index === pages.length - 1 ? null : previousPagePath,
           pageCount: pages.length,
-          pathPrefix,
+          pathPrefix
         },
-        ...context,
-      },
-    })
-  })
-}
+        ...context
+      }
+    });
+  });
+};
 
-exports.createPages = ({actions, graphql}) =>
+exports.createPages = ({ actions, graphql }) =>
   graphql(`
     fragment PostFields on Mdx {
       id
@@ -83,13 +84,14 @@ exports.createPages = ({actions, graphql}) =>
         title
         slug
         date
+        type
       }
     }
 
     {
       allMdx(
-        filter: {frontmatter: {published: {ne: false}}}
-        sort: {order: DESC, fields: [frontmatter___date]}
+        filter: { frontmatter: { published: { ne: false } } }
+        sort: { order: DESC, fields: [frontmatter___date] }
       ) {
         edges {
           next {
@@ -104,100 +106,132 @@ exports.createPages = ({actions, graphql}) =>
         }
       }
     }
-  `).then(({data, errors}) => {
+  `).then(({ data, errors }) => {
     if (errors) {
-      return Promise.reject(errors)
+      return Promise.reject(errors);
     }
 
     if (_.isEmpty(data.allMdx)) {
-      return Promise.reject("There are no posts!")
+      return Promise.reject("There are no posts!");
     }
 
-    const {edges} = data.allMdx
-    const {createRedirect, createPage} = actions
-    createPosts(createPage, createRedirect, edges)
-    createPaginatedPages(actions.createPage, edges, "/blog", {
-      categories: [],
-    })
-  })
+    const { edges } = data.allMdx;
+    const { createRedirect, createPage } = actions;
 
-exports.onCreateWebpackConfig = ({actions}) => {
+    const projectEdges = edges.filter(
+      edge => edge.node.fields.type === "project"
+    );
+    const postEdges = edges.filter(edge => edge.node.fields.type === "post");
+
+    createPosts(createPage, createRedirect, postEdges, "post");
+    createPosts(createPage, createRedirect, projectEdges, "project");
+    createPaginatedPages(
+      actions.createPage,
+      edges,
+      "/blog",
+      {
+        categories: []
+      },
+      "blog"
+    );
+    createPaginatedPages(
+      actions.createPage,
+      edges,
+      "/projects",
+      {
+        categories: []
+      },
+      "projects"
+    );
+  });
+
+exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
     resolve: {
       modules: [path.resolve(__dirname, "src"), "node_modules"],
       alias: {
-        $components: path.resolve(__dirname, "src/components"),
-      },
-    },
-  })
-}
+        $components: path.resolve(__dirname, "src/components")
+      }
+    }
+  });
+};
 
-exports.onCreateNode = ({node, getNode, actions}) => {
-  const {createNodeField} = actions
+exports.onCreateNode = ({ node, getNode, actions }) => {
+  const { createNodeField } = actions;
 
   if (node.internal.type === `Mdx`) {
-    const parent = getNode(node.parent)
-    const titleSlugged = _.join(_.drop(parent.name.split("-"), 3), "-")
+    const parent = getNode(node.parent);
+    const { sourceInstanceName } = parent;
+    let slug;
+    const titleSlugged = _.join(_.drop(parent.name.split("-"), 3), "-");
 
-    const slug =
-      parent.sourceInstanceName === "legacy"
-        ? `blog/${node.frontmatter.date
-            .split("T")[0]
-            .replace(/-/g, "/")}/${titleSlugged}`
-        : "/blog/" + node.frontmatter.slug || titleSlugged
+    if (sourceInstanceName === "posts") {
+      slug = "/blog/" + node.frontmatter.slug || titleSlugged;
+    } else {
+      slug = "/projects/" + node.frontmatter.slug || titleSlugged;
+    }
 
     createNodeField({
       name: "id",
       node,
-      value: node.id,
-    })
+      value: node.id
+    });
 
     createNodeField({
       name: "published",
       node,
-      value: node.frontmatter.published,
-    })
+      value: node.frontmatter.published
+    });
 
     createNodeField({
       name: "title",
       node,
-      value: node.frontmatter.title,
-    })
+      value: node.frontmatter.title
+    });
 
     createNodeField({
       name: "description",
       node,
-      value: node.frontmatter.description,
-    })
+      value: node.frontmatter.description
+    });
 
     createNodeField({
       name: "slug",
       node,
-      value: slug,
-    })
+      value: slug
+    });
 
     createNodeField({
       name: "date",
       node,
-      value: node.frontmatter.date ? node.frontmatter.date.split(" ")[0] : "",
-    })
+      value: node.frontmatter.date ? node.frontmatter.date.split(" ")[0] : ""
+    });
+
+    createNodeField({
+      name: "type",
+      node,
+      value:
+        typeof sourceInstanceName === "string"
+          ? sourceInstanceName.substring(0, sourceInstanceName.length - 1)
+          : sourceInstanceName
+    });
 
     createNodeField({
       name: "tags",
       node,
-      value: node.frontmatter.tags || [],
-    })
+      value: node.frontmatter.tags || []
+    });
 
     createNodeField({
       name: "keywords",
       node,
-      value: node.frontmatter.keywords || [],
-    })
+      value: node.frontmatter.keywords || []
+    });
 
     createNodeField({
       name: "redirects",
       node,
-      value: node.frontmatter.redirects,
-    })
+      value: node.frontmatter.redirects
+    });
   }
-}
+};

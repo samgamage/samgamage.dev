@@ -3,28 +3,28 @@ import React from "react";
 import Helmet from "react-helmet";
 import config from "../../config/SiteConfig";
 import Container from "../components/Container";
-import PostListing from "../components/PostListing";
+import ProjectListing from "../components/ProjectListing";
 import Layout from "../layout";
 
-const Blog = props => {
-  const postEdges = props.data.allMdx.edges;
+const Projects = props => {
+  const projectEdges = props.data.allMdx.edges;
   return (
     <Layout>
-      <Helmet title={`Blog | ${config.siteTitle}`} />
+      <Helmet title={`Projects | ${config.siteTitle}`} />
       <Container>
-        <PostListing postEdges={postEdges} />
+        <ProjectListing postEdges={projectEdges} />
       </Container>
     </Layout>
   );
 };
 
-export default Blog;
+export default Projects;
 
 export const pageQuery = graphql`
-  query BlogQuery {
+  query ProjectsQuery {
     allMdx(
       sort: { fields: [frontmatter___date], order: DESC }
-      filter: { fields: { type: { eq: "post" } } }
+      filter: { fields: { type: { eq: "project" } } }
     ) {
       edges {
         node {
