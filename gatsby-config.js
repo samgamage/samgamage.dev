@@ -85,19 +85,21 @@ module.exports = {
         short_name: config.siteTitleShort,
         description: config.siteDescription,
         start_url: config.pathPrefix,
-        display: "minimal-ui",
-        icons: [
-          {
-            src: "/logos/logo-192x192.png",
-            sizes: "192x192",
-            type: "image/png"
-          },
-          {
-            src: "/logos/logo-512x512.png",
-            sizes: "512x512",
-            type: "image/png"
-          }
-        ]
+        background_color: "#fff",
+        theme_color: "#202020",
+        display: "minimal-ui"
+        // icons: [
+        //   {
+        //     src: "/logos/logo-192x192.png",
+        //     sizes: "192x192",
+        //     type: "image/png"
+        //   },
+        //   {
+        //     src: "/logos/logo-512x512.png",
+        //     sizes: "512x512",
+        //     type: "image/png"
+        //   }
+        // ]
       }
     },
     "gatsby-plugin-offline"
