@@ -1,15 +1,10 @@
 /** @jsx jsx */
-import {Link} from "gatsby"
-import {Component} from "react"
-import {jsx, Styled} from "theme-ui"
+import { Link } from "gatsby";
+import { Component } from "react";
+import { jsx, Styled } from "theme-ui";
 
 class Footer extends Component {
   render() {
-    const {config} = this.props
-    const {copyright} = config
-    if (!copyright) {
-      return null
-    }
     return (
       <footer
         sx={{
@@ -17,7 +12,7 @@ class Footer extends Component {
           width: "100%",
           maxWidth: "wide",
           mx: "auto",
-          px: [3, 2, 2, 2, 0],
+          px: [3, 2, 2, 2, 0]
         }}
       >
         <div
@@ -25,14 +20,14 @@ class Footer extends Component {
             display: "flex",
             flexWrap: "wrap",
             alignItems: "center",
-            fontSize: 0,
+            fontSize: 0
           }}
         >
           <Styled.a
             as={Link}
             to="/"
             sx={{
-              variant: "styles.navitem",
+              variant: "styles.navitem"
             }}
           >
             Sam Gamage
@@ -41,7 +36,7 @@ class Footer extends Component {
             as={Link}
             to="/blog"
             sx={{
-              variant: "styles.navitem",
+              variant: "styles.navitem"
             }}
           >
             Blog
@@ -50,19 +45,19 @@ class Footer extends Component {
             as={Link}
             to="/about"
             sx={{
-              variant: "styles.navitem",
+              variant: "styles.navitem"
             }}
           >
             About
           </Styled.a>
-          <div sx={{mx: "auto"}} />
-          <div sx={{my: 2, variant: "styles.navitem"}}>
-            © 2019 Samuel Gamage
+          <div sx={{ mx: "auto" }} />
+          <div sx={{ my: 2, variant: "styles.navitem" }}>
+            © 2020 Samuel Gamage
           </div>
         </div>
       </footer>
-    )
+    );
   }
 }
 
-export default Footer
+export default Footer;
