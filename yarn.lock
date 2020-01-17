@@ -5704,13 +5704,6 @@ gatsby-plugin-feed@^2.2.0:
     lodash.merge "^4.6.2"
     rss "^1.2.2"
 
-gatsby-plugin-google-analytics@^2.0.19:
-  version "2.1.17"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-google-analytics/-/gatsby-plugin-google-analytics-2.1.17.tgz#aaa030ff063b356e9413cfcb4b30cfcc1910de3b"
-  integrity sha512-l+sqqHHLmbVx7XQOLTsPNQp3bKOwNcXANVOmFBumR3tBKrwS3oMfn0+/K/uzVESJ3oq2GRvKSMW6NWEoUtuo/Q==
-  dependencies:
-    "@babel/runtime" "^7.6.0"
-
 gatsby-plugin-lodash@^3.0.5:
   version "3.1.8"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-lodash/-/gatsby-plugin-lodash-3.1.8.tgz#c264eae98714bc8f590badfe25b3533c789fbd27"
