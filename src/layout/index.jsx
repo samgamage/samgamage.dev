@@ -1,71 +1,72 @@
 /** @jsx jsx */
-import {css, Global} from "@emotion/core"
-import styled from "@emotion/styled"
-import React, {useEffect, useRef, useState} from "react"
-import Helmet from "react-helmet"
-import {FiArrowUp as ArrowUpBtn} from "react-icons/fi"
-import {jsx, Styled} from "theme-ui"
-import config from "../../config/SiteConfig"
-import Footer from "../components/Footer"
-import Header from "../components/Header"
+import { css, Global } from "@emotion/core";
+import styled from "@emotion/styled";
+import React, { useEffect, useRef, useState } from "react";
+import Helmet from "react-helmet";
+import { FiArrowUp as ArrowUpBtn } from "react-icons/fi";
+import { jsx, Styled } from "theme-ui";
+import config from "../../config/SiteConfig";
+import Footer from "../components/Footer";
+import Header from "../components/Header";
 
-let hasPassiveSupport
+let hasPassiveSupport;
 const getHasPassiveEventSupport = () => {
   if (typeof hasPassiveSupport === "boolean") {
-    return hasPassiveSupport
+    return hasPassiveSupport;
   }
 
-  hasPassiveSupport = false
+  hasPassiveSupport = false;
 
   try {
     const opts = Object.defineProperty({}, "passive", {
       get() {
-        hasPassiveSupport = true
-        return hasPassiveSupport
-      },
-    })
+        hasPassiveSupport = true;
+        return hasPassiveSupport;
+      }
+    });
 
-    typeof window !== "undefined" && window.addEventListener("test", null, opts)
+    typeof window !== "undefined" &&
+      window.addEventListener("test", null, opts);
   } catch (e) {
-    hasPassiveSupport = false
+    hasPassiveSupport = false;
   }
 
-  return hasPassiveSupport
-}
+  return hasPassiveSupport;
+};
 const useScrollPosition = () => {
-  const [scroll, setScroll] = useState({x: 0, y: 0})
-  const tickingRef = useRef()
+  const [scroll, setScroll] = useState({ x: 0, y: 0 });
+  const tickingRef = useRef();
 
   const handleScroll = () => {
-    setScroll(typeof window !== "undefined" && window.pageYOffset)
-    tickingRef.current = false
-  }
+    setScroll(typeof window !== "undefined" && window.pageYOffset);
+    tickingRef.current = false;
+  };
 
   const onScroll = () => {
     if (tickingRef.current) {
-      return
+      return;
     }
 
-    tickingRef.current = true
-    typeof window !== "undefined" && window.requestAnimationFrame(handleScroll)
-  }
+    tickingRef.current = true;
+    typeof window !== "undefined" && window.requestAnimationFrame(handleScroll);
+  };
 
   useEffect(() => {
     typeof window !== "undefined" &&
       window.addEventListener(
         "scroll",
         onScroll,
-        getHasPassiveEventSupport() ? {passive: true} : false,
-      )
+        getHasPassiveEventSupport() ? { passive: true } : false
+      );
 
     return () => {
       typeof window !== "undefined" &&
-        window.removeEventListener("scroll", onScroll)
-    }
-  }, [])
+        window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
 
-  return scroll
-}
+  return scroll;
+};
 
 const globalStyles = css`
   * {
@@ -100,22 +101,22 @@ const globalStyles = css`
     margin: 0 -10px;
     padding: 0 5px;
   }
-`
+`;
 
 const Content = styled.div`
   min-height: calc(100vh - 102px - 93px);
   display: ${props => (props.centered ? "flex" : "")};
   align-items: ${props => (props.centered ? "center" : "")};
-`
+`;
 
 const BackToTop = () => {
-  const scrollBreakpoint = 1000
-  const scrollY = useScrollPosition()
+  const scrollBreakpoint = 1000;
+  const scrollY = useScrollPosition();
 
   const onArrowClick = () => {
     typeof window !== undefined &&
-      window.scrollTo({left: 0, top: 0, behavior: "smooth"})
-  }
+      window.scrollTo({ left: 0, top: 0, behavior: "smooth" });
+  };
 
   return (
     <div
@@ -124,7 +125,7 @@ const BackToTop = () => {
         right: 4,
         bottom: 4,
         transition: "all 0.2s ease",
-        opacity: scrollY > scrollBreakpoint ? 1 : 0,
+        opacity: scrollY > scrollBreakpoint ? 1 : 0
       }}
     >
       <ArrowUpBtn
@@ -132,8 +133,8 @@ const BackToTop = () => {
           ":hover": {
             transition: "all 0.2s ease",
             color: "secondary",
-            cursor: "pointer",
-          },
+            cursor: "pointer"
+          }
         }}
         title="Back To Top"
         type="button"
@@ -141,12 +142,13 @@ const BackToTop = () => {
         size={40}
       />
     </div>
-  )
-}
-const MainLayout = ({children, centered = false}) => (
+  );
+};
+const MainLayout = ({ children, centered = false }) => (
   <React.Fragment>
     <Helmet>
       <meta name="description" content={config.siteDescription} />
+      <html lang="en" />
     </Helmet>
     <Styled.root>
       <Global styles={globalStyles} />
@@ -156,6 +158,6 @@ const MainLayout = ({children, centered = false}) => (
       <Footer config={config} />
     </Styled.root>
   </React.Fragment>
-)
+);
 
-export default MainLayout
+export default MainLayout;
