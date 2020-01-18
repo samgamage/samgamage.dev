@@ -18,6 +18,32 @@ module.exports = {
   plugins: [
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-lodash",
+    "gatsby-plugin-sharp",
+    "gatsby-transformer-sharp",
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        extensions: [".mdx", ".md"],
+        gatsbyRemarkPlugins: [
+          {
+            resolve: "gatsby-remark-images",
+            options: {
+              maxWidth: 1200,
+              withWebp: true
+            }
+          },
+          {
+            resolve: `gatsby-remark-responsive-iframe`,
+            options: {
+              wrapperStyle: `margin-bottom: 1.0725rem`
+            }
+          },
+          {
+            resolve: `gatsby-remark-smartypants`
+          }
+        ]
+      }
+    },
     {
       resolve: "gatsby-source-filesystem",
       options: {
@@ -39,36 +65,6 @@ module.exports = {
         path: `${__dirname}/content/projects`
       }
     },
-    {
-      resolve: `gatsby-plugin-mdx`,
-      options: {
-        extensions: [".mdx", ".md"],
-        gatsbyRemarkPlugins: [
-          {
-            resolve: "gatsby-remark-images",
-            options: {
-              backgroundColor: "#fafafa",
-              maxWidth: 1035
-            }
-          },
-          {
-            resolve: `gatsby-remark-responsive-iframe`,
-            options: {
-              wrapperStyle: `margin-bottom: 1.0725rem`
-            }
-          },
-          {
-            resolve: `gatsby-remark-copy-linked-files`
-          },
-
-          {
-            resolve: `gatsby-remark-smartypants`
-          }
-        ]
-      }
-    },
-    "gatsby-transformer-sharp",
-    "gatsby-plugin-sharp",
     "gatsby-plugin-catch-links",
     "gatsby-plugin-twitter",
     "gatsby-plugin-theme-ui",
