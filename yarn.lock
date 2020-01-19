@@ -4730,6 +4730,20 @@ elliptic@^6.0.0:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.0"
 
+embla-carousel-react@^1.2.10:
+  version "1.2.10"
+  resolved "https://registry.yarnpkg.com/embla-carousel-react/-/embla-carousel-react-1.2.10.tgz#dd34785e7deeb7e253eb6a4e45ce08cb1a40d201"
+  integrity sha512-BkqZfmvCrsi7O5rlrHxHUPJ9NLVcLeNPTJFK1CZkfIXQWHPX2xDczYcwy/Yc755Gv7g0hV9y8nGD897DwwWGyA==
+  dependencies:
+    embla-carousel "^2.6.6"
+    react "^16.8.6"
+    react-dom "^16.8.6"
+
+embla-carousel@^2.6.6:
+  version "2.6.7"
+  resolved "https://registry.yarnpkg.com/embla-carousel/-/embla-carousel-2.6.7.tgz#efa88de8df13d74963e63c661961baebbcd318ab"
+  integrity sha512-UPP6jSHu+ShIBzRSo1UPt5LhUnScKVkN2sZ0n8BuqUgvLi663OBjvu/oCUcEEp5loYP4SEkYsvDbNHa1uVI+8g==
+
 "emoji-regex@>=6.0.0 <=6.1.1":
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-6.1.1.tgz#c6cd0ec1b0642e2a3c67a1137efc5e796da4f88e"
@@ -11404,7 +11418,7 @@ react-disqus-comments@^1.4.0:
   resolved "https://registry.yarnpkg.com/react-disqus-comments/-/react-disqus-comments-1.4.0.tgz#bf56ff319a35d086f3070d31a4f70ed21ce3a958"
   integrity sha512-NkCNsnBSujliii5N2HbA6Wy5z2s6GtCtPaJ0D6GWNMSKnP8wmEtQ3u2qAeG9+xHJE2cMRFmfqMpDeJtBay38RA==
 
-react-dom@^16.12.0:
+react-dom@^16.12.0, react-dom@^16.8.6:
   version "16.12.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.12.0.tgz#0da4b714b8d13c2038c9396b54a92baea633fe11"
   integrity sha512-LMxFfAGrcS3kETtQaCkTKjMiifahaMySFDn71fZUNpPHZQEzmk/GiAeIT8JSOrHB23fnuCOMruL2a8NYlw+8Gw==
@@ -11508,7 +11522,7 @@ react-twitter-widgets@^1.7.1:
     prop-types "^15.3.0"
     scriptjs "^2.5.8"
 
-react@^16.12.0:
+react@^16.12.0, react@^16.8.6:
   version "16.12.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.12.0.tgz#0c0a9c6a142429e3614834d5a778e18aa78a0b83"
   integrity sha512-fglqy3k5E+81pA8s+7K0/T3DBCF0ZDOher1elBFzF7O6arXJgzyu/FW+COxFvAWXJoJN9KIZbT2LXlukwphYTA==
