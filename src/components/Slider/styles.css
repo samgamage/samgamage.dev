@@ -1,0 +1,66 @@
+.carousel {
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 60rem;
+  width: 100%;
+}
+
+.carousel__wrap {
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.carousel__viewport {
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel__viewport.is-draggable {
+  cursor: move;
+  cursor: grab;
+}
+
+.carousel__viewport.is-dragging {
+  cursor: grabbing;
+}
+
+.carousel__container {
+  display: flex;
+}
+
+.carousel__item {
+  position: relative;
+  flex: 0 0 80%;
+  padding: 0 1rem;
+}
+
+.carousel__arrowBtn {
+  background-color: transparent;
+  position: absolute;
+  transform: translateY(-50%);
+  top: 50%;
+  width: 2rem;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+}
+
+.carousel__arrowBtn:disabled {
+  fill: #e9e9e9;
+  opacity: 0.5;
+}
+
+.carousel__arrowBtn--prev {
+  left: calc(5% - 2.5rem);
+}
+
+.carousel__arrowBtn--next {
+  right: calc(5% - 2.5rem);
+}
+
+.carousel__arrowBtn__svg {
+  width: 2rem;
+  height: 2rem;
+}

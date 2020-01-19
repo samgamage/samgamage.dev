@@ -26,13 +26,6 @@ module.exports = {
         extensions: [".mdx", ".md"],
         gatsbyRemarkPlugins: [
           {
-            resolve: "gatsby-remark-images",
-            options: {
-              maxWidth: 1200,
-              withWebp: true
-            }
-          },
-          {
             resolve: `gatsby-remark-responsive-iframe`,
             options: {
               wrapperStyle: `margin-bottom: 1.0725rem`
