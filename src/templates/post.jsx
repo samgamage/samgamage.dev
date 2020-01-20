@@ -6,6 +6,7 @@ import Helmet from "react-helmet";
 import { jsx, Styled } from "theme-ui";
 import config from "../../config/SiteConfig";
 import Container from "../components/Container";
+import SEO from "../components/SEO";
 import SocialLinks from "../components/SocialLinks";
 import UserInfo from "../components/UserInfo";
 import Layout from "../layout";
@@ -25,6 +26,7 @@ const PostTemplate = ({ data }) => {
       <Helmet>
         <title>{`${post.frontmatter.title} | ${config.siteTitle}`}</title>
       </Helmet>
+      <SEO postPath={post.fields.slug} postNode={postNode} postSEO />
       <Container container>
         <Styled.h1>{post.frontmatter.title}</Styled.h1>
         <Styled.p sx={{ color: "gray" }}>

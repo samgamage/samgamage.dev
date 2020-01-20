@@ -1,22 +1,18 @@
 /** @jsx jsx */
 import Helmet from "react-helmet";
-import {
-  FaGithub as GitHub,
-  FaLinkedin as LinkedIn,
-  FaMedium as Medium,
-  FaTwitter as Twitter,
-  FaYoutube as Youtube
-} from "react-icons/fa";
+import { FaGithub as GitHub, FaLinkedin as LinkedIn, FaMedium as Medium, FaTwitter as Twitter, FaYoutube as Youtube } from "react-icons/fa";
 import { jsx, Styled } from "theme-ui";
 import config from "../../config/SiteConfig";
 import Container from "../components/Container";
 import HorizontalList from "../components/HorziontalList";
+import SEO from "../components/SEO";
 import Layout from "../layout";
 
 const Index = () => {
   return (
     <Layout centered>
       <Helmet title={config.siteTitle} />
+      <SEO />
       <Container>
         <Styled.h1>Samuel Gamage</Styled.h1>
         <Styled.p>Software Developer based in Atlanta, GA</Styled.p>
