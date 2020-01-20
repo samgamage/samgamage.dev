@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import SEO from "components/SEO";
 import { graphql } from "gatsby";
 import Img from "gatsby-image";
 import React from "react";
@@ -28,6 +29,7 @@ const AboutPage = ({ data }) => {
     <Layout>
       <React.Fragment>
         <Helmet title={`About | ${config.siteTitle}`} />
+        <SEO />
         <Container container>
           <Img sx={{ maxWidth: 300 }} fluid={fluid} />
           <Styled.p>
