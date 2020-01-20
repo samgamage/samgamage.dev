@@ -12,7 +12,7 @@ const config = {
   postDefaultCategoryID: "Tech", // Default category for posts.
   dateFromFormat: "YYYY-MM-DD", // Date format used in the frontmatter.
   dateFormat: "DD/MM/YYYY", // Date format for display.
-  userTwitter: "https://twitter.com/sambgamage", // Optionally renders "Follow Me" in the UserInfo segment.
+  userTwitter: "https://twitter.com/samgamage24", // Optionally renders "Follow Me" in the UserInfo segment.
   userEmail: "sammygamage@gmail.com"
 };
 
