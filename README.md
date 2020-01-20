@@ -1,6 +1,8 @@
 # samgamage.dev
 
-Built with <3 from the amazing [Gatsby.js](https://www.gatsbyjs.org/),
+![perfect lighthouse audit score and PWA](static/files/100.png)
+
+Built with <3 with the amazing [Gatsby.js](https://www.gatsbyjs.org/),
 [MDX](https://github.com/mdx-js/mdx) and [Theme-UI](https://theme-ui.com/).
 
 ## 🖼️ Features
