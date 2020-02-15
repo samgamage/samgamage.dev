@@ -1,13 +1,13 @@
-import prism from "@theme-ui/prism/presets/theme-ui"
+import prism from "@theme-ui/prism/presets/theme-ui";
 
-const transition = "all 0.2s ease"
+const transition = "all 0.2s ease";
 
 export default {
   initialColorMode: "light",
   colors: {
     text: {
       lead: "#111",
-      default: "#404040",
+      default: "#404040"
     },
     background: "#fff",
     primary: "#5183f5",
@@ -19,45 +19,43 @@ export default {
       dark: {
         text: {
           lead: "#cecece",
-          default: "#b3b9c5",
+          default: "#b3b9c5"
         },
         background: "#202020",
-        primary: "#5183f5",
-        secondary: "#2161f2",
         muted: "hsl(180, 5%, 5%)",
-        gray: "hsl(180, 0%, 70%)",
-      },
-    },
+        gray: "hsl(180, 0%, 70%)"
+      }
+    }
   },
   fonts: {
     body: "system-ui, sans-serif",
-    monospace: '"Roboto Mono", Menlo, monospace',
+    monospace: '"Roboto Mono", Menlo, monospace'
   },
   lineHeights: {
     body: 1.625,
-    heading: 1.25,
+    heading: 1.25
   },
   fontWeights: {
     body: 400,
     heading: 800,
-    bold: 700,
+    bold: 700
   },
   fontSizes: [14, 16, 18, 20, 24, 32, 48, 64, 72, 96],
   sizes: {
     container: 800,
-    wide: 800,
+    wide: 800
   },
   type: {
     heading: {
       fontWeight: "heading",
       lineHeight: "heading",
       mt: 4,
-      mb: 3,
+      mb: 3
     },
     small: {
       fontWeight: "bold",
-      fontSize: 0,
-    },
+      fontSize: 0
+    }
   },
   prism,
   styles: {
@@ -67,50 +65,50 @@ export default {
       fontSize: 2,
       color: "text.default",
       backgroundColor: "background",
-      transition,
+      transition
     },
     p: {
-      color: "text.default",
+      color: "text.default"
     },
     a: {
       color: "text.default",
       ":hover,:focus": {
-        color: "secondary",
-      },
+        color: "secondary"
+      }
     },
     h1: {
       variant: "type.heading",
       fontSize: [5, 6],
-      color: "text.lead",
+      color: "text.lead"
     },
     h2: {
       variant: "type.heading",
       fontSize: [4, 5],
-      color: "text.lead",
+      color: "text.lead"
     },
     h3: {
       variant: "type.heading",
       fontSize: 4,
-      color: "text.lead",
+      color: "text.lead"
     },
     h4: {
       variant: "type.heading",
       fontSize: 2,
-      color: "text.lead",
+      color: "text.lead"
     },
     h5: {
       variant: "type.heading",
       fontSize: 1,
-      color: "text.lead",
+      color: "text.lead"
     },
     h6: {
       variant: "type.heading",
       fontSize: 0,
-      color: "text.lead",
+      color: "text.lead"
     },
     img: {
       maxWidth: "100%",
-      height: "auto",
+      height: "auto"
     },
     pre: {
       fontFamily: "monospace",
@@ -119,21 +117,21 @@ export default {
       p: 3,
       borderRadius: 8,
       overflowX: "auto",
-      variant: "prism",
+      variant: "prism"
     },
     code: {
       fontFamily: "monospace",
-      color: "primary",
+      color: "primary"
     },
     inlineCode: {
       fontFamily: "monospace",
-      color: "primary",
+      color: "primary"
     },
     hr: {
       border: 0,
       my: 4,
       borderBottom: "1px solid",
-      borderColor: "muted",
+      borderColor: "muted"
     },
     table: {
       width: "100%",
@@ -141,25 +139,25 @@ export default {
       borderCollapse: "collapse",
       borderSpacing: 0,
       "td+td": {
-        width: "auto",
+        width: "auto"
       },
       p: {
-        margin: 1,
-      },
+        margin: 1
+      }
     },
     tr: {
-      width: "100%",
+      width: "100%"
     },
     th: {
       textAlign: "left",
       py: 2,
-      borderBottomStyle: "solid",
+      borderBottomStyle: "solid"
     },
     td: {
       textAlign: "left",
       py: 2,
       borderBottom: "1px solid",
-      borderColor: "text.default",
+      borderColor: "text.default"
     },
     blockquote: {
       fontWeight: "bold",
@@ -167,35 +165,35 @@ export default {
       mx: 0,
       px: 3,
       my: 5,
-      borderLeft: "4px solid",
+      borderLeft: "4px solid"
     },
     navlink: {
       alignItems: "center",
       color: "text.default",
-      textDecoration: "none",
+      textDecoration: "none"
     },
     navitem: {
       display: "inline-flex",
       alignItems: "center",
       fontWeight: "bold",
       color: "text.default",
-      mr: 3,
+      mr: 3
     },
     container: {
       mx: "auto",
       px: [3, 2, 2, 2, 0],
       width: "100%",
-      maxWidth: "container",
+      maxWidth: "container"
     },
     wide: {
       mx: "auto",
       px: [3, 2, 2, 2, 0],
       width: "100%",
-      maxWidth: "wide",
+      maxWidth: "wide"
     },
     excerpt: {
       backgroundColor: "gray",
-      px: 3,
-    },
-  },
-}
+      px: 3
+    }
+  }
+};

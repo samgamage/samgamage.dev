@@ -1,6 +1,12 @@
+[![Code Climate](https://codeclimate.com/github/Vagr9K/gatsby-advanced-starter/badges/gpa.svg)](https://codeclimate.com/github/Vagr9K/gatsby-advanced-starter)
+[![Issue Count](https://codeclimate.com/github/Vagr9K/gatsby-advanced-starter/badges/issue_count.svg)](https://codeclimate.com/github/Vagr9K/gatsby-advanced-starter)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/990fb54ea8094f2aa0ed77f14e859820)](https://www.codacy.com/app/Vagr9K/gatsby-advanced-starter?utm_source=github.com&utm_medium=referral&utm_content=Vagr9K/gatsby-advanced-starter&utm_campaign=Badge_Grade)
+
 # samgamage.dev
 
-Built with <3 from the amazing [Gatsby.js](https://www.gatsbyjs.org/),
+![perfect lighthouse audit score and PWA](static/files/100.png)
+
+Built with <3 with the amazing [Gatsby.js](https://www.gatsbyjs.org/),
 [MDX](https://github.com/mdx-js/mdx) and [Theme-UI](https://theme-ui.com/).
 
 ## 🖼️ Features

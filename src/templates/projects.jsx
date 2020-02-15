@@ -7,7 +7,11 @@ import ProjectListing from "../components/ProjectListing";
 import Layout from "../layout";
 
 const Projects = props => {
-  const projectEdges = props.data.allMdx.edges;
+  const {
+    data: {
+      allMdx: { edges: projectEdges }
+    }
+  } = props;
   return (
     <Layout>
       <Helmet title={`Projects | ${config.siteTitle}`} />

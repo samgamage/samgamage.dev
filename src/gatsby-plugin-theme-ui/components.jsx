@@ -1,13 +1,13 @@
 /** @jsx jsx */
-import React from "react"
-import {jsx, Styled} from "theme-ui"
-import Flex from "../components/Flex"
-import Code from "./Code"
+import React from "react";
+import { jsx, Styled } from "theme-ui";
+import Flex from "../components/Flex";
+import Code from "./Code";
 
 const normalizeString = string => {
-  const splitString = string.split(" ").map(word => word.toLowerCase())
-  return splitString.join("-")
-}
+  const splitString = string.split(" ").map(word => word.toLowerCase());
+  return splitString.join("-");
+};
 
 function preToCodeBlock(preProps) {
   if (
@@ -23,9 +23,9 @@ function preToCodeBlock(preProps) {
       children: codeString,
       className = "",
       ...props
-    } = preProps.children.props
+    } = preProps.children.props;
 
-    const matches = className.match(/language-(?<lang>.*)/)
+    const matches = className.match(/language-(?<lang>.*)/);
 
     return {
       codeString: codeString.trim(),
@@ -34,15 +34,15 @@ function preToCodeBlock(preProps) {
         matches && matches.groups && matches.groups.lang
           ? matches.groups.lang
           : "",
-      ...props,
-    }
+      ...props
+    };
   }
-  return null
+  return null;
 }
 
 export default {
-  wrapper: ({children}) => <React.Fragment>{children}</React.Fragment>,
-  h1: ({children, ...restProps}) => (
+  wrapper: ({ children }) => <React.Fragment>{children}</React.Fragment>,
+  h1: ({ children, ...restProps }) => (
     <Flex>
       <Styled.a
         href={`#${normalizeString(children)}`}
@@ -53,20 +53,22 @@ export default {
           textDecoration: "none",
           position: "relative",
           fontWeight: "normal",
-          mr: 2,
+          mr: 2
         }}
       >
         #
       </Styled.a>
-      <Styled.h1 id={normalizeString(children)} {...restProps} />
+      <Styled.h1 id={normalizeString(children)} {...restProps}>
+        {normalizeString(children)}
+      </Styled.h1>
     </Flex>
   ),
   pre: preProps => {
-    const props = preToCodeBlock(preProps)
+    const props = preToCodeBlock(preProps);
     // if there's a codeString and some props, we passed the test
     if (props) {
-      return <Code {...props} />
+      return <Code {...props} />;
     }
-    return <pre {...preProps} />
-  },
-}
+    return <pre {...preProps} />;
+  }
+};
