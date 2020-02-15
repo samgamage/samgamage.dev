@@ -10,6 +10,7 @@
     "@mdx-js/react": "^1.4.5",
     "@mdx-js/tag": "^0.20.3",
     "@theme-ui/prism": "^0.2.40",
+    "dayjs": "^1.8.20",
     "embla-carousel-react": "^1.2.10",
     "gatsby": "^2.18.25",
     "gatsby-awesome-pagination": "^0.3.5",
