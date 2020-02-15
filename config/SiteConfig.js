@@ -6,7 +6,7 @@ const config = {
   siteUrl: "https://samgamage.dev", // Domain of your website without pathPrefix.
   pathPrefix: "", // Prefixes all links. For cases when deployed to example.github.io/gatsby-advanced-starter/.
   siteDescription:
-    "Samuel Gamage is an Atlanta-based web developer who specializes in React.js. Samuel has experience with almost all types of web development and is on the path to achieve the title of full stack developer in the coming years.", // Website description used for RSS feeds/meta description tag.
+    "Samuel Gamage is a front end software developer specializing in modern JavaScript.", // Website description used for RSS feeds/meta description tag.
   siteRss: "/rss.xml", // Path to the RSS file.
   googleAnalyticsID: "UA-140847972-1", // GA tracking ID.
   postDefaultCategoryID: "Tech", // Default category for posts.
