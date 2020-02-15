@@ -2,7 +2,7 @@
 import { Link } from "gatsby";
 import React from "react";
 import { FaMoon as MoonFilled, FaRegMoon as MoonOutline } from "react-icons/fa";
-import { jsx, Styled, useColorMode, useThemeUI } from "theme-ui";
+import { jsx, Styled, useColorMode } from "theme-ui";
 import theme from "../gatsby-plugin-theme-ui";
 import useScrollPosition from "../hooks/useScrollPosition";
 
@@ -29,8 +29,7 @@ const ColorButton = ({ mode, ...props }) => (
 export default () => {
   const [mode, setMode] = useColorMode();
   const yPos = useScrollPosition();
-  const { theme } = useThemeUI();
-  const scroll = yPos > 100;
+  const scroll = yPos > 50;
   const cycleMode = () => {
     const i = modes.indexOf(mode);
     const n = (i + 1) % modes.length;
@@ -42,7 +41,7 @@ export default () => {
       <div
         sx={{
           width: "100%",
-          backgroundColor: "background",
+          backgroundColor: scroll ? "navbar" : "background",
           boxShadow: scroll && "1px 2px 18px rgba(0,0,0,.1)",
           position: "fixed",
           height: scroll ? "60px" : "90px",

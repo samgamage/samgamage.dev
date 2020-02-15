@@ -8,6 +8,7 @@ import { jsx, Styled, useThemeUI } from "theme-ui";
 import config from "../../config/SiteConfig";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import theme from "../gatsby-plugin-theme-ui/index";
 
 let hasPassiveSupport;
 const getHasPassiveEventSupport = () => {
@@ -76,7 +77,7 @@ const globalStyles = css`
     margin: 0;
   }
   pre {
-    background-color: #061526 !important;
+    background-color: ${theme.colors.code} !important;
     border-radius: 4px;
     font-size: 16px;
     padding: 10px;

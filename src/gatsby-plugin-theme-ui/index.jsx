@@ -11,8 +11,10 @@ export default {
       lightGray: "#f9f9fc"
     },
     background: "#fff",
+    navbar: "#fff",
     primary: "#5183f5",
     highlight: "rgba(81, 131, 245, 0.3)",
+    code: "#333",
     washed: "rgba(0,0,0,.06)",
     muted: "#f9f9fc",
     gray: "#555",
@@ -25,7 +27,9 @@ export default {
         background: "#202020",
         muted: "hsl(180, 5%, 5%)",
         gray: "hsl(180, 0%, 70%)",
-        washed: "hsla(0,0%,100%,.1)"
+        washed: "hsla(0,0%,100%,.1)",
+        navbar: "hsl(180, 5%, 5%)",
+        code: "#3a3a3a"
       }
     }
   },
@@ -197,10 +201,6 @@ export default {
       px: [3, 2, 2, 2, 0],
       width: "100%",
       maxWidth: "wide"
-    },
-    excerpt: {
-      backgroundColor: "gray",
-      px: 3
     }
   }
 };
