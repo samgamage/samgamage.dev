@@ -120,10 +120,12 @@ export default {
     pre: {
       fontFamily: "monospace",
       fontSize: 1,
-      bg: "muted",
-      p: 3,
-      borderRadius: 8,
+      backgroundColor: "code",
+      borderRadius: 5,
       overflowX: "auto",
+      mt: 3,
+      mb: 3,
+      p: 2,
       variant: "prism"
     },
     code: {

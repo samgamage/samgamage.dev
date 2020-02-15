@@ -52,14 +52,14 @@ developers decided to implement it this way. The reason why it returnes an array
 is because it needs to return two things: the state and a function to update it.
 Take a look at this simple example:
 
-```js
-import React, {useState} from "react"
+```js {1, 4} index.jsx
+import React, { useState } from "react";
 
 const Component = () => {
-  const [state, setState] = useState(1)
+  const [state, setState] = useState(1);
 
-  return <div>{state}</div>
-}
+  return <div>{state}</div>;
+};
 ```
 
 Two things to note here:
@@ -89,23 +89,23 @@ state.
 The class component version would look like this:
 
 ```jsx
-import React from "react"
+import React from "react";
 
 class Counter extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      counter: 0,
-    }
+      counter: 0
+    };
   }
 
   increment = () => {
-    this.setState(prevState => ({counter: prevState.counter + 1}))
-  }
+    this.setState(prevState => ({ counter: prevState.counter + 1 }));
+  };
 
   decrement = () => {
-    this.setState(prevState => ({counter: prevState.counter - 1}))
-  }
+    this.setState(prevState => ({ counter: prevState.counter - 1 }));
+  };
 
   render() {
     return (
@@ -114,7 +114,7 @@ class Counter extends React.Component {
         <button onClick={this.increment}>Increment</button>
         <button onClick={this.decrement}>Decrement</button>
       </div>
-    )
+    );
   }
 }
 ```
@@ -122,10 +122,10 @@ class Counter extends React.Component {
 As we saw before, the hooks version would look something like this:
 
 ```jsx
-import React, {useState} from "react"
+import React, { useState } from "react";
 
 const Counter = () => {
-  const [counter, setCounter] = useState(0)
+  const [counter, setCounter] = useState(0);
 
   return (
     <div>
@@ -133,8 +133,8 @@ const Counter = () => {
       <button onClick={() => setCounter(counter + 1)}>Increment</button>
       <button onClick={() => setCounter(counter - 1)}>Decrement</button>
     </div>
-  )
-}
+  );
+};
 ```
 
 Not only is the hooks version shorter but it is also more readable. Being able
@@ -157,14 +157,14 @@ dependencies in the dependency array changes.
 Let's take a look at an example. I'll use some of the same code from before:
 
 ```jsx
-import React, {useState, useEffect} from "react"
+import React, { useState, useEffect } from "react";
 
 const Counter = () => {
-  const [counter, setCounter] = useState(0)
+  const [counter, setCounter] = useState(0);
 
   useEffect(() => {
-    console.log("Counter changed!")
-  }, [counter])
+    console.log("Counter changed!");
+  }, [counter]);
 
   return (
     <div>
@@ -172,8 +172,8 @@ const Counter = () => {
       <button onClick={() => setCounter(counter + 1)}>Increment</button>
       <button onClick={() => setCounter(counter - 1)}>Decrement</button>
     </div>
-  )
-}
+  );
+};
 ```
 
 As you can see useEffect takes two parameters: a callback function and a
@@ -189,27 +189,27 @@ From traditional class components a conditional effect that does the same logic
 might look something like this:
 
 ```jsx
-import React from "react"
+import React from "react";
 
 class Counter extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      counter: 0,
-    }
+      counter: 0
+    };
   }
 
   increment = () => {
-    this.setState(prevState => ({counter: prevState.counter + 1}))
-  }
+    this.setState(prevState => ({ counter: prevState.counter + 1 }));
+  };
 
   decrement = () => {
-    this.setState(prevState => ({counter: prevState.counter - 1}))
-  }
+    this.setState(prevState => ({ counter: prevState.counter - 1 }));
+  };
 
   shouldComponentUpdate(nextProps, nextState) {
     if (this.counter !== nextState.counter) {
-      console.log("Counter changed!")
+      console.log("Counter changed!");
     }
   }
 
@@ -220,7 +220,7 @@ class Counter extends React.Component {
         <button onClick={this.increment}>Increment</button>
         <button onClick={this.decrement}>Decrement</button>
       </div>
-    )
+    );
   }
 }
 ```
@@ -241,24 +241,24 @@ over and over we can instead create a hook that encapsulates the logic.
 
 ```jsx
 const useCounter = initialState => {
-  const [counter, setCounter] = useState(0)
+  const [counter, setCounter] = useState(0);
 
   useEffect(() => {
-    console.log("Counter changed!")
-  }, [counter])
+    console.log("Counter changed!");
+  }, [counter]);
 
-  return [counter, setCounter]
-}
+  return [counter, setCounter];
+};
 ```
 
 This hook can now be used in other components like so:
 
 ```jsx
 const MyComponent = () => {
-  const [counter, setCounter] = useCounter(0)
+  const [counter, setCounter] = useCounter(0);
 
-  return <div>{counter}</div>
-}
+  return <div>{counter}</div>;
+};
 ```
 
 Nice. Not only is this code clean and easy to use but its also scalable. We can

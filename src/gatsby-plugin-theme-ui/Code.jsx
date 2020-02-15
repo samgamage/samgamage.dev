@@ -4,15 +4,18 @@ import Highlight, { defaultProps } from "prism-react-renderer";
 import theme from "prism-react-renderer/themes/vsDark";
 import { jsx } from "theme-ui";
 
-const RE = /{([\d,-]+)}/;
+const regExpLineNumber = /{([\d, -]+)}/;
+
+const regExpFileName = /([a-z]+)\.[0-9a-z]{1,5}$/i;
 
 const wrapperStyles = css`
   width: 100%;
 `;
 
 function calculateLinesToHighlight(meta) {
-  if (RE.test(meta)) {
-    const lineNumbers = RE.exec(meta)[1]
+  if (regExpLineNumber.test(meta)) {
+    const lineNumbers = regExpLineNumber
+      .exec(meta)[1]
       .split(",")
       .map(v => v.split("-").map(y => parseInt(y, 10)));
     return index => {
@@ -26,8 +29,19 @@ function calculateLinesToHighlight(meta) {
   return () => false;
 }
 
+function getFileName(meta) {
+  if (regExpFileName.test(meta)) {
+    const fileName = regExpFileName.exec(meta)[0];
+    return fileName;
+  } else {
+    return null;
+  }
+}
+
 function Code({ codeString, language, metastring }) {
   const shouldHighlightLine = calculateLinesToHighlight(metastring);
+  const fileName = getFileName(metastring);
+  console.log(fileName);
   return (
     <Highlight
       {...defaultProps}
@@ -35,9 +49,29 @@ function Code({ codeString, language, metastring }) {
       language={language}
       theme={theme}
     >
-      {({ className, style, tokens, getLineProps, getTokenProps }) => (
+      {({ className, tokens, getLineProps, getTokenProps }) => (
         <div css={wrapperStyles}>
-          <pre className={className} style={style}>
+          {fileName && (
+            <div
+              sx={{
+                borderTopLeftRadius: 5,
+                borderTopRightRadius: 5,
+                backgroundColor: "navbar",
+                p: [1, 2]
+              }}
+            >
+              {fileName}
+            </div>
+          )}
+          <pre
+            sx={{
+              variant: "styles.pre",
+              mt: fileName ? 0 : 3,
+              borderTopLeftRadius: fileName ? 0 : 5,
+              borderTopRightRadius: fileName ? 0 : 5
+            }}
+            className={className}
+          >
             {tokens.map((line, i) => (
               <div
                 key={i}

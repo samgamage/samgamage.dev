@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import React, { useEffect, useRef, useState } from "react";
 import Helmet from "react-helmet";
 import { FiArrowUp as ArrowUpBtn } from "react-icons/fi";
-import { jsx, Styled, useThemeUI } from "theme-ui";
+import { jsx, Styled } from "theme-ui";
 import config from "../../config/SiteConfig";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -77,11 +77,6 @@ const globalStyles = css`
     margin: 0;
   }
   pre {
-    background-color: ${theme.colors.code} !important;
-    border-radius: 4px;
-    font-size: 16px;
-    padding: 10px;
-    overflow-x: auto;
     /* Track */
     ::-webkit-scrollbar {
       width: 100%;
@@ -98,10 +93,6 @@ const globalStyles = css`
       border-radius: 5px;
     }
   }
-  .highlight-line {
-    margin: 0 -10px;
-    padding: 0 5px;
-  }
 `;
 
 const Content = styled.div`
@@ -113,7 +104,6 @@ const Content = styled.div`
 const BackToTop = () => {
   const scrollBreakpoint = 1000;
   const scrollY = useScrollPosition();
-  const { theme } = useThemeUI();
 
   const onArrowClick = () => {
     typeof window !== undefined &&
