@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import React, { useEffect, useRef, useState } from "react";
 import Helmet from "react-helmet";
 import { FiArrowUp as ArrowUpBtn } from "react-icons/fi";
-import { jsx, Styled } from "theme-ui";
+import { jsx, Styled, useThemeUI } from "theme-ui";
 import config from "../../config/SiteConfig";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -112,6 +112,7 @@ const Content = styled.div`
 const BackToTop = () => {
   const scrollBreakpoint = 1000;
   const scrollY = useScrollPosition();
+  const { theme } = useThemeUI();
 
   const onArrowClick = () => {
     typeof window !== undefined &&
@@ -124,7 +125,7 @@ const BackToTop = () => {
         position: "fixed",
         right: 4,
         bottom: 4,
-        transition: "all 0.2s ease",
+        transition: theme.transition,
         opacity: scrollY > scrollBreakpoint ? 1 : 0
       }}
     >
@@ -132,7 +133,7 @@ const BackToTop = () => {
         sx={{
           ":hover": {
             transition: "all 0.2s ease",
-            color: "secondary",
+            color: "primary",
             cursor: "pointer"
           }
         }}

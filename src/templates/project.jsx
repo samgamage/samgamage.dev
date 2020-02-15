@@ -25,7 +25,7 @@ const ProjectTemplate = ({ data }) => {
       </Helmet>
       <Container container>
         <Styled.h1>{project.frontmatter.title}</Styled.h1>
-        <Text sx={{ backgroundColor: "primary" }}>
+        <Text sx={{ backgroundColor: "washed", color: "text.default" }}>
           {project.fields.description}
         </Text>
         <MDXRenderer>{project.body}</MDXRenderer>

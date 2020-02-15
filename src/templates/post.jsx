@@ -32,7 +32,7 @@ const PostTemplate = ({ data }) => {
         <Styled.p sx={{ color: "gray" }}>
           {post.timeToRead} minute read • {post.wordCount.words} words
         </Styled.p>
-        <Text sx={{ backgroundColor: "primary" }}>
+        <Text sx={{ backgroundColor: "washed", color: "text.default" }}>
           {post.fields.description}
         </Text>
         <MDXRenderer>{post.body}</MDXRenderer>
