@@ -1,34 +1,47 @@
 /** @jsx jsx */
-import {css} from "@emotion/core"
-import Highlight, {defaultProps} from "prism-react-renderer"
-import theme from "prism-react-renderer/themes/nightOwl"
-import {jsx} from "theme-ui"
+import { css } from "@emotion/core";
+import Highlight, { defaultProps } from "prism-react-renderer";
+import theme from "prism-react-renderer/themes/vsDark";
+import { jsx } from "theme-ui";
 
-const RE = /{([\d,-]+)}/
+const regExpLineNumber = /{([\d, -]+)}/;
+
+const regExpFileName = /([a-z]+)\.[0-9a-z]{1,5}$/i;
 
 const wrapperStyles = css`
   width: 100%;
-`
+`;
 
 function calculateLinesToHighlight(meta) {
-  if (RE.test(meta)) {
-    const lineNumbers = RE.exec(meta)[1]
+  if (regExpLineNumber.test(meta)) {
+    const lineNumbers = regExpLineNumber
+      .exec(meta)[1]
       .split(",")
-      .map(v => v.split("-").map(y => parseInt(y, 10)))
+      .map(v => v.split("-").map(y => parseInt(y, 10)));
     return index => {
-      const lineNumber = index + 1
+      const lineNumber = index + 1;
       const inRange = lineNumbers.some(([start, end]) =>
-        end ? lineNumber >= start && lineNumber <= end : lineNumber === start,
-      )
-      return inRange
-    }
+        end ? lineNumber >= start && lineNumber <= end : lineNumber === start
+      );
+      return inRange;
+    };
+  }
+  return () => false;
+}
+
+function getFileName(meta) {
+  if (regExpFileName.test(meta)) {
+    const fileName = regExpFileName.exec(meta)[0];
+    return fileName;
   } else {
-    return () => false
+    return null;
   }
 }
 
-function Code({codeString, language, metastring}) {
-  const shouldHighlightLine = calculateLinesToHighlight(metastring)
+function Code({ codeString, language, metastring }) {
+  const shouldHighlightLine = calculateLinesToHighlight(metastring);
+  const fileName = getFileName(metastring);
+  console.log(fileName);
   return (
     <Highlight
       {...defaultProps}
@@ -36,9 +49,29 @@ function Code({codeString, language, metastring}) {
       language={language}
       theme={theme}
     >
-      {({className, style, tokens, getLineProps, getTokenProps}) => (
+      {({ className, tokens, getLineProps, getTokenProps }) => (
         <div css={wrapperStyles}>
-          <pre className={className} style={style}>
+          {fileName && (
+            <div
+              sx={{
+                borderTopLeftRadius: 5,
+                borderTopRightRadius: 5,
+                backgroundColor: "navbar",
+                p: [1, 2]
+              }}
+            >
+              {fileName}
+            </div>
+          )}
+          <pre
+            sx={{
+              variant: "styles.pre",
+              mt: fileName ? 0 : 3,
+              borderTopLeftRadius: fileName ? 0 : 5,
+              borderTopRightRadius: fileName ? 0 : 5
+            }}
+            className={className}
+          >
             {tokens.map((line, i) => (
               <div
                 key={i}
@@ -46,26 +79,16 @@ function Code({codeString, language, metastring}) {
                   backgroundColor: shouldHighlightLine(i) ? "highlight" : "",
                   borderLeft: shouldHighlightLine(i) ? "2px solid" : "",
                   borderLeftColor: "primary",
+                  pl: 2,
+                  borderRadius: 2
                 }}
                 {...getLineProps({
                   line,
-                  key: i,
+                  key: i
                 })}
               >
-                <span
-                  css={css`
-                    display: inline-block;
-                    width: 2em;
-                    user-select: none;
-                    opacity: 0.3;
-                    margin-right: 4px;
-                    text-align: center;
-                  `}
-                >
-                  {i + 1}
-                </span>
                 {line.map((token, key) => (
-                  <span key={key} {...getTokenProps({token, key})} />
+                  <span key={key} {...getTokenProps({ token, key })} />
                 ))}
               </div>
             ))}
@@ -73,7 +96,7 @@ function Code({codeString, language, metastring}) {
         </div>
       )}
     </Highlight>
-  )
+  );
 }
 
-export default Code
+export default Code;

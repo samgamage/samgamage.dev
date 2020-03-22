@@ -12,7 +12,7 @@ function Button({ text, href, ...rest }) {
         backgroundColor: "muted",
         color: "gray",
         display: "inline-table",
-        borderRadius: 2,
+        borderRadius: 4,
         textDecoration: "none",
         "&:hover": {
           cursor: "pointer",

@@ -7,12 +7,15 @@ export default {
   colors: {
     text: {
       lead: "#111",
-      default: "#404040"
+      default: "#404040",
+      lightGray: "#f9f9fc"
     },
     background: "#fff",
+    navbar: "#fff",
     primary: "#5183f5",
-    secondary: "#2161f2",
     highlight: "rgba(81, 131, 245, 0.3)",
+    code: "#333",
+    washed: "rgba(0,0,0,.06)",
     muted: "#f9f9fc",
     mutedHover: "#e5e5e5",
     gray: "#555",
@@ -25,13 +28,16 @@ export default {
         background: "#202020",
         muted: "hsl(180, 5%, 5%)",
         mutedHover: "hsl(180, 5%, 8%)",
-        gray: "hsl(180, 0%, 70%)"
+        gray: "hsl(180, 0%, 70%)",
+        washed: "hsla(0,0%,100%,.1)",
+        navbar: "hsl(180, 5%, 5%)",
+        code: "#3a3a3a"
       }
     }
   },
   fonts: {
     body: "system-ui, sans-serif",
-    monospace: '"Roboto Mono", Menlo, monospace'
+    monospace: "Menlo,Roboto Mono,Courier New,monospace"
   },
   lineHeights: {
     body: 1.625,
@@ -42,11 +48,12 @@ export default {
     heading: 800,
     bold: 700
   },
-  fontSizes: [14, 16, 18, 20, 24, 32, 48, 64, 72, 96],
+  fontSizes: [12, 14, 17, 20, 24, 32, 48, 64],
   sizes: {
     container: 800,
     wide: 800
   },
+  transition,
   type: {
     heading: {
       fontWeight: "heading",
@@ -75,7 +82,7 @@ export default {
     a: {
       color: "primary",
       ":hover,:focus": {
-        color: "secondary"
+        color: "primary"
       }
     },
     h1: {
@@ -115,10 +122,12 @@ export default {
     pre: {
       fontFamily: "monospace",
       fontSize: 1,
-      bg: "muted",
-      p: 3,
-      borderRadius: 8,
+      backgroundColor: "code",
+      borderRadius: 5,
       overflowX: "auto",
+      mt: 3,
+      mb: 3,
+      p: 2,
       variant: "prism"
     },
     code: {
@@ -127,7 +136,11 @@ export default {
     },
     inlineCode: {
       fontFamily: "monospace",
-      color: "primary"
+      color: "text.default",
+      backgroundColor: "washed",
+      p: 1,
+      borderRadius: 5,
+      fontSize: 1
     },
     hr: {
       border: 0,
@@ -192,10 +205,6 @@ export default {
       px: [3, 2, 2, 2, 0],
       width: "100%",
       maxWidth: "wide"
-    },
-    excerpt: {
-      backgroundColor: "gray",
-      px: 3
     }
   }
 };

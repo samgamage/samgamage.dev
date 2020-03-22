@@ -12,6 +12,7 @@ import config from "../../config/SiteConfig";
 import Button from "../components/Button";
 import Container from "../components/Container";
 import HorizontalList from "../components/HorziontalList";
+import PostListing from "../components/PostListing";
 import ProjectListing from "../components/ProjectListing";
 import SEO from "../components/SEO";
 import VerticalList from "../components/VerticalList";
@@ -98,7 +99,7 @@ const Index = ({ data }) => {
               <Styled.h2 p={1}>Latest Posts</Styled.h2>
               <Button text="View all" href="/blog" />
             </div>
-            <ProjectListing projectEdges={data.posts.edges} />
+            <PostListing postEdges={data.posts.edges} />
           </VerticalList>
         </Container>
       </Container>
@@ -143,6 +144,7 @@ export const pageQuery = graphql`
             date(formatString: "MMMM DD, YYYY")
             title
           }
+          timeToRead
         }
       }
     }

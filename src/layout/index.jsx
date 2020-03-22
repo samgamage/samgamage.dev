@@ -8,6 +8,7 @@ import { jsx, Styled } from "theme-ui";
 import config from "../../config/SiteConfig";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import theme from "../gatsby-plugin-theme-ui/index";
 
 let hasPassiveSupport;
 const getHasPassiveEventSupport = () => {
@@ -76,11 +77,6 @@ const globalStyles = css`
     margin: 0;
   }
   pre {
-    background-color: #061526 !important;
-    border-radius: 4px;
-    font-size: 16px;
-    padding: 10px;
-    overflow-x: auto;
     /* Track */
     ::-webkit-scrollbar {
       width: 100%;
@@ -96,10 +92,6 @@ const globalStyles = css`
       background: #888;
       border-radius: 5px;
     }
-  }
-  .highlight-line {
-    margin: 0 -10px;
-    padding: 0 5px;
   }
 `;
 
@@ -124,7 +116,7 @@ const BackToTop = () => {
         position: "fixed",
         right: 4,
         bottom: 4,
-        transition: "all 0.2s ease",
+        transition: theme.transition,
         opacity: scrollY > scrollBreakpoint ? 1 : 0
       }}
     >
@@ -132,7 +124,7 @@ const BackToTop = () => {
         sx={{
           ":hover": {
             transition: "all 0.2s ease",
-            color: "secondary",
+            color: "primary",
             cursor: "pointer"
           }
         }}
