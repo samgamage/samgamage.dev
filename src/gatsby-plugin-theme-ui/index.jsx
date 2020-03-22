@@ -14,6 +14,7 @@ export default {
     secondary: "#2161f2",
     highlight: "rgba(81, 131, 245, 0.3)",
     muted: "#f9f9fc",
+    mutedHover: "#e5e5e5",
     gray: "#555",
     modes: {
       dark: {
@@ -23,6 +24,7 @@ export default {
         },
         background: "#202020",
         muted: "hsl(180, 5%, 5%)",
+        mutedHover: "hsl(180, 5%, 8%)",
         gray: "hsl(180, 0%, 70%)"
       }
     }
@@ -71,7 +73,7 @@ export default {
       color: "text.default"
     },
     a: {
-      color: "text.default",
+      color: "primary",
       ":hover,:focus": {
         color: "secondary"
       }

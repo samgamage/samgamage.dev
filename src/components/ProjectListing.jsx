@@ -5,43 +5,43 @@ import { jsx, Styled } from "theme-ui";
 
 class ProjectListing extends React.Component {
   getProjectList() {
-    const postList = [];
-    this.props.postEdges.forEach(postEdge => {
-      postList.push({
-        path: postEdge.node.fields.slug,
-        title: postEdge.node.frontmatter.title,
-        description: postEdge.node.fields.description
+    const projectList = [];
+    this.props.projectEdges.forEach(projectEdge => {
+      projectList.push({
+        path: projectEdge.node.fields.slug,
+        title: projectEdge.node.frontmatter.title,
+        description: projectEdge.node.fields.description
       });
     });
 
-    return postList.filter(
+    return projectList.filter(
       post => post.title !== "filler" || post.title === ""
     );
   }
 
   render() {
-    const postList = this.getProjectList();
+    const projects = this.getProjectList();
 
     return (
       <React.Fragment>
-        {postList.length > 0 ? (
-          postList.map(post => (
-            <React.Fragment>
+        {projects.length > 0 ? (
+          projects.map(project => (
+            <React.Fragment key={project.path}>
               <Styled.h2>
                 <Styled.a
                   as={Link}
-                  to={post.path}
-                  key={post.title}
+                  to={project.path}
+                  key={project.title}
                   sx={{ textDecoration: "underline", color: "text" }}
                 >
-                  {post.title}
+                  {project.title}
                 </Styled.a>
               </Styled.h2>
-              <Styled.p>{post.description}</Styled.p>
+              <Styled.p>{project.description}</Styled.p>
             </React.Fragment>
           ))
         ) : (
-          <Styled.p>No posts yet</Styled.p>
+          <Styled.p>No projects yet</Styled.p>
         )}
       </React.Fragment>
     );

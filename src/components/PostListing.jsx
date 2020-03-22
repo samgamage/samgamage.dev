@@ -28,7 +28,7 @@ class PostListing extends React.Component {
       <React.Fragment>
         {postList.length > 0 ? (
           postList.map(post => (
-            <React.Fragment>
+            <React.Fragment key={post.path}>
               <Styled.h2>
                 <Styled.a
                   as={Link}
