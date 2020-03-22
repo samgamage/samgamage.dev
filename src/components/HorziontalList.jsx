@@ -1,12 +1,14 @@
 /** @jsx jsx */
-import {jsx} from "theme-ui"
+import { jsx } from "theme-ui";
 
-const HorizontalList = ({spaceBetween = 1, children}) => {
+const HorizontalList = ({ spaceBetween = 1, children, ...rest }) => {
   return (
-    <div sx={{display: "flex", "> *": {marginRight: spaceBetween}}}>
+    <div
+      sx={{ display: "flex", "> *": { marginRight: spaceBetween }, ...rest }}
+    >
       {children}
     </div>
-  )
-}
+  );
+};
 
-export default HorizontalList
+export default HorizontalList;

@@ -1,13 +1,13 @@
 /** @jsx jsx */
-import {jsx} from "theme-ui"
+import { jsx } from "theme-ui";
 
-export default ({container, children, ...props}) => (
+export default ({ container, children, ...rest }) => (
   <div
-    {...props}
     sx={{
-      variant: container ? "styles.container" : "styles.wide",
+      ...rest,
+      variant: container ? "styles.container" : "styles.wide"
     }}
   >
     {children}
   </div>
-)
+);

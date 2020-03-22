@@ -35,7 +35,7 @@ class PostListing extends React.Component {
             return (
               <React.Fragment>
                 <div sx={{ display: "flex", alignItems: "center" }}>
-                  <Styled.h2>
+                  <Styled.h2 sx={{ my: 1 }}>
                     <Styled.a
                       as={Link}
                       to={post.path}

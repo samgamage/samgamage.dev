@@ -16,7 +16,7 @@ const Projects = props => {
     <Layout>
       <Helmet title={`Projects | ${config.siteTitle}`} />
       <Container>
-        <ProjectListing postEdges={projectEdges} />
+        <ProjectListing projectEdges={projectEdges} />
       </Container>
     </Layout>
   );

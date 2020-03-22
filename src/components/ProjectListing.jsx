@@ -5,14 +5,15 @@ import React from "react";
 import { jsx, Styled } from "theme-ui";
 import NewAlert from "./NewAlert";
 
-function ProjectListing() {
+function ProjectListing({ projectEdges, showNew = false }) {
   const getProjectList = () => {
     const projectList = [];
-    this.props.postEdges.forEach(postEdge => {
+    projectEdges.forEach(projectEdge => {
       projectList.push({
-        path: postEdge.node.fields.slug,
-        title: postEdge.node.frontmatter.title,
-        description: postEdge.node.fields.description
+        path: projectEdge.node.fields.slug,
+        date: projectEdge.node.frontmatter.date,
+        title: projectEdge.node.frontmatter.title,
+        description: projectEdge.node.fields.description
       });
     });
 
@@ -38,7 +39,7 @@ function ProjectListing() {
                   justifyContent: "space-between"
                 }}
               >
-                <Styled.h2>
+                <Styled.h2 sx={{ my: 1 }}>
                   <Styled.a
                     as={Link}
                     to={project.path}
@@ -48,7 +49,7 @@ function ProjectListing() {
                     {project.title}
                   </Styled.a>
                 </Styled.h2>
-                {newest && <NewAlert />}
+                {showNew && newest && <NewAlert />}
               </div>
               <Styled.p>{project.description}</Styled.p>
             </React.Fragment>

@@ -17,6 +17,7 @@ export default {
     code: "#333",
     washed: "rgba(0,0,0,.06)",
     muted: "#f9f9fc",
+    mutedHover: "#e5e5e5",
     gray: "#555",
     modes: {
       dark: {
@@ -26,6 +27,7 @@ export default {
         },
         background: "#202020",
         muted: "hsl(180, 5%, 5%)",
+        mutedHover: "hsl(180, 5%, 8%)",
         gray: "hsl(180, 0%, 70%)",
         washed: "hsla(0,0%,100%,.1)",
         navbar: "hsl(180, 5%, 5%)",
@@ -78,7 +80,7 @@ export default {
       color: "text.default"
     },
     a: {
-      color: "text.default",
+      color: "primary",
       ":hover,:focus": {
         color: "primary"
       }
