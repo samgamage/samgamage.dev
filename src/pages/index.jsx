@@ -27,7 +27,7 @@ const Index = ({ data }) => {
         <Container mt={7} mb={7}>
           <Styled.h1>Hey, I&apos;m Samuel Gamage</Styled.h1>
           <Styled.p>
-            I&apos;m a full stack software seveloper based in Atlanta, GA. In my
+            I&apos;m a full stack software developer based in Atlanta, GA. In my
             spare time, I enojoy teaching others about coding on my{" "}
             <Styled.a
               href="https://www.youtube.com/channel/UCGEEpTZygTTS7099gplKJeg"
