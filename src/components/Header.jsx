@@ -2,7 +2,7 @@
 import { Link } from "gatsby";
 import React from "react";
 import { FaMoon as MoonFilled, FaRegMoon as MoonOutline } from "react-icons/fa";
-import { jsx, Styled, useColorMode } from "theme-ui";
+import { jsx, useColorMode } from "theme-ui";
 import theme from "../gatsby-plugin-theme-ui";
 import useScrollPosition from "../hooks/useScrollPosition";
 
@@ -64,31 +64,17 @@ export default () => {
             px: [3, 2, 2, 2, 0]
           }}
         >
-          <Styled.a
-            as={Link}
+          <Link
             to="/"
             sx={{
               variant: "styles.navlink",
               fontWeight: "bold",
-              mr: 3
+              mr: 4
             }}
           >
             Sam Gamage
-          </Styled.a>
-          <Styled.a
-            as={Link}
-            to="/blog"
-            activeClassName="active"
-            sx={{
-              variant: "styles.navlink",
-              fontWeight: "bold",
-              mr: 3
-            }}
-          >
-            Blog
-          </Styled.a>
-          <Styled.a
-            as={Link}
+          </Link>
+          <Link
             to="/projects"
             activeClassName="active"
             sx={{
@@ -98,7 +84,29 @@ export default () => {
             }}
           >
             Projects
-          </Styled.a>
+          </Link>
+          <Link
+            to="/blog"
+            activeClassName="active"
+            sx={{
+              variant: "styles.navlink",
+              fontWeight: "bold",
+              mr: 3
+            }}
+          >
+            Blog
+          </Link>
+          <Link
+            to="/about"
+            activeClassName="active"
+            sx={{
+              variant: "styles.navlink",
+              fontWeight: "bold",
+              mr: 3
+            }}
+          >
+            About me
+          </Link>
           <div sx={{ mx: "auto" }} />
           <ColorButton mode={mode} onClick={cycleMode} />
         </header>

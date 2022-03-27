@@ -14,7 +14,7 @@ help but look back on what React looked like when I first started learning it
 and how it has changed since then.
 
 I first started learning react in 2018 right when version 16.6 came out. This
-was when `React.memo()` and `React.lazy()` first get introducted which was one
+was when `React.memo()` and `React.lazy()` first get introduced which was one
 of the biggest changes to the core react library in a long time.
 
 Having been a beginner I had a ton of questions as I was writing my first few
@@ -48,7 +48,7 @@ app!
 Hooks provide for a functional way of creating and updating state through the
 `useState()` function. This function is rather interesting because it returned
 an array of values. At first I was a bit confused by this and questioned why the
-developers decided to implement it this way. The reason why it returnes an array
+developers decided to implement it this way. The reason why it returns an array
 is because it needs to return two things: the state and a function to update it.
 Take a look at this simple example:
 
@@ -177,12 +177,12 @@ const Counter = () => {
 ```
 
 As you can see useEffect takes two parameters: a callback function and a
-dependecy array. Now you might be asking... what about componentDidMount? How do
-I repliacte this functionality in React hooks?
+dependency array. Now you might be asking... what about componentDidMount? How do
+I replicate this functionality in React hooks?
 
 Well, in order to mock the equivalent componentDidMount function all we have to
 do is leave the dependency array empty. I should note that even though we have
-specified an element in the dependency array, it will still fire on the intitial
+specified an element in the dependency array, it will still fire on the initial
 mount because the initial state is being set during this time.
 
 From traditional class components a conditional effect that does the same logic

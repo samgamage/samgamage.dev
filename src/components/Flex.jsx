@@ -1,12 +1,12 @@
 /** @jsx jsx */
-import {jsx} from "theme-ui"
+import { jsx } from "theme-ui";
 
-const Flex = ({children, ...props}) => {
+const Flex = ({ children, ...props }) => {
   return (
-    <div {...props} sx={{display: "flex"}}>
+    <div {...props} sx={{ display: "flex" }}>
       {children}
     </div>
-  )
-}
+  );
+};
 
-export default Flex
+export default Flex;

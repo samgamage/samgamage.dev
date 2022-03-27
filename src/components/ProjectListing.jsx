@@ -1,11 +1,10 @@
 /** @jsx jsx */
 import dayjs from "dayjs";
 import { Link } from "gatsby";
-import React from "react";
-import { jsx, Styled } from "theme-ui";
+import { jsx, Paragraph, Themed } from "theme-ui";
 import NewAlert from "./NewAlert";
 
-function ProjectListing({ projectEdges, showNew = false }) {
+function ProjectListing({ projectEdges, showNew = true }) {
   const getProjectList = () => {
     const projectList = [];
     projectEdges.forEach(projectEdge => {
@@ -24,42 +23,40 @@ function ProjectListing({ projectEdges, showNew = false }) {
 
   const projectList = getProjectList();
 
-  return (
-    <React.Fragment>
-      {projectList.length > 0 ? (
-        projectList.map(project => {
-          const newest = dayjs(project.date) > dayjs().subtract(1, "months");
+  if (!projectList.length) {
+    return <Paragraph>No projects yet</Paragraph>;
+  }
 
-          return (
-            <React.Fragment>
-              <div
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between"
-                }}
-              >
-                <Styled.h2 sx={{ my: 1 }}>
-                  <Styled.a
-                    as={Link}
-                    to={project.path}
-                    key={project.title}
-                    sx={{ textDecoration: "underline", color: "text" }}
-                  >
-                    {project.title}
-                  </Styled.a>
-                </Styled.h2>
-                {showNew && newest && <NewAlert />}
-              </div>
-              <Styled.p>{project.description}</Styled.p>
-            </React.Fragment>
-          );
-        })
-      ) : (
-        <Styled.p>No posts yet</Styled.p>
-      )}
-    </React.Fragment>
-  );
+  return projectList.map(project => {
+    const isNew = dayjs(project.date) > dayjs().subtract(1, "months");
+
+    return (
+      <div key={project.path}>
+        <div
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between"
+          }}
+        >
+          <Themed.h3 sx={{ mb: 1, mt: 0 }}>
+            <Link
+              to={project.path}
+              activeClassName="active"
+              sx={{
+                variant: "styles.a"
+              }}
+            >
+              {project.title}
+            </Link>
+          </Themed.h3>
+          {showNew && isNew && <NewAlert />}
+        </div>
+        <Paragraph sx={{ color: "gray", mt: 1 }}>{project.date}</Paragraph>
+        <Paragraph mt={1}>{project.description}</Paragraph>
+      </div>
+    );
+  });
 }
 
 export default ProjectListing;

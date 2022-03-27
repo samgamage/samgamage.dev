@@ -12,8 +12,8 @@ module.exports = {
       site_url: urljoin(config.siteUrl, config.pathPrefix),
       feed_url: urljoin(config.siteUrl, config.siteRss),
       title: config.siteTitle,
-      description: config.siteDescription
-    }
+      description: config.siteDescription,
+    },
   },
   plugins: [
     "gatsby-plugin-react-helmet",
@@ -26,42 +26,61 @@ module.exports = {
         extensions: [".mdx", ".md"],
         gatsbyRemarkPlugins: [
           {
-            resolve: `gatsby-remark-responsive-iframe`,
+            resolve: require.resolve(`gatsby-remark-responsive-iframe`),
             options: {
-              wrapperStyle: `margin-bottom: 1.0725rem`
-            }
+              wrapperStyle: `margin-bottom: 1.0725rem`,
+            },
           },
           {
-            resolve: `gatsby-remark-smartypants`
-          }
-        ]
-      }
+            resolve: require.resolve(`gatsby-remark-smartypants`),
+          },
+        ],
+      },
     },
     {
       resolve: "gatsby-source-filesystem",
       options: {
         name: "assets",
-        path: `${__dirname}/static/`
-      }
+        path: `${__dirname}/static/`,
+      },
     },
     {
       resolve: "gatsby-source-filesystem",
       options: {
         name: "posts",
-        path: `${__dirname}/content/posts`
-      }
+        path: `${__dirname}/content/posts`,
+      },
     },
     {
       resolve: "gatsby-source-filesystem",
       options: {
         name: "projects",
-        path: `${__dirname}/content/projects`
-      }
+        path: `${__dirname}/content/projects`,
+      },
+    },
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        name: "pages",
+        path: `${__dirname}/content/pages`,
+      },
     },
     "gatsby-plugin-catch-links",
     "gatsby-plugin-twitter",
     "gatsby-plugin-theme-ui",
     "gatsby-plugin-sitemap",
+    {
+      resolve: "gatsby-plugin-google-analytics",
+      options: {
+        trackingId: config.googleAnalyticsID,
+      },
+    },
+    {
+      resolve: "gatsby-plugin-nprogress",
+      options: {
+        color: "#5183f5",
+      },
+    },
     {
       resolve: "gatsby-plugin-manifest",
       options: {
@@ -72,11 +91,10 @@ module.exports = {
         background_color: "#fff",
         theme_color: "#202020",
         display: "minimal-ui",
-        icon: `static/files/logo.png`, // This path is relative to the root of the site.
-        legacy: false
-      }
+        icon: `static/assets/logo.png`, // This path is relative to the root of the site.
+        legacy: false,
+      },
     },
-    "gatsby-plugin-offline",
     {
       resolve: "gatsby-plugin-feed",
       options: {
@@ -104,32 +122,31 @@ module.exports = {
           {
             serialize(ctx) {
               const { rssMetadata } = ctx.query.site.siteMetadata;
-              return ctx.query.allMdx.edges.map(edge => ({
+              return ctx.query.allMdx.edges.map((edge) => ({
                 date: edge.node.fields.date,
-                description: edge.node.excerpt,
+                description: edge.node.fields.description,
+                title: edge.node.fields.title,
                 url: rssMetadata.site_url + edge.node.fields.slug,
                 guid: rssMetadata.site_url + edge.node.fields.slug,
-                custom_elements: [
-                  { "content:encoded": edge.node.html },
-                  { author: config.userEmail }
-                ]
+                custom_elements: [{ author: config.userEmail }],
               }));
             },
             query: `
             {
-              allMdx(filter: {fields: {type: {eq: "post"}}}, limit: 1000, sort: {order: DESC, fields: [frontmatter___date]}) {
+              allMdx(
+                filter: {fields: {type: {eq: "post"}}}
+                limit: 1000
+                sort: {order: DESC, fields: [frontmatter___date]}
+              ) {
                 edges {
                   node {
-                    excerpt
-                    html
-                    timeToRead
                     fields {
-                      slug
-                      date
-                    }
-                    frontmatter {
                       title
+                      description
                       date
+                      id
+                      published
+                      type
                     }
                   }
                 }
@@ -137,10 +154,11 @@ module.exports = {
             }
           `,
             output: config.siteRss,
-            title: "Sam Gamage's Blog"
-          }
-        ]
-      }
-    }
-  ]
+            title: "Sam Gamage's Blog",
+          },
+        ],
+      },
+    },
+    "gatsby-plugin-offline",
+  ],
 };

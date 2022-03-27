@@ -5,9 +5,9 @@ import {
   FaGithub as GitHub,
   FaLinkedin as LinkedIn,
   FaTwitter as Twitter,
-  FaYoutube as Youtube
+  FaYoutube as Youtube,
 } from "react-icons/fa";
-import { jsx, Styled } from "theme-ui";
+import { Box, jsx, Link, Paragraph, Themed } from "theme-ui";
 import config from "../../config/SiteConfig";
 import Button from "../components/Button";
 import Container from "../components/Container";
@@ -18,94 +18,71 @@ import SEO from "../components/SEO";
 import VerticalList from "../components/VerticalList";
 import Layout from "../layout";
 
-const Index = ({ data }) => {
+function Index({ data }) {
   return (
     <Layout centered>
       <Helmet title={config.siteTitle} />
       <SEO />
       <Container>
-        <Container mt={7} mb={7}>
-          <Styled.h1>Hey, I&apos;m Samuel Gamage</Styled.h1>
-          <Styled.p>
-            I&apos;m a full stack software developer based in Atlanta, GA. In my
-            spare time, I enojoy teaching others about coding on my{" "}
-            <Styled.a
-              href="https://www.youtube.com/channel/UCGEEpTZygTTS7099gplKJeg"
-              title="Youtube"
-            >
-              YouTube
-            </Styled.a>{" "}
-            channel.
-          </Styled.p>
-          <HorizontalList spaceBetween={3}>
-            <Styled.a
-              href="https://twitter.com/samgamage24"
-              title="Twitter"
-              sx={{
-                variant: "styles.navlink"
-              }}
-            >
+        <Box mt={6} mb={6}>
+          <Themed.h1>Hey, I&apos;m Samuel Gamage</Themed.h1>
+          <Paragraph mt={0}>
+            I&apos;m a full stack software engineer based in Atlanta, GA. You
+            can check out my recent projects and blog posts below.
+          </Paragraph>
+          <HorizontalList mt={3} spaceBetween={3}>
+            <Link href="https://twitter.com/samgamage24" title="Twitter">
               <Twitter size={24} />
-            </Styled.a>
-            <Styled.a
-              href="https://github.com/samgamage"
-              title="GitHub"
-              sx={{
-                variant: "styles.navlink"
-              }}
-            >
+            </Link>
+            <Link href="https://github.com/samgamage" title="GitHub">
               <GitHub size={24} />
-            </Styled.a>
-            <Styled.a
+            </Link>
+            <Link
               href="https://www.youtube.com/channel/UCGEEpTZygTTS7099gplKJeg"
               title="Youtube"
-              sx={{
-                variant: "styles.navlink"
-              }}
             >
               <Youtube size={24} />
-            </Styled.a>
-            <Styled.a
+            </Link>
+            <Link
               href="https://www.linkedin.com/in/samuel-gamage-27b91816b/"
               title="LinkedIn"
-              sx={{
-                variant: "styles.navlink"
-              }}
             >
               <LinkedIn size={24} />
-            </Styled.a>
+            </Link>
           </HorizontalList>
-        </Container>
-        <Container>
+        </Box>
+        <VerticalList spaceBetween={4}>
           <VerticalList>
             <div
               sx={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "space-between"
+                justifyContent: "space-between",
               }}
             >
-              <Styled.h2 p={1}>Latest Projects</Styled.h2>
+              <Themed.h2 sx={{ mt: 3, mb: 3 }}>Latest Projects</Themed.h2>
               <Button text="View all" href="/projects" />
             </div>
             <ProjectListing projectEdges={data.projects.edges} />
+          </VerticalList>
+          <VerticalList>
             <div
               sx={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "space-between"
+                justifyContent: "space-between",
               }}
             >
-              <Styled.h2 p={1}>Latest Posts</Styled.h2>
+              <Themed.h2 sx={{ mt: 3, mb: 3 }}>Latest Posts</Themed.h2>
               <Button text="View all" href="/blog" />
             </div>
             <PostListing postEdges={data.posts.edges} />
           </VerticalList>
-        </Container>
+        </VerticalList>
       </Container>
     </Layout>
   );
-};
+}
 
 export default Index;
 
@@ -113,7 +90,7 @@ export const pageQuery = graphql`
   {
     projects: allMdx(
       limit: 3
-      sort: { fields: [frontmatter___date], order: ASC }
+      sort: { fields: [frontmatter___date], order: DESC }
       filter: { fields: { type: { eq: "project" } } }
     ) {
       edges {
@@ -131,7 +108,7 @@ export const pageQuery = graphql`
     }
     posts: allMdx(
       limit: 3
-      sort: { fields: [frontmatter___date], order: ASC }
+      sort: { fields: [frontmatter___date], order: DESC }
       filter: { fields: { type: { eq: "post" } } }
     ) {
       edges {

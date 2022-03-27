@@ -1,8 +1,8 @@
 /** @jsx jsx */
-import { css } from "@emotion/core";
+import { css } from "@emotion/react";
 import Highlight, { defaultProps } from "prism-react-renderer";
 import theme from "prism-react-renderer/themes/vsDark";
-import { jsx } from "theme-ui";
+import { jsx, useColorMode } from "theme-ui";
 
 const regExpLineNumber = /{([\d, -]+)}/;
 
@@ -33,15 +33,15 @@ function getFileName(meta) {
   if (regExpFileName.test(meta)) {
     const fileName = regExpFileName.exec(meta)[0];
     return fileName;
-  } else {
-    return null;
   }
+  return null;
 }
 
 function Code({ codeString, language, metastring }) {
   const shouldHighlightLine = calculateLinesToHighlight(metastring);
   const fileName = getFileName(metastring);
-  console.log(fileName);
+  const [mode, setMode] = useColorMode();
+
   return (
     <Highlight
       {...defaultProps}
@@ -56,11 +56,17 @@ function Code({ codeString, language, metastring }) {
               sx={{
                 borderTopLeftRadius: 5,
                 borderTopRightRadius: 5,
-                backgroundColor: "navbar",
+                backgroundColor: "black",
                 p: [1, 2]
               }}
             >
-              {fileName}
+              <span
+                sx={{
+                  color: "text.gray"
+                }}
+              >
+                {fileName}
+              </span>
             </div>
           )}
           <pre

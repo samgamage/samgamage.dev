@@ -1,22 +1,21 @@
 const path = require("path");
-
 const _ = require("lodash");
-const paginate = require("gatsby-awesome-pagination");
+
 const PAGINATION_OFFSET = 7;
 
-const createPosts = (createPage, createRedirect, edges, type) => {
+const createPages = (createPage, createRedirect, edges, type) => {
   edges.forEach(({ node }, i) => {
     const prev = i === 0 ? null : edges[i - 1].node;
     const next = i === edges.length - 1 ? null : edges[i + 1].node;
     const pagePath = node.fields.slug;
 
     if (node.fields.redirects) {
-      node.fields.redirects.forEach(fromPath => {
+      node.fields.redirects.forEach((fromPath) => {
         createRedirect({
           fromPath,
           toPath: pagePath,
           redirectInBrowser: true,
-          isPermanent: true
+          isPermanent: true,
         });
       });
     }
@@ -27,8 +26,8 @@ const createPosts = (createPage, createRedirect, edges, type) => {
       context: {
         id: node.id,
         prev,
-        next
-      }
+        next,
+      },
     });
   });
 };
@@ -61,10 +60,10 @@ const createPaginatedPages = (createPage, edges, pathPrefix, context, type) => {
           previousPagePath:
             index === pages.length - 1 ? null : previousPagePath,
           pageCount: pages.length,
-          pathPrefix
+          pathPrefix,
         },
-        ...context
-      }
+        ...context,
+      },
     });
   });
 };
@@ -79,11 +78,11 @@ exports.createPages = ({ actions, graphql }) =>
           sourceInstanceName
         }
       }
-      excerpt(pruneLength: 250)
       fields {
         title
         slug
         date
+        description
         type
       }
     }
@@ -119,18 +118,20 @@ exports.createPages = ({ actions, graphql }) =>
     const { createRedirect, createPage } = actions;
 
     const projectEdges = edges.filter(
-      edge => edge.node.fields.type === "project"
+      (edge) => edge.node.fields.type === "project"
     );
-    const postEdges = edges.filter(edge => edge.node.fields.type === "post");
+    const postEdges = edges.filter((edge) => edge.node.fields.type === "post");
+    const pageEdges = edges.filter((edge) => edge.node.fields.type === "page");
 
-    createPosts(createPage, createRedirect, postEdges, "post");
-    createPosts(createPage, createRedirect, projectEdges, "project");
+    createPages(createPage, createRedirect, postEdges, "post");
+    createPages(createPage, createRedirect, projectEdges, "project");
+    createPages(createPage, createRedirect, pageEdges, "page");
     createPaginatedPages(
       actions.createPage,
       edges,
       "/blog",
       {
-        categories: []
+        categories: [],
       },
       "blog"
     );
@@ -139,7 +140,7 @@ exports.createPages = ({ actions, graphql }) =>
       edges,
       "/projects",
       {
-        categories: []
+        categories: [],
       },
       "projects"
     );
@@ -147,12 +148,11 @@ exports.createPages = ({ actions, graphql }) =>
 
 exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
-    resolve: {
-      modules: [path.resolve(__dirname, "src"), "node_modules"],
-      alias: {
-        $components: path.resolve(__dirname, "src/components")
-      }
-    }
+    externals: [
+      {
+        canvas: "canvas",
+      },
+    ],
   });
 };
 
@@ -166,45 +166,47 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     const titleSlugged = _.join(_.drop(parent.name.split("-"), 3), "-");
 
     if (sourceInstanceName === "posts") {
-      slug = "/blog/" + node.frontmatter.slug || titleSlugged;
+      slug = `/blog/${node.frontmatter.slug}` || titleSlugged;
+    } else if (sourceInstanceName === "projects") {
+      slug = `/projects/${node.frontmatter.slug}` || titleSlugged;
     } else {
-      slug = "/projects/" + node.frontmatter.slug || titleSlugged;
+      slug = node.frontmatter.slug || titleSlugged;
     }
 
     createNodeField({
       name: "id",
       node,
-      value: node.id
+      value: node.id,
     });
 
     createNodeField({
       name: "published",
       node,
-      value: node.frontmatter.published
+      value: node.frontmatter.published,
     });
 
     createNodeField({
       name: "title",
       node,
-      value: node.frontmatter.title
+      value: node.frontmatter.title,
     });
 
     createNodeField({
       name: "description",
       node,
-      value: node.frontmatter.description
+      value: node.frontmatter.description,
     });
 
     createNodeField({
       name: "slug",
       node,
-      value: slug
+      value: slug,
     });
 
     createNodeField({
       name: "date",
       node,
-      value: node.frontmatter.date ? node.frontmatter.date.split(" ")[0] : ""
+      value: node.frontmatter.date ? node.frontmatter.date.split(" ")[0] : "",
     });
 
     createNodeField({
@@ -213,25 +215,25 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
       value:
         typeof sourceInstanceName === "string"
           ? sourceInstanceName.substring(0, sourceInstanceName.length - 1)
-          : sourceInstanceName
+          : sourceInstanceName,
     });
 
     createNodeField({
       name: "tags",
       node,
-      value: node.frontmatter.tags || []
+      value: node.frontmatter.tags || [],
     });
 
     createNodeField({
       name: "keywords",
       node,
-      value: node.frontmatter.keywords || []
+      value: node.frontmatter.keywords || [],
     });
 
     createNodeField({
       name: "redirects",
       node,
-      value: node.frontmatter.redirects
+      value: node.frontmatter.redirects,
     });
   }
 };

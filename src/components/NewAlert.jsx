@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
 
-const NewAlert = () => {
+function NewAlert() {
   return (
     <div
       sx={{
@@ -10,12 +10,12 @@ const NewAlert = () => {
         px: 2,
         borderRadius: 5,
         backgroundColor: "primary",
-        color: "text.lightGray"
+        color: "white"
       }}
     >
       New!
     </div>
   );
-};
+}
 
 export default NewAlert;

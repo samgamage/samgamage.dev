@@ -2,7 +2,7 @@
 slug: claire-dating-app
 date: 2020-01-07
 title: "Claire - Dating App"
-description: "Dating apps often lack real human engagment these days. I suspect it is because of the changing nature of human to human engagment in the age of social media. Claire aims to foster personal conversations and give way to genuine, long-lasting relationships."
+description: "Claire is a dating app that allows users to break down the superficial bearer from relationships. These days, dating apps often lack real conversations. I suspect it is because of the changing nature of human to human engagement in the age of social media. Claire aims to foster genuine, personal conversations and give way to long-lasting relationships."
 published: true
 author: "Sam Gamage"
 ---
@@ -10,10 +10,24 @@ author: "Sam Gamage"
 import Slider from "../../src/components/Slider/index.jsx";
 
 <Slider>
-  <img src="../../../files/claire/1.png" />
-  <img src="../../../files/claire/2.png" />
-  <img src="../../../files/claire/3.png" />
-  <img src="../../../files/claire/4.png" />
-  <img src="../../../files/claire/5.png" />
-  <img src="../../../files/claire/6.png" />
+  <img src="/assets/claire/1.png" />
+  <img src="/assets/claire/2.png" />
+  <img src="/assets/claire/3.png" />
+  <img src="/assets/claire/4.png" />
+  <img src="/assets/claire/5.png" />
+  <img src="/assets/claire/6.png" />
 </Slider>
+
+Claire is an app I worked on for the [Georgia Tech appathon 2019](https://gt-coc-appathon-2019.devpost.com/project-gallery). We had 24 hours to create a mobile application of our choosing. Our team placed second overall winning $300 worth of prizes.
+
+### Inspiration
+
+Today’s mobile dating apps are rooted in superficiality. We believe that what’s on the inside counts most, which is why we were inspired to create Claire – the world’s first non-superficial dating app.
+
+### What it does
+
+Claire provides users with the opportunity to read a profile bio and swipe for “like” or “dislike.” If there’s a match, both parties will have the opportunity to chat. At this time, each party will receive a blurred photo of his/her counter-party. We used sentiment analysis to determine the depth and interest of the conversation. Increased sentiment will decrease the blurriness of the photo (and vice versa), and eventually after getting to know what the other individual is like on the inside, then the photo reveals what the person looks like on the outside.
+
+### How we built it
+
+We built the app using React Native. On the backend we used Firebase for our database and used GCP functions to run our AI sentiment analysis algorithm. I was responsible for implementing the GCP function which called Google's natural language API to get the overall sentiment of the conversation. Additionally, I worked on the swiping UI and the profile screen for the app.

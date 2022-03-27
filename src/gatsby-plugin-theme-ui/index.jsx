@@ -8,6 +8,7 @@ export default {
     text: {
       lead: "#111",
       default: "#404040",
+      gray: "#b3b9c5",
       lightGray: "#f9f9fc"
     },
     background: "#fff",
@@ -16,8 +17,8 @@ export default {
     highlight: "rgba(81, 131, 245, 0.3)",
     code: "#333",
     washed: "rgba(0,0,0,.06)",
-    muted: "#f9f9fc",
-    mutedHover: "#e5e5e5",
+    muted: "#ededed",
+    mutedHover: "#dbdbdb",
     gray: "#555",
     modes: {
       dark: {
@@ -36,19 +37,22 @@ export default {
     }
   },
   fonts: {
-    body: "system-ui, sans-serif",
-    monospace: "Menlo,Roboto Mono,Courier New,monospace"
+    body:
+      'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
+    heading: "inherit",
+    monospace: "Menlo, monospace"
   },
   lineHeights: {
-    body: 1.625,
-    heading: 1.25
+    body: 1.5,
+    heading: 1.125
   },
   fontWeights: {
     body: 400,
-    heading: 800,
+    heading: 700,
     bold: 700
   },
-  fontSizes: [12, 14, 17, 20, 24, 32, 48, 64],
+  fontSizes: [12, 14, 16, 20, 24, 32, 48, 64, 96],
+  space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
   sizes: {
     container: 800,
     wide: 800
@@ -77,7 +81,10 @@ export default {
       transition
     },
     p: {
-      color: "text.default"
+      color: "text.default",
+      fontFamily: "body",
+      fontWeight: "body",
+      lineHeight: "body"
     },
     a: {
       color: "primary",
@@ -86,34 +93,46 @@ export default {
       }
     },
     h1: {
-      variant: "type.heading",
-      fontSize: [5, 6],
-      color: "text.lead"
+      color: "text.lead",
+      fontFamily: "heading",
+      lineHeight: "heading",
+      fontWeight: "heading",
+      fontSize: [5, 6]
     },
     h2: {
-      variant: "type.heading",
-      fontSize: [4, 5],
-      color: "text.lead"
+      color: "text.lead",
+      fontFamily: "heading",
+      lineHeight: "heading",
+      fontWeight: "heading",
+      fontSize: [4, 5]
     },
     h3: {
-      variant: "type.heading",
-      fontSize: 4,
-      color: "text.lead"
+      color: "text.lead",
+      fontFamily: "heading",
+      lineHeight: "heading",
+      fontWeight: "heading",
+      fontSize: [3, 4]
     },
     h4: {
-      variant: "type.heading",
-      fontSize: 2,
-      color: "text.lead"
+      color: "text.lead",
+      fontFamily: "heading",
+      lineHeight: "heading",
+      fontWeight: "heading",
+      fontSize: [2, 3]
     },
     h5: {
-      variant: "type.heading",
-      fontSize: 1,
-      color: "text.lead"
+      fontSize: [1, 2],
+      color: "text.lead",
+      fontFamily: "heading",
+      lineHeight: "heading",
+      fontWeight: "heading"
     },
     h6: {
-      variant: "type.heading",
-      fontSize: 0,
-      color: "text.lead"
+      color: "text.lead",
+      fontFamily: "heading",
+      lineHeight: "heading",
+      fontWeight: "heading",
+      fontSize: [0, 1]
     },
     img: {
       maxWidth: "100%",
@@ -192,6 +211,7 @@ export default {
       alignItems: "center",
       fontWeight: "bold",
       color: "text.default",
+      fontSize: 1,
       mr: 3
     },
     container: {
