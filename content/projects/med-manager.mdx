@@ -1,0 +1,38 @@
+---
+slug: med-manager
+date: 2021-05-10
+title: "Med Manager"
+description: "Med Manager is a cross-platform medication tracking application which makes managing your medications easy. This project was for my junior design capstone project at Georgia Tech where I worked with four other talented engineers using agile development."
+published: true
+author: "Sam Gamage"
+---
+
+import YouTube from "../../src/components/YouTube";
+import PDFViewer from "../../src/components/PDFViewer";
+
+import VerticalList from "../../src/components/VerticalList";
+
+<YouTube videoId="JL7ul7YgwJI" />
+
+## Summary
+
+Med Manager was a project I worked on in my undergrad junior design class for Georgia Tech. We were paired with a real client, Viva Life, who wanted us to make an app that would help users track their medications. We heavily utilized the agile development process by creating an MVP, conducting two-week sprints, and conducting daily stand-up meetings.
+
+## Tech Stack
+
+We decided to go with React Native for this project because it allowed us to develop cross-platform. Prior to this project, I had developed a number of different React Native applications which you can check out here on my site, so I was already familiar with the development process.
+
+For the backend we decided to go with Node.js and MongoDB. For the API layer we used express and mongoose for handling the database transactions. In addition, we also utilized Twilio for our sending text messages through our caregiver contact feature which you can read more about below in our design document or from the demo video above.
+
+## Learning from Mistakes
+
+One of the big mistakes we made when designing this application was choosing a non-relational database over a relational one. Additionally, we did not use an event-based architecture when designing the backend system which I think would have worked much better for this app.
+
+## Deliverables
+
+Here are some of the deliverables that we produced while working on this project. The first is a document containing a summary of our project, the key functionality, and who our target audience is. The second is a detailed design of our frontend and backend systems that power the application. **You can find screenshots of the application's screens in the detailed design document (pp. 14-25).**
+
+<VerticalList>
+  <PDFViewer src="/assets/medmanager/collateral.pdf" />
+  <PDFViewer src="/assets/medmanager/detailed-design.pdf" />
+</VerticalList>

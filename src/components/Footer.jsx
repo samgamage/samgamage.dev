@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { Link } from "gatsby";
 import { Component } from "react";
-import { jsx, Styled } from "theme-ui";
+import { jsx } from "theme-ui";
 
 class Footer extends Component {
   render() {
@@ -23,16 +23,23 @@ class Footer extends Component {
             fontSize: 0
           }}
         >
-          <Styled.a
-            as={Link}
+          <Link
             to="/"
             sx={{
               variant: "styles.navitem"
             }}
           >
             Sam Gamage
-          </Styled.a>
-          <Styled.a
+          </Link>
+          <Link
+            to="/projects"
+            sx={{
+              variant: "styles.navitem"
+            }}
+          >
+            Projects
+          </Link>
+          <Link
             as={Link}
             to="/blog"
             sx={{
@@ -40,19 +47,18 @@ class Footer extends Component {
             }}
           >
             Blog
-          </Styled.a>
-          <Styled.a
-            as={Link}
+          </Link>
+          <Link
             to="/about"
             sx={{
               variant: "styles.navitem"
             }}
           >
-            About
-          </Styled.a>
+            About me
+          </Link>
           <div sx={{ mx: "auto" }} />
           <div sx={{ my: 2, variant: "styles.navitem" }}>
-            © 2020 Samuel Gamage
+            © {new Date().getFullYear()} Samuel Gamage
           </div>
         </div>
       </footer>

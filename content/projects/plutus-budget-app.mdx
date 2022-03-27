@@ -2,7 +2,7 @@
 slug: plutus-app
 date: 2020-01-20
 title: "Plutus - Financial Budgeting App"
-description: "Plutus runs our voice assistant, Jade. By providing Jade with vocal input of your spending, Plutus automatically categorizes the input, presents how you are maintaining your goals, and visually models the data to offer an easy-to-digest graphical understanding of your finances."
+description: "Plutus is a financial budgeting app that runs our AI voice assistant, Jade. By providing Jade with vocal input of your recent spending, Plutus automatically categorizes the expense, presents how you are maintaining your goals, and visually models the data to offer an easy-to-digest graphical understanding of your finances."
 published: true
 author: "Sam Gamage"
 ---
@@ -10,12 +10,26 @@ author: "Sam Gamage"
 import Slider from "../../src/components/Slider/index.jsx";
 
 <Slider>
-  <img src="../../../files/plutus/1.png" />
-  <img src="../../../files/plutus/2.png" />
-  <img src="../../../files/plutus/3.png" />
-  <img src="../../../files/plutus/4.png" />
-  <img src="../../../files/plutus/5.png" />
-  <img src="../../../files/plutus/6.png" />
-  <img src="../../../files/plutus/7.png" />
-  <img src="../../../files/plutus/8.png" />
+  <img src="/assets/plutus/1.png" />
+  <img src="/assets/plutus/2.png" />
+  <img src="/assets/plutus/3.png" />
+  <img src="/assets/plutus/4.png" />
+  <img src="/assets/plutus/5.png" />
+  <img src="/assets/plutus/6.png" />
+  <img src="/assets/plutus/7.png" />
+  <img src="/assets/plutus/8.png" />
 </Slider>
+
+## Summary
+
+Plutus was a financial budgeting app I worked on for Hack GT 6. We had 72 hours to create any application we desired. The application allows you to manage your monthly budge and record transactions as you make them to keep track of your finances. The feature we developed that set us apart was a custom voice assistant we called Jade. Jade allows you to send voice commands to the app to more quickly and easily add transactions as you are spending your monthly budget.
+
+## Technology
+
+For the frontend we used React Native. Prior to this project, I had not used React Native before so a lot of my time was spent learning the framework. Luckily, I did have prior experience working with React for the web so the learning experience was not that bad. I spent the majority of my time during Hack GT 6 working on the React Native app codebase.
+
+For the backend, we used Firebase and Google Cloud to host our machine learning model. I helped implement the Google Cloud function which would use our machine learning model to parse the voice command and understand the users intentions.
+
+## Things I Learned
+
+I learned a lot about React Native and running machine learning models. Prior to this project, I had never worked with machine learning in any of the apps I was working on. This project taught me about how complex this process can be and how fine-tuning can be a huge time save and performance boost.

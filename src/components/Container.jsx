@@ -1,11 +1,11 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
 
-export default ({ container, children, ...rest }) => (
+export default ({ wide, children, ...rest }) => (
   <div
     sx={{
       ...rest,
-      variant: container ? "styles.container" : "styles.wide"
+      variant: wide ? "styles.wide" : "styles.container"
     }}
   >
     {children}

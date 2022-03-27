@@ -1,13 +1,14 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
 
-const VerticalList = ({ spaceBetween = 1, children }) => {
+const VerticalList = ({ spaceBetween = 2, children, ...rest }) => {
   return (
     <div
       sx={{
+        ...rest,
         display: "flex",
         flexDirection: "column",
-        "> *": { marginBottom: spaceBetween }
+        ">:not([hidden])~:not([hidden])": { marginTop: spaceBetween }
       }}
     >
       {children}

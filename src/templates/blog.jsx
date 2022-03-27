@@ -6,8 +6,9 @@ import Container from "../components/Container";
 import PostListing from "../components/PostListing";
 import Layout from "../layout";
 
-const Blog = props => {
+function Blog(props) {
   const postEdges = props.data.allMdx.edges;
+
   return (
     <Layout>
       <Helmet title={`Blog | ${config.siteTitle}`} />
@@ -16,7 +17,7 @@ const Blog = props => {
       </Container>
     </Layout>
   );
-};
+}
 
 export default Blog;
 

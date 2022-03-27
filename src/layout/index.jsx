@@ -1,10 +1,10 @@
 /** @jsx jsx */
-import { css, Global } from "@emotion/core";
+import { css, Global } from "@emotion/react";
 import styled from "@emotion/styled";
 import React, { useEffect, useRef, useState } from "react";
 import Helmet from "react-helmet";
 import { FiArrowUp as ArrowUpBtn } from "react-icons/fi";
-import { jsx, Styled } from "theme-ui";
+import { Box, jsx } from "theme-ui";
 import config from "../../config/SiteConfig";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -34,6 +34,7 @@ const getHasPassiveEventSupport = () => {
 
   return hasPassiveSupport;
 };
+
 const useScrollPosition = () => {
   const [scroll, setScroll] = useState({ x: 0, y: 0 });
   const tickingRef = useRef();
@@ -141,14 +142,15 @@ const MainLayout = ({ children, centered = false }) => (
     <Helmet>
       <meta name="description" content={config.siteDescription} />
       <html lang="en" />
+      <script src="https://embed.small.chat/T038KA93AESC0394JFE7SM.js" async />
     </Helmet>
-    <Styled.root>
+    <Box variant="root">
       <Global styles={globalStyles} />
       <Header />
       <Content centered={centered}>{children}</Content>
       <BackToTop />
       <Footer config={config} />
-    </Styled.root>
+    </Box>
   </React.Fragment>
 );
 

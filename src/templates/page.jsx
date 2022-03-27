@@ -8,34 +8,29 @@ import Container from "../components/Container";
 import Excerpt from "../components/Excerpt";
 import Layout from "../layout";
 
-function ProjectTemplate({ data }) {
-  const projectNode = data.mdx;
-  const project = projectNode;
+function Page({ data }) {
+  const page = data.mdx;
 
   return (
     <Layout>
       <Helmet>
-        <title>{`${project.frontmatter.title} | ${config.siteTitle}`}</title>
+        <title>{`${page.frontmatter.title} | ${config.siteTitle}`}</title>
       </Helmet>
       <Container container>
-        <Themed.h1>{project.frontmatter.title}</Themed.h1>
-        <Excerpt>{project.fields.description}</Excerpt>
-        <MDXRenderer>{project.body}</MDXRenderer>
+        <Themed.h1>{page.frontmatter.title}</Themed.h1>
+        <Excerpt>{page.fields.description}</Excerpt>
+        <MDXRenderer>{page.body}</MDXRenderer>
       </Container>
     </Layout>
   );
 }
 
-export default ProjectTemplate;
+export default Page;
 
 export const pageQuery = graphql`
-  query ProjectById($id: String!) {
+  query PageById($id: String!) {
     mdx(fields: { id: { eq: $id } }) {
       id
-      timeToRead
-      wordCount {
-        words
-      }
       excerpt(pruneLength: 160)
       fields {
         slug

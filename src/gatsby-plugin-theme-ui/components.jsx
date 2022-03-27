@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from "react";
-import { jsx, Styled } from "theme-ui";
+import { Heading, jsx, Link } from "theme-ui";
 import Flex from "../components/Flex";
 import Code from "./Code";
 
@@ -44,7 +44,7 @@ export default {
   wrapper: ({ children }) => <React.Fragment>{children}</React.Fragment>,
   h1: ({ children, ...restProps }) => (
     <Flex>
-      <Styled.a
+      <Link
         href={`#${normalizeString(children)}`}
         className="title-anchor"
         sx={{
@@ -57,10 +57,10 @@ export default {
         }}
       >
         #
-      </Styled.a>
-      <Styled.h1 id={normalizeString(children)} {...restProps}>
+      </Link>
+      <Heading as="h1" id={normalizeString(children)} {...restProps}>
         {normalizeString(children)}
-      </Styled.h1>
+      </Heading>
     </Flex>
   ),
   pre: preProps => {

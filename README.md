@@ -4,7 +4,7 @@
 
 # samgamage.dev
 
-![perfect lighthouse audit score and PWA](static/files/100.png)
+![perfect lighthouse audit score and PWA](static/assets/100.png)
 
 Built with <3 with the amazing [Gatsby.js](https://www.gatsbyjs.org/),
 [MDX](https://github.com/mdx-js/mdx) and [Theme-UI](https://theme-ui.com/).

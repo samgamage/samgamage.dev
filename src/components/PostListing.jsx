@@ -2,7 +2,7 @@
 import dayjs from "dayjs";
 import { Link } from "gatsby";
 import React from "react";
-import { jsx, Styled } from "theme-ui";
+import { jsx, Paragraph, Themed } from "theme-ui";
 import NewAlert from "./NewAlert";
 
 class PostListing extends React.Component {
@@ -26,39 +26,42 @@ class PostListing extends React.Component {
   render() {
     const postList = this.getPostList();
 
-    return (
-      <React.Fragment>
-        {postList.length > 0 ? (
-          postList.map(post => {
-            const newest = dayjs(post.date) > dayjs().subtract(1, "months");
+    if (!postList.length) {
+      return <Paragraph>No posts yet</Paragraph>;
+    }
 
-            return (
-              <React.Fragment>
-                <div sx={{ display: "flex", alignItems: "center" }}>
-                  <Styled.h2 sx={{ my: 1 }}>
-                    <Styled.a
-                      as={Link}
-                      to={post.path}
-                      key={post.title}
-                      sx={{ textDecoration: "underline", color: "text" }}
-                    >
-                      {post.title}
-                    </Styled.a>
-                  </Styled.h2>
-                  {newest && <NewAlert />}
-                </div>
-                <Styled.p sx={{ color: "gray" }}>
-                  {post.date} • {post.timeToRead} minute read
-                </Styled.p>
-                <Styled.p>{post.description}</Styled.p>
-              </React.Fragment>
-            );
-          })
-        ) : (
-          <Styled.p>No posts yet</Styled.p>
-        )}
-      </React.Fragment>
-    );
+    return postList.map(post => {
+      const isNew = dayjs(post.date) > dayjs().subtract(1, "months");
+
+      return (
+        <div key={post.path}>
+          <div
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between"
+            }}
+          >
+            <Themed.h3 sx={{ mb: 1, mt: 0 }}>
+              <Link
+                to={post.path}
+                key={post.title}
+                sx={{
+                  variant: "styles.a"
+                }}
+              >
+                {post.title}
+              </Link>
+            </Themed.h3>
+            {isNew && <NewAlert />}
+          </div>
+          <Paragraph sx={{ color: "gray", mt: 1 }}>
+            {post.date} • {post.timeToRead} minute read
+          </Paragraph>
+          <Paragraph sx={{ mt: 1 }}>{post.description}</Paragraph>
+        </div>
+      );
+    });
   }
 }
 

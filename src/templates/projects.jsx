@@ -4,23 +4,27 @@ import Helmet from "react-helmet";
 import config from "../../config/SiteConfig";
 import Container from "../components/Container";
 import ProjectListing from "../components/ProjectListing";
+import VerticalList from "../components/VerticalList";
 import Layout from "../layout";
 
-const Projects = props => {
+function Projects(props) {
   const {
     data: {
-      allMdx: { edges: projectEdges }
-    }
+      allMdx: { edges: projectEdges },
+    },
   } = props;
+
   return (
     <Layout>
       <Helmet title={`Projects | ${config.siteTitle}`} />
       <Container>
-        <ProjectListing projectEdges={projectEdges} />
+        <VerticalList spaceBetween={4}>
+          <ProjectListing projectEdges={projectEdges} />
+        </VerticalList>
       </Container>
     </Layout>
   );
-};
+}
 
 export default Projects;
 

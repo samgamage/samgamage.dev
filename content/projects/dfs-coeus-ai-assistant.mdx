@@ -1,0 +1,34 @@
+---
+slug: dfs-coeus-ai-assistant
+date: 2022-03-25
+title: "DFS Coeus AI Assistant"
+description: "DFS Coeus AI Assistant is a text and voice assistant built on top of assistants like IBM's Watson Assistant that can be integrated into complex business environments."
+published: true
+author: "Sam Gamage"
+---
+
+import YouTube from "../../src/components/YouTube";
+import PDFViewer from "../../src/components/PDFViewer";
+
+<YouTube videoId="zdEgCzlBar0" />
+
+## About
+
+At DFS, I am part of a high-performing design, development, and operations team to build Coeus AI Assistant, a cloud-native application framework and middleware for building and hosting AI virtual assistants.
+
+DFS works directly with key business partners, notably IBM and Red Hat, to identify and develop business opportunities, help drive those through the sales and marketing channels, and provide the technical vision and guidance for the DFS implementation and business development teams.
+
+I worked with team of highly skilled engineers and management to design and implement various components of the solution. We work with current and potential clients in healthcare, banking, retail, transportation, and public sectors to implement highly complex virtual assistants. Check out the video below if you are interested in learning more about it. Also, check out the November 2021 CCW Digital Market Study to learn more about the business case for AI applications in customer contact centers and about DFS Coeus AI Assistant features (pp. 25 - 27).
+
+<YouTube videoId="2mULUdgU_Uk" />
+<PDFViewer src="/assets/dfs-coeus-ai/ccw-digital-market-study.pdf" />
+
+## Technology I Learned
+
+One of the big things that we used for this project that I had never used before was building backend systems using microservices. I had heard of this method before, but knew very little about it. I learned that if you want to build systems that can scale well, using microservices is the best option.
+
+Prior to working on this project I had never worked with Kubernetes before. When I learned that we would be building the solution using microservices I immediately started learning and enrolling in online courses. In very little time, I was able to learn Kubernetes and use that knowledge to implement the manifest files powering our backend systems. Since we are building the solution to run in cloud native environments, I also had to learn about how docker works and how that ties into running a Kubernetes workload.
+
+Additionally, we wanted to be able to embed a chat window onto our clients websites. We were not huge fans of how the IBM chat widget looked and decided that we should include our own implementation in the scope of the project. We chose to implement the widget using React and I had to learn a lot about how to build React apps that can _easily_ be embedded onto websites.
+
+The widget seen in the demo video is entirely built by me and utilizes Coeus running in a Kubernetes cluster. Additionally, the backend uses an event-based architecture with Apache Kafka (some events include receiving messages, recognizing intents, etc.) and the widget is able to respond to those events on the client side using event listeners. Out of any project I have worked on in the past, this is the one I am most proud of. The development was and still is incredibly challenging and it allowed me to learn new technologies that I had never used before.
