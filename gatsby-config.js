@@ -146,6 +146,7 @@ module.exports = {
                       date
                       id
                       published
+                      slug
                       type
                     }
                   }
