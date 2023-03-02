@@ -27,7 +27,7 @@ function Index({ data }) {
           <Themed.h1>Hey, I&apos;m Samuel Gamage</Themed.h1>
           <Paragraph mt={0}>
             I&apos;m a full stack software engineer based in Atlanta, GA. You
-            can check out my recent projects and blog posts below.
+            can check out my recent projects below.
           </Paragraph>
           <HorizontalList mt={3} spaceBetween={3}>
             <Link href="https://twitter.com/samgamage24" title="Twitter">
