@@ -85,7 +85,7 @@ export default () => {
           >
             Projects
           </Link>
-          <Link
+          {/* <Link
             to="/blog"
             activeClassName="active"
             sx={{
@@ -95,7 +95,7 @@ export default () => {
             }}
           >
             Blog
-          </Link>
+          </Link> */}
           <Link
             to="/about"
             activeClassName="active"

@@ -12,7 +12,6 @@ import config from "../../config/SiteConfig";
 import Button from "../components/Button";
 import Container from "../components/Container";
 import HorizontalList from "../components/HorziontalList";
-import PostListing from "../components/PostListing";
 import ProjectListing from "../components/ProjectListing";
 import SEO from "../components/SEO";
 import VerticalList from "../components/VerticalList";
@@ -65,7 +64,7 @@ function Index({ data }) {
             </div>
             <ProjectListing projectEdges={data.projects.edges} />
           </VerticalList>
-          <VerticalList>
+          {/* <VerticalList>
             <div
               sx={{
                 display: "flex",
@@ -77,7 +76,7 @@ function Index({ data }) {
               <Button text="View all" href="/blog" />
             </div>
             <PostListing postEdges={data.posts.edges} />
-          </VerticalList>
+          </VerticalList> */}
         </VerticalList>
       </Container>
     </Layout>
