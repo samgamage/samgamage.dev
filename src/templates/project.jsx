@@ -19,7 +19,7 @@ function ProjectTemplate({ data }) {
     <Layout>
       <Helmet>
         <title>{`${project.frontmatter.title} | ${config.siteTitle}`}</title>
-        <meta name="description" content={page.fields.description} />
+        <meta name="description" content={project.fields.description} />
       </Helmet>
       <Container container>
         <Themed.h1>{project.frontmatter.title}</Themed.h1>
