@@ -39,7 +39,7 @@ class Footer extends Component {
           >
             Projects
           </Link>
-          <Link
+          {/* <Link
             as={Link}
             to="/blog"
             sx={{
@@ -47,7 +47,7 @@ class Footer extends Component {
             }}
           >
             Blog
-          </Link>
+          </Link> */}
           <Link
             to="/about"
             sx={{

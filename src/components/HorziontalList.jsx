@@ -6,6 +6,7 @@ const HorizontalList = ({ spaceBetween = 1, children, ...rest }) => {
     <div
       sx={{
         display: "flex",
+        alignItems: "center",
         ">:not([hidden])~:not([hidden])": { marginLeft: spaceBetween },
         ...rest
       }}

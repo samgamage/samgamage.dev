@@ -15,10 +15,11 @@ function Page({ data }) {
     <Layout>
       <Helmet>
         <title>{`${page.frontmatter.title} | ${config.siteTitle}`}</title>
+        <meta name="description" content={page.fields.description} />
       </Helmet>
       <Container container>
         <Themed.h1>{page.frontmatter.title}</Themed.h1>
-        <Excerpt>{page.fields.description}</Excerpt>
+        {page.fields.description && <Excerpt>{page.fields.description}</Excerpt>}
         <MDXRenderer>{page.body}</MDXRenderer>
       </Container>
     </Layout>

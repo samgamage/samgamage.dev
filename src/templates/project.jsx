@@ -1,7 +1,10 @@
 /** @jsx jsx */
-import { graphql } from "gatsby";
+import { graphql, Link } from "gatsby";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 import Helmet from "react-helmet";
+import {
+  FaGithub as GitHub,
+} from "react-icons/fa";
 import { jsx, Themed } from "theme-ui";
 import config from "../../config/SiteConfig";
 import Container from "../components/Container";
@@ -19,6 +22,7 @@ function ProjectTemplate({ data }) {
       </Helmet>
       <Container container>
         <Themed.h1>{project.frontmatter.title}</Themed.h1>
+        {project.fields.source && <Link href={project.fields.source} title="GitHub"><GitHub size={24} /></Link>}
         <Excerpt>{project.fields.description}</Excerpt>
         <MDXRenderer>{project.body}</MDXRenderer>
       </Container>
@@ -40,6 +44,7 @@ export const pageQuery = graphql`
       fields {
         slug
         description
+        source
       }
       frontmatter {
         title
