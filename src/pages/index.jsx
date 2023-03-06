@@ -4,7 +4,6 @@ import Helmet from "react-helmet";
 import {
   FaGithub as GitHub,
   FaLinkedin as LinkedIn,
-  FaTwitter as Twitter,
   FaYoutube as Youtube,
 } from "react-icons/fa";
 import { Box, jsx, Link, Paragraph, Themed } from "theme-ui";
@@ -26,27 +25,24 @@ function Index({ data }) {
         <Box mt={6} mb={6}>
           <Themed.h1>Hey, I&apos;m Samuel Gamage</Themed.h1>
           <Paragraph mt={0}>
-            I&apos;m a full stack software engineer based in Atlanta, GA. You
+            I&apos;m a full stack software engineer. You
             can check out my recent projects below.
           </Paragraph>
           <HorizontalList mt={3} spaceBetween={3}>
-            <Link href="https://twitter.com/samgamage24" title="Twitter">
-              <Twitter size={24} />
-            </Link>
             <Link href="https://github.com/samgamage" title="GitHub">
               <GitHub size={24} />
-            </Link>
-            <Link
-              href="https://www.youtube.com/channel/UCGEEpTZygTTS7099gplKJeg"
-              title="Youtube"
-            >
-              <Youtube size={24} />
             </Link>
             <Link
               href="https://www.linkedin.com/in/samuel-gamage-27b91816b/"
               title="LinkedIn"
             >
               <LinkedIn size={24} />
+            </Link>
+            <Link
+              href="https://www.youtube.com/channel/UCGEEpTZygTTS7099gplKJeg"
+              title="Youtube"
+            >
+              <Youtube size={24} />
             </Link>
           </HorizontalList>
         </Box>
