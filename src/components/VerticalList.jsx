@@ -8,6 +8,7 @@ const VerticalList = ({ spaceBetween = 2, children, ...rest }) => {
         ...rest,
         display: "flex",
         flexDirection: "column",
+        my: 3,
         ">:not([hidden])~:not([hidden])": { marginTop: spaceBetween }
       }}
     >
