@@ -204,6 +204,12 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     });
 
     createNodeField({
+      name: "url",
+      node,
+      value: node.frontmatter.url,
+    });
+
+    createNodeField({
       name: "slug",
       node,
       value: slug,

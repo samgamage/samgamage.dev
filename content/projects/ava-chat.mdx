@@ -1,0 +1,52 @@
+---
+slug: ava-chat
+date: 2023-03-16
+title: "Ava Chat"
+description: "Ava is a virtual assistant built using ChatGPT and GPT-3 with enhanced search capabilities."
+published: true
+author: "Sam Gamage"
+source: https://github.com/samgamage/ava-chatbot
+url: https://ava.samgamage.dev
+---
+
+## Summary
+
+One of the most common issues when working with large language models is the fact that their view of the world is cut off from the latest data it recieves during training. For GPT-3 and GPT-3.5, that date is late 2021. If you ask these assistants about current events, they won't know how to answer you. That is when I decided to create Ava, a virtual assistant that can search.
+
+## How it works
+
+Ava fundamentally works just like any other virtual assistant powered by GPT models. First step is to feed it the system prompt, conversation history, and the user input and ask the language model to output the next best response. I then added a tool to the agent runtime which uses the SerpAPI to perform searches to Google. This agent augments the system prompt to tell the model to output it's thoughts and whether or not to it needs to use a tool to answer the query. Here is what that might look like from the models perspective:
+
+```
+Thought: Do I need to use a tool? Yes
+Action: the action to take, should be one of [Search, ...]
+Action Input: the input to the action
+Observation: the result of the action
+```
+
+Given the conversation history and the user's query, the model will try to predict if it needs to use one of the tools. I should also note that the tools are defined with a description of its capabilities which the model also uses to determine if the tool needs to be used or not.
+
+Here is an example of output that does not require a tool and terminates the chain with a response to the user:
+
+```
+Thought: Do I need to use a tool? No
+AI: [your response here]
+```
+
+The response after `AI:` is then streamed to the client over a websocket connection.
+
+## Tech Stack
+
+Here is the tech stack I chose for this project:
+
+- React with TypeScript
+- Python and FastAPI
+- Websockets
+- [LangChain](https://langchain.readthedocs.io/en/latest/)
+- [OpenAI API](https://openai.com/)
+- [SerpAPI](https://serpapi.com/) powering search
+- Kubernetes running in Azure Cloud
+
+## Conclusion
+
+As you can see, it is incredibly easy to create a powerful virtual agent using these large language models. The field of AI is changing at such a rapid pace. I can't wait to see where this technology goes in 10 years time. Feel free to interact with Ava by checking out the web app: https://ava.samgamage.dev/. Also, feel free to read through the source code here: https://github.com/samgamage/ava-chatbot.
