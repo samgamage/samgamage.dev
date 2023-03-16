@@ -4,11 +4,13 @@ import { MDXRenderer } from "gatsby-plugin-mdx";
 import Helmet from "react-helmet";
 import {
   FaGithub as GitHub,
+  FaExternalLinkAlt as ExternalLink,
 } from "react-icons/fa";
 import { jsx, Themed } from "theme-ui";
 import config from "../../config/SiteConfig";
 import Container from "../components/Container";
 import Excerpt from "../components/Excerpt";
+import HorizontalList from "../components/HorizontalList";
 import Layout from "../layout";
 
 function ProjectTemplate({ data }) {
@@ -23,7 +25,10 @@ function ProjectTemplate({ data }) {
       </Helmet>
       <Container container>
         <Themed.h1>{project.frontmatter.title}</Themed.h1>
-        {project.fields.source && <Link href={project.fields.source} title="GitHub"><GitHub size={24} /></Link>}
+        <HorizontalList spaceBetween={3}>
+          {project.fields.url && <Link target="_blank" href={project.fields.url} title="Application"><ExternalLink size={24} /></Link>}
+          {project.fields.source && <Link target="_blank" href={project.fields.source} title="GitHub"><GitHub size={24} /></Link>}
+        </HorizontalList>
         <Excerpt>{project.fields.description}</Excerpt>
         <MDXRenderer>{project.body}</MDXRenderer>
       </Container>
@@ -46,6 +51,7 @@ export const pageQuery = graphql`
         slug
         description
         source
+        url
       }
       frontmatter {
         title

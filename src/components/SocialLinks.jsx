@@ -8,7 +8,7 @@ import {
   TwitterShareButton
 } from "react-share";
 import config from "../../config/SiteConfig";
-import HorizontalList from "./HorziontalList";
+import HorizontalList from "./HorizontalList";
 
 class SocialLinks extends Component {
   render() {

@@ -10,7 +10,7 @@ import { Box, jsx, Link, Paragraph, Themed } from "theme-ui";
 import config from "../../config/SiteConfig";
 import Button from "../components/Button";
 import Container from "../components/Container";
-import HorizontalList from "../components/HorziontalList";
+import HorizontalList from "../components/HorizontalList";
 import ProjectListing from "../components/ProjectListing";
 import SEO from "../components/SEO";
 import VerticalList from "../components/VerticalList";
