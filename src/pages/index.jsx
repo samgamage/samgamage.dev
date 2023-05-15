@@ -22,7 +22,7 @@ function Index({ data }) {
       <Helmet title={config.siteTitle} />
       <SEO />
       <Container>
-        <Box mt={6} mb={6}>
+        <Box mt={5} mb={5}>
           <Themed.h1>Hey, I&apos;m Samuel Gamage</Themed.h1>
           <Paragraph mt={0}>
             I&apos;m a full stack software engineer. You
